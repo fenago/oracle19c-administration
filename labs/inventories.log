@@ -1,0 +1,60 @@
+
+SQL*Loader: Release 18.0.0.0.0 - Production on Fri Apr 13 17:09:24 2018
+Version 18.1.0.0.0
+
+Copyright (c) 1982, 2018, Oracle and/or its affiliates.  All rights reserved.
+
+Control File:   DP_inventories.ctl
+Data File:      DP_inventories.dat
+  Bad File:     DP_inventories.bad
+  Discard File:  none specified
+ 
+ (Allow all discards)
+
+Number to load: ALL
+Number to skip: 0
+Errors allowed: 50
+Continuation:    none specified
+Path used:      Direct
+
+Table SH.INVENTORIES, loaded from every logical record.
+Insert option in effect for this table: APPEND
+
+   Column Name                  Position   Len  Term Encl Datatype
+------------------------------ ---------- ----- ---- ---- ---------------------
+WAREHOUSE_ID                        FIRST     *   ,       CHARACTER            
+PRODUCT_ID                           NEXT     *   ,       CHARACTER            
+QUANTITY_ON_HAND                     NEXT     *   ,       CHARACTER            
+
+
+Referential Integrity Constraint/Trigger Information:
+NULL, UNIQUE, and PRIMARY KEY constraints are unaffected.
+
+Constraint SH.INVENTORIES.CK_WAREHOUSE_ID was disabled and novalidated before the load.
+
+Table SH.INVENTORIES has no constraint exception table.
+No CHECK, REFERENTIAL constraints were re-enabled after the load.
+
+Table SH.INVENTORIES:
+  83 Rows successfully loaded.
+  0 Rows not loaded due to data errors.
+  0 Rows not loaded because all WHEN clauses were failed.
+  0 Rows not loaded because all fields were null.
+
+Bind array size not used in direct path.
+Column array  rows :      10
+Stream buffer bytes:  256000
+Read   buffer bytes: 1048576
+
+Total logical records skipped:          0
+Total logical records read:            83
+Total logical records rejected:         0
+Total logical records discarded:        0
+Total stream buffers loaded by SQL*Loader main thread:        9
+Total stream buffers loaded by SQL*Loader load thread:        0
+
+Run began on Fri Apr 13 17:09:24 2018
+Run ended on Fri Apr 13 17:09:27 2018
+
+Elapsed time was:     00:00:02.61
+CPU time was:         00:00:00.33

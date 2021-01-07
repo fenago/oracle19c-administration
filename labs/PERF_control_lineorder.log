@@ -1,0 +1,81 @@
+
+SQL*Loader: Release 18.0.0.0.0 - Production on Tue Jun 5 16:25:16 2018
+Version 18.1.0.0.0
+
+Copyright (c) 1982, 2018, Oracle and/or its affiliates.  All rights reserved.
+
+Control File:   /home/oracle/labs/PERF_control_lineorder.ctl
+Data File:      lineorder.tbl
+  Bad File:     lineorder.bad
+  Discard File: lineorder.disc 
+ (Allow all discards)
+
+Number to load: ALL
+Number to skip: 0
+Errors allowed: 50
+Bind array:     250 rows, maximum of 1048576 bytes
+Continuation:    none specified
+Path used:      Conventional
+
+Table OE.LINEORDER, loaded from every logical record.
+Insert option in effect for this table: APPEND
+
+   Column Name                  Position   Len  Term Encl Datatype
+------------------------------ ---------- ----- ---- ---- ---------------------
+LO_ORDERKEY                         FIRST     *   |       CHARACTER            
+    NULL if LO_ORDERKEY = BLANKS
+LO_LINENUMBER                        NEXT     *   |       CHARACTER            
+    NULL if LO_LINENUMBER = BLANKS
+LO_CUSTKEY                           NEXT     *   |       CHARACTER            
+    NULL if LO_CUSTKEY = BLANKS
+LO_PARTKEY                           NEXT     *   |       CHARACTER            
+    NULL if LO_PARTKEY = BLANKS
+LO_SUPPKEY                           NEXT     *   |       CHARACTER            
+    NULL if LO_SUPPKEY = BLANKS
+LO_ORDERDATE                         NEXT     *   |       CHARACTER            
+    NULL if LO_ORDERDATE = BLANKS
+LO_ORDERPRIORITY                     NEXT     *   |       CHARACTER            
+    NULL if LO_ORDERPRIORITY = BLANKS
+LO_SHIPPRIORITY                      NEXT     *   |       CHARACTER            
+    NULL if LO_SHIPPRIORITY = BLANKS
+LO_QUANTITY                          NEXT     *   |       CHARACTER            
+    NULL if LO_QUANTITY = BLANKS
+LO_EXTENDEDPRICE                     NEXT     *   |       CHARACTER            
+    NULL if LO_EXTENDEDPRICE = BLANKS
+LO_ORDTOTALPRICE                     NEXT     *   |       CHARACTER            
+    NULL if LO_ORDTOTALPRICE = BLANKS
+LO_DISCOUNT                          NEXT     *   |       CHARACTER            
+    NULL if LO_DISCOUNT = BLANKS
+LO_REVENUE                           NEXT     *   |       CHARACTER            
+    NULL if LO_REVENUE = BLANKS
+LO_SUPPLYCOST                        NEXT     *   |       CHARACTER            
+    NULL if LO_SUPPLYCOST = BLANKS
+LO_TAX                               NEXT     *   |       CHARACTER            
+    NULL if LO_TAX = BLANKS
+LO_COMMITDATE                        NEXT     *   |       CHARACTER            
+    NULL if LO_COMMITDATE = BLANKS
+LO_SHIPMODE                          NEXT     *   |       CHARACTER            
+    NULL if LO_SHIPMODE = BLANKS
+
+value used for ROWS parameter changed from 250 to 239
+
+Table OE.LINEORDER:
+  412129 Rows successfully loaded.
+  0 Rows not loaded due to data errors.
+  0 Rows not loaded because all WHEN clauses were failed.
+  0 Rows not loaded because all fields were null.
+
+
+Space allocated for bind array:                1048254 bytes(239 rows)
+Read   buffer bytes: 1048576
+
+Total logical records skipped:          0
+Total logical records read:        412129
+Total logical records rejected:         0
+Total logical records discarded:        0
+
+Run began on Tue Jun 05 16:25:16 2018
+Run ended on Tue Jun 05 16:25:27 2018
+
+Elapsed time was:     00:00:11.36
+CPU time was:         00:00:03.32

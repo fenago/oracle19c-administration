@@ -1,0 +1,81 @@
+
+SQL*Loader: Release 18.0.0.0.0 - Production on Tue Jun 5 16:25:14 2018
+Version 18.1.0.0.0
+
+Copyright (c) 1982, 2018, Oracle and/or its affiliates.  All rights reserved.
+
+Control File:   /home/oracle/labs/PERF_control_date.ctl
+Data File:      date.tbl
+  Bad File:     date_dim.bad
+  Discard File: date_dim.disc 
+ (Allow all discards)
+
+Number to load: ALL
+Number to skip: 0
+Errors allowed: 50
+Bind array:     250 rows, maximum of 1048576 bytes
+Continuation:    none specified
+Path used:      Conventional
+
+Table OE.DATE_DIM, loaded from every logical record.
+Insert option in effect for this table: APPEND
+
+   Column Name                  Position   Len  Term Encl Datatype
+------------------------------ ---------- ----- ---- ---- ---------------------
+D_DATEKEY                           FIRST     *   |       CHARACTER            
+    NULL if D_DATEKEY = BLANKS
+D_DATE                               NEXT     *   |       CHARACTER            
+    NULL if D_DATE = BLANKS
+D_DAYOFWEEK                          NEXT     *   |       CHARACTER            
+    NULL if D_DAYOFWEEK = BLANKS
+D_MONTH                              NEXT     *   |       CHARACTER            
+    NULL if D_MONTH = BLANKS
+D_YEAR                               NEXT     *   |       CHARACTER            
+    NULL if D_YEAR = BLANKS
+D_YEARMONTHNUM                       NEXT     *   |       CHARACTER            
+    NULL if D_YEARMONTHNUM = BLANKS
+D_YEARMONTH                          NEXT     *   |       CHARACTER            
+    NULL if D_YEARMONTH = BLANKS
+D_DAYNUMINWEEK                       NEXT     *   |       CHARACTER            
+    NULL if D_DAYNUMINWEEK = BLANKS
+D_DAYNUMINMONTH                      NEXT     *   |       CHARACTER            
+    NULL if D_DAYNUMINMONTH = BLANKS
+D_DAYNUMINYEAR                       NEXT     *   |       CHARACTER            
+    NULL if D_DAYNUMINYEAR = BLANKS
+D_MONTHNUMINYEAR                     NEXT     *   |       CHARACTER            
+    NULL if D_MONTHNUMINYEAR = BLANKS
+D_WEEKNUMINYEAR                      NEXT     *   |       CHARACTER            
+    NULL if D_WEEKNUMINYEAR = BLANKS
+D_SELLINGSEASON                      NEXT     *   |       CHARACTER            
+    NULL if D_SELLINGSEASON = BLANKS
+D_LASTDAYINWEEKFL                    NEXT     *   |       CHARACTER            
+    NULL if D_LASTDAYINWEEKFL = BLANKS
+D_LASTDAYINMONTHFL                   NEXT     *   |       CHARACTER            
+    NULL if D_LASTDAYINMONTHFL = BLANKS
+D_HOLIDAYFL                          NEXT     *   |       CHARACTER            
+    NULL if D_HOLIDAYFL = BLANKS
+D_WEEKDAYFL                          NEXT     *   |       CHARACTER            
+    NULL if D_WEEKDAYFL = BLANKS
+
+value used for ROWS parameter changed from 250 to 239
+
+Table OE.DATE_DIM:
+  2556 Rows successfully loaded.
+  0 Rows not loaded due to data errors.
+  0 Rows not loaded because all WHEN clauses were failed.
+  0 Rows not loaded because all fields were null.
+
+
+Space allocated for bind array:                1048254 bytes(239 rows)
+Read   buffer bytes: 1048576
+
+Total logical records skipped:          0
+Total logical records read:          2556
+Total logical records rejected:         0
+Total logical records discarded:        0
+
+Run began on Tue Jun 05 16:25:14 2018
+Run ended on Tue Jun 05 16:25:15 2018
+
+Elapsed time was:     00:00:00.81
+CPU time was:         00:00:00.22

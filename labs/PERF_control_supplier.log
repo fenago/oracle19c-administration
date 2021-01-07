@@ -1,0 +1,60 @@
+
+SQL*Loader: Release 18.0.0.0.0 - Production on Tue Jun 5 16:25:27 2018
+Version 18.1.0.0.0
+
+Copyright (c) 1982, 2018, Oracle and/or its affiliates.  All rights reserved.
+
+Control File:   /home/oracle/labs/PERF_control_supplier.ctl
+Data File:      supplier.tbl
+  Bad File:     supplier.bad
+  Discard File: supplier.disc 
+ (Allow all discards)
+
+Number to load: ALL
+Number to skip: 0
+Errors allowed: 50
+Bind array:     250 rows, maximum of 1048576 bytes
+Continuation:    none specified
+Path used:      Conventional
+
+Table OE.SUPPLIER, loaded from every logical record.
+Insert option in effect for this table: APPEND
+
+   Column Name                  Position   Len  Term Encl Datatype
+------------------------------ ---------- ----- ---- ---- ---------------------
+S_SUPPKEY                           FIRST     *   |       CHARACTER            
+    NULL if S_SUPPKEY = BLANKS
+S_NAME                               NEXT     *   |       CHARACTER            
+    NULL if S_NAME = BLANKS
+S_ADDRESS                            NEXT     *   |       CHARACTER            
+    NULL if S_ADDRESS = BLANKS
+S_CITY                               NEXT     *   |       CHARACTER            
+    NULL if S_CITY = BLANKS
+S_NATION                             NEXT     *   |       CHARACTER            
+    NULL if S_NATION = BLANKS
+S_REGION                             NEXT     *   |       CHARACTER            
+    NULL if S_REGION = BLANKS
+S_PHONE                              NEXT     *   |       CHARACTER            
+    NULL if S_PHONE = BLANKS
+
+
+Table OE.SUPPLIER:
+  2000 Rows successfully loaded.
+  0 Rows not loaded due to data errors.
+  0 Rows not loaded because all WHEN clauses were failed.
+  0 Rows not loaded because all fields were null.
+
+
+Space allocated for bind array:                 451500 bytes(250 rows)
+Read   buffer bytes: 1048576
+
+Total logical records skipped:          0
+Total logical records read:          2000
+Total logical records rejected:         0
+Total logical records discarded:        0
+
+Run began on Tue Jun 05 16:25:27 2018
+Run ended on Tue Jun 05 16:25:28 2018
+
+Elapsed time was:     00:00:00.72
+CPU time was:         00:00:00.21

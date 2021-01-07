@@ -1,0 +1,35 @@
+
+
+ LOG file opened at 04/13/18 16:43:32
+
+Total Number of Files=1
+
+Data File: products.dat
+
+Log File: products_3617.log_xt
+
+
+
+ LOG file opened at 04/13/18 16:43:32
+
+Bad File: products_3617.bad
+
+Field Definitions for table SYS_SQLLDR_X_EXT_PRODUCTS
+  Record format DELIMITED BY NEWLINE
+  Data in file has same endianness as the platform
+  Reject rows with all null fields
+
+  Fields in Data Source: 
+
+    PRODUCT_ID                      CHAR (255)
+      Terminated by ","
+      Trim whitespace from left and right
+    COUNTRY                         CHAR (255)
+      Terminated by ","
+      Trim whitespace from left and right
+    LABEL                           CHAR (255)
+      Terminated by ","
+      Trim whitespace from left and right
+    DETAILED_LABEL                  CHAR (255)
+      Terminated by ","
+      Trim whitespace from left and right
