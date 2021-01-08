@@ -1,11 +1,9 @@
 #!/bin/sh
 # use bash shell
 #
-# Written by: Dominique.Jeunot@oracle.com
-#
 
 export NLS_DATE_FORMAT='DD-MM-YYYY HH:MI:SS'
-export ORACLE_HOME=/u01/app/oracle/product/18.0.0/dbhome_1
+export ORACLE_HOME=/u01/app/oracle/product/19.3.0/dbhome_1
 export ORACLE_SID=ORCL
 PATH=$ORACLE_HOME/bin:$PATH; export PATH
 $ORACLE_HOME/bin/sqlplus -s /nolog  <<EOF

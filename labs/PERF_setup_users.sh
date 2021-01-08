@@ -1,8 +1,6 @@
 #!/bin/sh
 # use bash shell
 #
-# Written by:  Dominique Jeunot
-#
 
 export ORACLE_HOME=/u01/app/oracle/product/12.2.0/dbhome_1
 export ORACLE_SID=ORCL

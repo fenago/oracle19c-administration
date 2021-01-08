@@ -1,8 +1,6 @@
 #!/bin/sh
 # use bash shell
 #
-# Written by: Dominique.Jeunot@oracle.com
-#
 
 export ORACLE_HOME=/u01/app/oracle/product/12.2.0/dbhome_1
 mkdir /home/oracle/labs/DP

@@ -1,6 +1,6 @@
-# Written by: Dominique.Jeunot@oracle.com
+
 #
-export ORACLE_HOME=/u01/app/oracle/product/18.0.0/dbhome_1
+export ORACLE_HOME=/u01/app/oracle/product/19.3.0/dbhome_1
 export ORACLE_SID=ORCL
 $ORACLE_HOME/bin/sqlplus hr/Pass4HR@pdb1 <<EOF
 col index_name format A18
