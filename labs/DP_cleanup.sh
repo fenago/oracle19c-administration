@@ -7,10 +7,10 @@ rm /home/oracle/labs/DP/*.log
 
 #-- remove *.bad files
 rm /home/oracle/labs/DP/*.bad
-export ORACLE_HOME=/u01/app/oracle/product/12.2.0/dbhome_1
-export ORACLE_SID=ORCL
+export ORACLE_HOME=/u01/app/oracle/product/19.3.0/dbhome_1
+export ORACLE_SID=fenagodb
 PATH=$ORACLE_HOME/bin:$PATH; export PATH
-sqlplus -s oe/oracle_4U@pdb1 << EOF
+sqlplus -s oe/oracle_4U@fenagodb1 << EOF
 -- delete rows inserted by SQL*Loader
 DELETE FROM OE.PRODUCT_DESCRIPTIONS WHERE product_id > 4000;
 Commit;

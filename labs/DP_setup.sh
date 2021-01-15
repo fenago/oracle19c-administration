@@ -3,18 +3,18 @@
 #
 
 export ORACLE_HOME=/u01/app/oracle/product/19.3.0/dbhome_1
-export ORACLE_SID=ORCL
+export ORACLE_SID=fenagodb
 PATH=$ORACLE_HOME/bin:$PATH; export PATH
 
 $ORACLE_HOME/bin/sqlplus -s /nolog  <<EOF
 
-conn sys/DBAdmin_1@pdb1 as sysdba
+conn sys/fenago@fenagodb1 as sysdba
 drop tablespace TBS_APP including contents and datafiles; 
-create tablespace TBS_APP datafile '/u02/app/oracle/oradata/ORCL/PDB1/tbs_app01.dbf' size 800M;
+create tablespace TBS_APP datafile '/u02/oradata/FENAGODB/fenagodb1/tbs_app01.dbf' size 800M;
 drop tablespace TBS_APP2 including contents and datafiles;
-create tablespace TBS_APP2 datafile '/u02/app/oracle/oradata/ORCL/PDB1/tbs_app02.dbf' size 100M;
+create tablespace TBS_APP2 datafile '/u02/oradata/FENAGODB/fenagodb1/tbs_app02.dbf' size 100M;
 drop user oe cascade;
-create user oe identified by DBAdmin_1 default tablespace tbs_app;
+create user oe identified by fenago default tablespace tbs_app;
 grant create session, dba to oe;
 
 create table oe.orders (
@@ -42,14 +42,14 @@ ALTER TABLE oe.orders ADD primary key (order_id);
 CREATE INDEX oe.i_order_items ON oe.order_items(ORDER_ID);
 ALTER TABLE "OE"."ORDERS" MODIFY ( "ORDER_TOTAL" NUMBER(12, 2) );
 
-@/home/oracle/labs/PERF_script_pdb1_orders.sql
-@/home/oracle/labs/PERF_script_pdb1_order_items.sql
+@/home/oracle/labs/PERF_script_fenagodb1_orders.sql
+@/home/oracle/labs/PERF_script_fenagodb1_order_items.sql
 
-conn sys/DBAdmin_1@pdb2 as sysdba
+conn sys/fenago@pdb2 as sysdba
 drop tablespace TBS_APP including contents and datafiles; 
-create tablespace TBS_APP datafile '/u02/app/oracle/oradata/ORCL/PDB2/tbs_app01.dbf' size 800M;
+create tablespace TBS_APP datafile '/u02/oradata/FENAGODB1/PDB2/tbs_app01.dbf' size 800M;
 drop user sh cascade;
-create user sh identified by DBAdmin_1 default tablespace tbs_app;
+create user sh identified by fenago default tablespace tbs_app;
 grant create session, dba to sh;
 
 create table sh.inventories (

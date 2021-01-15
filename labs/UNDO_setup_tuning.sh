@@ -3,15 +3,15 @@
 #
 
 export ORACLE_HOME=/u01/app/oracle/product/19.3.0/dbhome_1
-export ORACLE_SID=ORCL
+export ORACLE_SID=fenagodb
 PATH=$ORACLE_HOME/bin:$PATH; export PATH
 cd /home/oracle/labs
 $ORACLE_HOME/bin/sqlplus -s /nolog  <<EOF
-conn sys/DBAdmin_1@pdb1 as sysdba 
+conn sys/fenago@fenagodb1 as sysdba 
 drop tablespace TBS_APP including contents and  datafiles;
-create tablespace TBS_APP datafile '/u02/app/oracle/oradata/ORCL/PDB1/tbs_app01.dbf' size 800M;
+create tablespace TBS_APP datafile '/u02/oradata/FENAGODB/fenagodb1/tbs_app01.dbf' size 800M;
 drop user oe cascade;
-create user oe identified by DBAdmin_1 default tablespace tbs_app;
+create user oe identified by fenago default tablespace tbs_app;
 grant create session, dba to oe;
 
 create table oe.orders (
@@ -164,7 +164,7 @@ D_LASTDAYINMONTHFL char(1),
 D_HOLIDAYFL char(1),
 D_WEEKDAYFL char(1))  ;
 
-host sqlldr oe/DBAdmin_1@pdb1  control=/home/oracle/labs/PERF_control_part.ctl
+host sqlldr oe/fenago@fenagodb1  control=/home/oracle/labs/PERF_control_part.ctl
 insert /*+ append */ into oe.part  select p_partkey + 200001, P_NAME,P_MFGR,
                   P_CATEGORY,P_BRAND1,P_COLOR,P_TYPE,P_SIZE,P_CONTAINER
 				  FROM oe.part;
@@ -178,15 +178,15 @@ insert /*+ append */ into oe.part  select p_partkey + 800004, P_NAME,P_MFGR,
 				  FROM oe.part;
 commit;
 
-host sqlldr oe/DBAdmin_1@pdb1 control=/home/oracle/labs/PERF_control_date.ctl
+host sqlldr oe/fenago@fenagodb1 control=/home/oracle/labs/PERF_control_date.ctl
 
-@/home/oracle/labs/PERF_script_pdb1_inventories.sql
-@/home/oracle/labs/PERF_script_pdb1_orders.sql
-@/home/oracle/labs/PERF_script_pdb1_order_items.sql
+@/home/oracle/labs/PERF_script_fenagodb1_inventories.sql
+@/home/oracle/labs/PERF_script_fenagodb1_orders.sql
+@/home/oracle/labs/PERF_script_fenagodb1_order_items.sql
 
-host sqlldr oe/DBAdmin_1@pdb1 control=/home/oracle/labs/PERF_control_lineorder.ctl
-host sqlldr oe/DBAdmin_1@pdb1 control=/home/oracle/labs/PERF_control_supplier.ctl
-host sqlldr oe/DBAdmin_1@pdb1 control=/home/oracle/labs/PERF_control_customer.ctl
+host sqlldr oe/fenago@fenagodb1 control=/home/oracle/labs/PERF_control_lineorder.ctl
+host sqlldr oe/fenago@fenagodb1 control=/home/oracle/labs/PERF_control_supplier.ctl
+host sqlldr oe/fenago@fenagodb1 control=/home/oracle/labs/PERF_control_customer.ctl
 
 insert /*+ append */ into oe.supplier select S_SUPPKEY + 2001, S_NAME, S_ADDRESS, S_CITY ,  S_NATION, S_REGION	, S_PHONE from oe.supplier;
 commit;	 

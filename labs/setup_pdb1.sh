@@ -3,14 +3,14 @@
 #
 
 export ORACLE_HOME=/u01/app/oracle/product/19.3.0/dbhome_1
-export ORACLE_SID=ORCL
+export ORACLE_SID=fenagodb
 PATH=$ORACLE_HOME/bin:$PATH; export PATH
-mkdir -p /u01/app/oracle/oradata/ORCL/pdb1
+mkdir -p /u01/app/oracle/oradata/FENAGODB/fenagodb1
 $ORACLE_HOME/bin/sqlplus -s /nolog  <<EOF
-conn sys/DBAdmin_1@pdb1 as sysdba 
-create tablespace TBS_APP datafile '/u02/app/oracle/oradata/ORCL/PDB1/tbs_app01.dbf' size 800M;
+conn sys/fenago@fenagodb1 as sysdba 
+create tablespace TBS_APP datafile '/u02/oradata/FENAGODB/fenagodb1/tbs_app01.dbf' size 800M;
 drop user oe cascade;
-create user oe identified by DBAdmin_1 default tablespace tbs_app;
+create user oe identified by fenago default tablespace tbs_app;
 grant create session, dba to oe;
 
 create table oe.orders (
@@ -32,8 +32,8 @@ create table oe.order_items (
  QUANTITY     NUMBER(8)
  );
  
-@/home/oracle/labs/PERF_script_pdb1_orders.sql
-@/home/oracle/labs/PERF_script_pdb1_order_items.sql
+@/home/oracle/labs/PERF_script_fenagodb1_orders.sql
+@/home/oracle/labs/PERF_script_fenagodb1_order_items.sql
 
 EXIT
 EOF

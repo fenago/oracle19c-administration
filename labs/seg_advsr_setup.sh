@@ -2,7 +2,7 @@
 # For training only, execute as oracle OS user
 
 export ORACLE_HOME=/u01/app/oracle/product/19.3.0/dbhome_1
-export ORACLE_SID=ORCL
+export ORACLE_SID=fenagodb
 PATH=$ORACLE_HOME/bin:$PATH; export PATH
 
 $ORACLE_HOME/bin/sqlplus /nolog <<EOF
@@ -12,7 +12,7 @@ shutdown immediate;
 startup
 alter pluggable database all open;
 set echo on
-conn hr/Pass4HR@pdb1
+conn hr/Pass4HR@fenagodb1
 create table employees1 tablespace tbsalert as select * from hr.employees;
 create table employees2 tablespace tbsalert as select * from hr.employees;
 create table employees3 tablespace tbsalert as select * from hr.employees;

@@ -1,8 +1,8 @@
 
 #
 export ORACLE_HOME=/u01/app/oracle/product/19.3.0/dbhome_1
-export ORACLE_SID=ORCL
-$ORACLE_HOME/bin/sqlplus hr/Pass4HR@pdb1 <<EOF
+export ORACLE_SID=fenagodb
+$ORACLE_HOME/bin/sqlplus hr/Pass4HR@fenagodb1 <<EOF
 col index_name format A18
 drop table hr.test;
 create table hr.test (c1 number, c2 number) tablespace users;
