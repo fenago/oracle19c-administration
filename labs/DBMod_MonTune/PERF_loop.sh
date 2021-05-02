@@ -1,8 +1,8 @@
 #!/bin/sh
 # use bash shell
 #
-# Written by: Dominique.Jeunot@oracle.com
-# modified by darryl.balaski@oracle.com
+
+
 #
 export ORACLE_SID=orclcdb
 ORAENV_ASK="NO"
@@ -14,7 +14,7 @@ a=0
 while [ $a -lt 30000 ]
 do
 $ORACLE_HOME/bin/sqlplus -s /nolog  <<EOF
-CONNECT oe/cloud_4U@orclpdb1
+CONNECT oe/fenago@orclpdb1
 start $HOME/labs/DBMod_MonTune/PERF_loop.sql
 start $HOME/labs/DBMod_MonTune/PERF_loop.sql
 start $HOME/labs/DBMod_MonTune/PERF_loop.sql
@@ -24,7 +24,7 @@ start $HOME/labs/DBMod_MonTune/PERF_loop.sql
 start $HOME/labs/DBMod_MonTune/PERF_loop.sql
 start $HOME/labs/DBMod_MonTune/PERF_loop.sql
 
-CONNECT system/cloud_4U@orclpdb2
+CONNECT system/fenago@orclpdb2
 start $HOME/labs/DBMod_MonTune/PERF_loop.sql
 start $HOME/labs/DBMod_MonTune/PERF_loop.sql
 start $HOME/labs/DBMod_MonTune/PERF_loop.sql

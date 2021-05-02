@@ -1,5 +1,5 @@
 set echo on
-create user source_user identified by cloud_4U;
+create user source_user identified by fenago;
 grant dba to source_user;
 create table source_user.bigtab (label varchar2(30));
 begin

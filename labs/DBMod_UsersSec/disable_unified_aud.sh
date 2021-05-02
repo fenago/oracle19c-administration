@@ -4,7 +4,7 @@
 # unlink the unified audting 
 # oraenv has been run in the environment and ORACLE_HOME and PATH are set.
 #
-# modified by darryl.balaski@oracle.com
+
 
 export ORACLE_SID=orclcdb
 ORAENV_ASK="NO"

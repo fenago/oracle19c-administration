@@ -18,7 +18,7 @@ create temporary tablespace mytemp tempfile '/u01/app/oracle/oradata/ORCLCDB/myt
 
 REM drop user amm cascade;
 
-REM create user amm identified by cloud_4U default tablespace tbssga temporary tablespace mytemp;
+REM create user amm identified by fenago default tablespace tbssga temporary tablespace mytemp;
 
 REM grant connect,resource,dba to amm;
 pause Press [Enter] to continue...

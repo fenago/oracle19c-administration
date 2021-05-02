@@ -5,7 +5,7 @@
 #  -- The script has been tested and appears to work as intended.
 #  -- You should always run new scripts on a test instance initially.
 #
-# modified by darryl.balaski@oracle.com
+
 #
 export ORACLE_SID=orclcdb
 ORAENV_ASK="NO"
@@ -15,7 +15,7 @@ ORAENV_ASK=""
 mkdir -p /u01/app/backup/ORCLCDB/orclpdb1
 mkdir -p /u01/app/backup/ORCLCDB/orclpdb2
 $ORACLE_HOME/bin/sqlplus /nolog>> /tmp/setup.log 2>&1 <<EOF
-connect sys/cloud_4U@orclpdb1 as sysdba
+connect sys/fenago@orclpdb1 as sysdba
 
 -- CLEANUP from previous run
 DROP USER bar CASCADE;
@@ -27,7 +27,7 @@ DATAFILE '/u01/app/backup/ORCLCDB/orclpdb1/bartbs.dbf' SIZE 50M REUSE
 SEGMENT SPACE MANAGEMENT MANUAL;
 
 -- Create user
-CREATE USER BAR IDENTIFIED BY cloud_4U 
+CREATE USER BAR IDENTIFIED BY fenago 
 DEFAULT TABLESPACE bartbs
 QUOTA UNLIMITED ON bartbs;
 
@@ -47,7 +47,7 @@ SELECT * FROM BAR.BARCOPY;
 
 connect / as sysdba
 ALTER SYSTEM SWITCH logfile;
-connect sys/cloud_4U@orclpdb1 as sysdba
+connect sys/fenago@orclpdb1 as sysdba
 ALTER SYSTEM checkpoint;
 EOF
 

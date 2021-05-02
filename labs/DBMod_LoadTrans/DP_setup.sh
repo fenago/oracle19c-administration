@@ -1,7 +1,7 @@
 #!/bin/sh
 # use bash shell
 #
-# Written by: Dominique.Jeunot@oracle.com
+
 # Modified by: Darryl.Balaski@oracle.com
 #
 export ORACLE_SID=orclcdb
@@ -14,13 +14,13 @@ alter pluggable database all open;
 alter pluggable database all save state;
 EOF
 #
-$ORACLE_HOME/bin/sqlplus "sys/cloud_4U@orclpdb1 as sysdba" <<EOF
+$ORACLE_HOME/bin/sqlplus "sys/fenago@orclpdb1 as sysdba" <<EOF
 drop tablespace TBS_APP including contents and datafiles; 
 create tablespace TBS_APP datafile '/u01/app/oracle/oradata/ORCLCDB/orclpdb1/tbs_app01.dbf' size 800M autoextend on next 25M maxsize 1100M;
 drop tablespace TBS_APP2 including contents and datafiles;
 create tablespace TBS_APP2 datafile '/u01/app/oracle/oradata/ORCLCDB/orclpdb1/tbs_app02.dbf' size 100M autoextend on next 25M maxsize 300M;
 drop user oe cascade;
-create user oe identified by cloud_4U default tablespace tbs_app;
+create user oe identified by fenago default tablespace tbs_app;
 grant create session, dba to oe;
 
 create table oe.orders (
@@ -54,7 +54,7 @@ ALTER TABLE "OE"."ORDERS" MODIFY ( "ORDER_TOTAL" NUMBER(12, 2) );
 REM added 6-26
 
 drop user sh cascade;
-create user sh identified by cloud_4U default tablespace tbs_app;
+create user sh identified by fenago default tablespace tbs_app;
 grant create session, dba to sh;
 
 create table sh.inventories (
@@ -72,11 +72,11 @@ create table sh.products ( PRODUCT_ID NUMBER(6), COUNTRY  CHAR(3), LABEL VARCHAR
 REM Done
 
 
-conn sys/cloud_4U@orclpdb2 as sysdba
+conn sys/fenago@orclpdb2 as sysdba
 drop tablespace TBS_APP including contents and datafiles; 
 create tablespace TBS_APP datafile '/u01/app/oracle/oradata/ORCLCDB/orclpdb2/tbs_app01.dbf' size 800M autoextend on next 25M maxsize 1100M;
 drop user sh cascade;
-create user sh identified by cloud_4U default tablespace tbs_app;
+create user sh identified by fenago default tablespace tbs_app;
 grant create session, dba to sh;
 
 create table sh.inventories (

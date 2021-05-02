@@ -1,11 +1,11 @@
-# Written by: Dominique.Jeunot@oracle.com
+
 #
 export ORACLE_SID=orclcdb
 ORAENV_ASK="NO"
 . oraenv
 ORAENV_ASK=""
 
-$ORACLE_HOME/bin/sqlplus hr/cloud_4U@orclpdb1 <<EOF
+$ORACLE_HOME/bin/sqlplus hr/fenago@orclpdb1 <<EOF
 col index_name format A18
 drop table hr.test;
 create table hr.test (c1 number, c2 number) tablespace users;

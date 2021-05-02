@@ -1,9 +1,9 @@
 #!/bin/sh
 # use bash shell
 #
-# Written by: Dominique.Jeunot@oracle.com
+
 # mod by James.Spiller@oracle.com
-# modified by darryl.balaski@oracle.com
+
 #
 export ORACLE_SID=orclcdb
 ORAENV_ASK="NO"

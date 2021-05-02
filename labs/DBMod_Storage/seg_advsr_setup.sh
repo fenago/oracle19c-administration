@@ -13,7 +13,7 @@ shutdown immediate;
 startup
 alter pluggable database all open;
 set echo on
-conn hr/cloud_4U@orclpdb1
+conn hr/fenago@orclpdb1
 create table employees1 tablespace tbsalert as select * from hr.employees;
 create table employees2 tablespace tbsalert as select * from hr.employees;
 create table employees3 tablespace tbsalert as select * from hr.employees;

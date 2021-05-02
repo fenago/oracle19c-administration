@@ -1,10 +1,9 @@
 #!/bin/sh
 # use bash shell
 #
-# Written by: Dominique.Jeunot@oracle.com
-# modified by darryl.balaski@oracle.com
-# 
+
 #
+
 export ORACLE_SID=orclcdb
 ORAENV_ASK="NO"
 . oraenv
@@ -13,11 +12,11 @@ ORAENV_ASK=""
 cd /home/oracle/labs/DBMod_MonTune
 $ORACLE_HOME/bin/sqlplus -s /nolog  <<EOF
 
-conn sys/cloud_4U@orclpdb1 as sysdba 
+conn sys/fenago@orclpdb1 as sysdba 
 DROP TABLESPACE tbs_app INCLUDING CONTENTS and DATAFILES;
 create tablespace TBS_APP datafile '/u01/app/oracle/oradata/ORCLCDB/orclpdb1/tbs_app01.dbf' size 800M autoextend on next 25M maxsize 1600M;
 drop user oe cascade;
-create user oe identified by cloud_4U default tablespace tbs_app;
+create user oe identified by fenago default tablespace tbs_app;
 grant create session, dba to oe;
 
 create table oe.orders (
@@ -170,7 +169,7 @@ D_LASTDAYINMONTHFL char(1),
 D_HOLIDAYFL char(1),
 D_WEEKDAYFL char(1))  ;
 
-host sqlldr oe/cloud_4U@orclpdb1  control=/home/oracle/labs/DBMod_MonTune/PERF_control_part.ctl
+host sqlldr oe/fenago@orclpdb1  control=/home/oracle/labs/DBMod_MonTune/PERF_control_part.ctl
 insert /*+ append */ into oe.part  select p_partkey + 200001, P_NAME,P_MFGR,
                   P_CATEGORY,P_BRAND1,P_COLOR,P_TYPE,P_SIZE,P_CONTAINER
 				  FROM oe.part;
@@ -184,15 +183,15 @@ insert /*+ append */ into oe.part  select p_partkey + 800004, P_NAME,P_MFGR,
 				  FROM oe.part;
 commit;
 
-host sqlldr oe/cloud_4U@orclpdb1 control=/home/oracle/labs/DBMod_MonTune/PERF_control_date.ctl
+host sqlldr oe/fenago@orclpdb1 control=/home/oracle/labs/DBMod_MonTune/PERF_control_date.ctl
 
 @/home/oracle/labs/DBMod_MonTune/PERF_script_pdb1_inventories.sql
 @/home/oracle/labs/DBMod_MonTune/PERF_script_pdb1_orders.sql
 @/home/oracle/labs/DBMod_MonTune/PERF_script_pdb1_order_items.sql
 
-host sqlldr oe/cloud_4U@orclpdb1 control=/home/oracle/labs/DBMod_MonTune/PERF_control_lineorder.ctl
-host sqlldr oe/cloud_4U@orclpdb1 control=/home/oracle/labs/DBMod_MonTune/PERF_control_supplier.ctl
-host sqlldr oe/cloud_4U@orclpdb1 control=/home/oracle/labs/DBMod_MonTune/PERF_control_customer.ctl
+host sqlldr oe/fenago@orclpdb1 control=/home/oracle/labs/DBMod_MonTune/PERF_control_lineorder.ctl
+host sqlldr oe/fenago@orclpdb1 control=/home/oracle/labs/DBMod_MonTune/PERF_control_supplier.ctl
+host sqlldr oe/fenago@orclpdb1 control=/home/oracle/labs/DBMod_MonTune/PERF_control_customer.ctl
 
 insert /*+ append */ into oe.supplier select S_SUPPKEY + 2001, S_NAME, S_ADDRESS, S_CITY ,  S_NATION, S_REGION	, S_PHONE from oe.supplier;
 commit;	 
@@ -239,11 +238,11 @@ LO_ORDERKEY	+24000002,  LO_LINENUMBER	,
  from oe.lineorder;
 commit;
 
-conn sys/cloud_4U@orclpdb2 as sysdba 
+conn sys/fenago@orclpdb2 as sysdba 
 DROP TABLESPACE tbs_app INCLUDING CONTENTS AND DATAFILES;
 create tablespace TBS_APP datafile '/u01/app/oracle/oradata/ORCLCDB/orclpdb2/tbs_app01.dbf' size 800M;
 drop user oe cascade;
-create user oe identified by cloud_4U default tablespace tbs_app;
+create user oe identified by fenago default tablespace tbs_app;
 grant create session, dba to oe;
 
 create table oe.orders (
@@ -396,7 +395,7 @@ D_LASTDAYINMONTHFL char(1),
 D_HOLIDAYFL char(1),
 D_WEEKDAYFL char(1))  ;
 
-host sqlldr oe/cloud_4U@orclpdb2  control=/home/oracle/labs/DBMod_MonTune/PERF_control_part.ctl
+host sqlldr oe/fenago@orclpdb2  control=/home/oracle/labs/DBMod_MonTune/PERF_control_part.ctl
 insert /*+ append */ into oe.part  select p_partkey + 200001, P_NAME,P_MFGR,
                   P_CATEGORY,P_BRAND1,P_COLOR,P_TYPE,P_SIZE,P_CONTAINER
 				  FROM oe.part;
@@ -410,15 +409,15 @@ insert /*+ append */ into oe.part  select p_partkey + 800004, P_NAME,P_MFGR,
 				  FROM oe.part;
 commit;
 
-host sqlldr oe/cloud_4U@orclpdb2 control=/home/oracle/labs/DBMod_MonTune/PERF_control_date.ctl
+host sqlldr oe/fenago@orclpdb2 control=/home/oracle/labs/DBMod_MonTune/PERF_control_date.ctl
 
 @/home/oracle/labs/DBMod_MonTune/PERF_script_pdb2_inventories.sql
 @/home/oracle/labs/DBMod_MonTune/PERF_script_pdb2_orders.sql
 @/home/oracle/labs/DBMod_MonTune/PERF_script_pdb2_order_items.sql
 
-host sqlldr oe/cloud_4U@orclpdb2 control=/home/oracle/labs/DBMod_MonTune/PERF_control_lineorder.ctl
-host sqlldr oe/cloud_4U@orclpdb2 control=/home/oracle/labs/DBMod_MonTune/PERF_control_supplier.ctl
-host sqlldr oe/cloud_4U@orclpdb2 control=/home/oracle/labs/DBMod_MonTune/PERF_control_customer.ctl
+host sqlldr oe/fenago@orclpdb2 control=/home/oracle/labs/DBMod_MonTune/PERF_control_lineorder.ctl
+host sqlldr oe/fenago@orclpdb2 control=/home/oracle/labs/DBMod_MonTune/PERF_control_supplier.ctl
+host sqlldr oe/fenago@orclpdb2 control=/home/oracle/labs/DBMod_MonTune/PERF_control_customer.ctl
 
 insert /*+ append */ into oe.supplier select S_SUPPKEY + 2001, S_NAME, S_ADDRESS, S_CITY ,  S_NATION, S_REGION	, S_PHONE from oe.supplier;
 commit;	 

@@ -3,7 +3,7 @@
 #
 # Written by:  Dominique Jeunot
 # Modified by: James Spiller for 19c DBMod_PDBs
-# modified by darryl.balaski@oracle.com
+
 #
 export ORACLE_SID=orclcdb
 ORAENV_ASK="NO"

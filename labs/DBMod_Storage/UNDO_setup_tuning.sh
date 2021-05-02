@@ -1,8 +1,8 @@
 #!/bin/sh
 # use bash shell
 #
-# Written by: Dominique.Jeunot@oracle.com
-# modified by darryl.balaski@oracle.com
+
+
 
 export ORACLE_SID=orclcdb
 ORAENV_ASK="NO"
@@ -12,11 +12,11 @@ ORAENV_ASK=""
 cd /home/oracle/labs/DBMod_Storage
 
 $ORACLE_HOME/bin/sqlplus -s /nolog  <<EOF
-conn sys/cloud_4U@orclpdb1 as sysdba 
+conn sys/fenago@orclpdb1 as sysdba 
 drop tablespace TBS_APP including contents and  datafiles;
 create tablespace TBS_APP datafile '/u01/app/oracle/oradata/ORCLCDB/orclpdb1/tbs_app01.dbf' size 800M autoextend on next 25M maxsize 1400M;
 drop user odr cascade;
-create user odr identified by cloud_4U default tablespace tbs_app;
+create user odr identified by fenago default tablespace tbs_app;
 grant create session, dba to odr;
 
 create table odr.orders (
@@ -169,7 +169,7 @@ D_LASTDAYINMONTHFL char(1),
 D_HOLIDAYFL char(1),
 D_WEEKDAYFL char(1))  ;
 
-host sqlldr odr/cloud_4U@orclpdb1  control=/home/oracle/labs/DBMod_Storage/PERF_control_part.ctl
+host sqlldr odr/fenago@orclpdb1  control=/home/oracle/labs/DBMod_Storage/PERF_control_part.ctl
 insert /*+ append */ into odr.part  select p_partkey + 200001, P_NAME,P_MFGR,
                   P_CATEGORY,P_BRAND1,P_COLOR,P_TYPE,P_SIZE,P_CONTAINER
 				  FROM odr.part;
@@ -183,15 +183,15 @@ insert /*+ append */ into odr.part  select p_partkey + 800004, P_NAME,P_MFGR,
 				  FROM odr.part;
 commit;
 
-host sqlldr odr/cloud_4U@orclpdb1 control=/home/oracle/labs/DBMod_Storage/PERF_control_date.ctl
+host sqlldr odr/fenago@orclpdb1 control=/home/oracle/labs/DBMod_Storage/PERF_control_date.ctl
 
 @/home/oracle/labs/DBMod_Storage/PERF_script_pdb1_inventories.sql
 @/home/oracle/labs/DBMod_Storage/PERF_script_pdb1_orders.sql
 @/home/oracle/labs/DBMod_Storage/PERF_script_pdb1_order_items.sql
 
-host sqlldr odr/cloud_4U@orclpdb1 control=/home/oracle/labs/DBMod_Storage/PERF_control_lineorder.ctl
-host sqlldr odr/cloud_4U@orclpdb1 control=/home/oracle/labs/DBMod_Storage/PERF_control_supplier.ctl
-host sqlldr odr/cloud_4U@pdb1 control=/home/oracle/labs/DBMod_Storage/PERF_control_customer.ctl
+host sqlldr odr/fenago@orclpdb1 control=/home/oracle/labs/DBMod_Storage/PERF_control_lineorder.ctl
+host sqlldr odr/fenago@orclpdb1 control=/home/oracle/labs/DBMod_Storage/PERF_control_supplier.ctl
+host sqlldr odr/fenago@pdb1 control=/home/oracle/labs/DBMod_Storage/PERF_control_customer.ctl
 
 insert /*+ append */ into odr.supplier select S_SUPPKEY + 2001, S_NAME, S_ADDRESS, S_CITY ,  S_NATION, S_REGION	, S_PHONE from odr.supplier;
 commit;	 

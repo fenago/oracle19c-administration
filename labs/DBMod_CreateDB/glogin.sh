@@ -1,7 +1,7 @@
 #!/bin/sh
 # use bash shell
 #
-# modified by darryl.balaski@oracle.com
+
 #
 export ORACLE_SID=orclcdb
 ORAENV_ASK="NO"

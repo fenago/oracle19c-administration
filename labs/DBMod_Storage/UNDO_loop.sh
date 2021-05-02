@@ -1,8 +1,8 @@
 #!/bin/sh
 # use bash shell
 #
-# Written by: Dominique.Jeunot@oracle.com
-# modified by darryl.balaski@oracle.com
+
+
 
 export ORACLE_SID=orclcdb
 ORAENV_ASK="NO"
@@ -16,7 +16,7 @@ a=0
 while [ $a -lt 20000 ]
 do
 $ORACLE_HOME/bin/sqlplus -s /nolog  <<EOF
-CONNECT odr/cloud_4U@orclpdb1
+CONNECT odr/fenago@orclpdb1
 start PERF_loop.sql
 start PERF_loop.sql
 start PERF_loop.sql

@@ -11,7 +11,7 @@
 #  -- exit;
 #  -- EOF
 #
-# modified by darryl.balaski@oracle.com
+
 #
 export ORACLE_SID=orclcdb
 ORAENV_ASK="NO"
@@ -20,7 +20,7 @@ ORAENV_ASK=""
 #
 
 $ORACLE_HOME/bin/sqlplus -S /nolog >> /tmp/cleanup.log 2>&1 <<EOF
-connect sys/cloud_4U@orclpdb1 as sysdba
+connect sys/fenago@orclpdb1 as sysdba
 
 -- CLEANUP from previous run
 DROP USER bar CASCADE;
@@ -32,7 +32,7 @@ EOF
 
 # . $LABS/set_rcat.sh >> /tmp/cleanup.log
 $ORACLE_HOME/bin/sqlplus -S /nolog >> /tmp/cleanup.log 2>&1 <<EOF
-connect sys/cloud_4U@orclpdb2 as sysdba
+connect sys/fenago@orclpdb2 as sysdba
 
 -- CLEANUP from previous run
 DROP USER bar CASCADE;

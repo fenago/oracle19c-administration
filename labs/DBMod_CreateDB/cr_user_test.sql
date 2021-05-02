@@ -1,7 +1,7 @@
 set echo on
 
 drop user test cascade;
-create user test identified by cloud_4U;
+create user test identified by fenago;
 grant dba to test;
 create table test.bigtab (label varchar2(30));
 begin
