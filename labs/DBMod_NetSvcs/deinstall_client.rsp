@@ -1,0 +1,46 @@
+
+############ ORACLE DECONFIG TOOL START ############
+
+oracle.install.library.crs.CRSInfo.isCRSConfigured() returns value false
+
+######################### DECONFIG CHECK OPERATION START #########################
+## [START] Install check configuration ##
+Gathering system details...
+
+Executing [/u01/app/oracle/product/client_1/bin/orabasehome]
+Starting Output Reader Threads for process /u01/app/oracle/product/client_1/bin/orabasehome
+Parsing /u01/app/oracle/product/client_1
+The process /u01/app/oracle/product/client_1/bin/orabasehome exited with code 0
+Waiting for output processor threads to exit.
+Output processor threads exited.
+
+Checking for existence of the Oracle home location /u01/app/oracle/product/client_1
+Oracle Home type selected for deinstall is: Oracle Database Client
+Oracle Base selected for deinstall is: /u01/app/oracle
+Checking for existence of central inventory location /u01/app/oraInventory
+
+## [END] Install check configuration ##
+
+
+Network Configuration check config START
+
+Network de-configuration trace file location: /u01/app/oraInventory/logs/netdc_check2019-06-21_02-44-05PM.log
+
+Specify all Single Instance listeners that are to be de-configured. Enter .(dot) to deselect all. [LISTENER_C]:Specify all CMAN services that are to be de-configured. Enter .(dot) to deselect all. [CMAN_EDVMR1P0.US.ORACLE.COM]:
+Network Configuration check config END
+
+
+######################### DECONFIG CHECK OPERATION END #########################
+
+
+####################### DECONFIG CHECK OPERATION SUMMARY #######################
+Oracle Home selected for deinstall is: /u01/app/oracle/product/client_1
+Inventory Location where the Oracle home registered is: /u01/app/oraInventory
+Following Single Instance listener(s) will be de-configured: LISTENER_C
+Following CMAN services will be de-configured: CMAN_EDVMR1P0.US.ORACLE.COM
+Location of response file generated: '/tmp/deinstall2019-06-21_02-43-57PM/response/deinstall_OraClient19Home1.rsp'
+A log of this session will be written to: '/u01/app/oraInventory/logs/deinstall_deconfig2019-06-21_02-44-03-PM.out'
+Any error messages from this session will be written to: '/u01/app/oraInventory/logs/deinstall_deconfig2019-06-21_02-44-03-PM.err'
+
+############# ORACLE DECONFIG TOOL END #############
+

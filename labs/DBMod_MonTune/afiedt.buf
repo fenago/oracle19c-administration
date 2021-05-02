@@ -1,0 +1,2 @@
+select username, osuser, machine, process, program, port from v$session where AUDSID=4294967295
+/

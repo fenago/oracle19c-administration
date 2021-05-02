@@ -1,0 +1,1 @@
+select df.tablespace_name tablespace, fs.bytes free, df.bytes, fs.bytes *100/ df.bytes PCT_FREE from dba_data_files df, dba_free_space fs where df.tablespace_name = fs.tablespace_name and df.tablespace_name = 'TBSALERT';

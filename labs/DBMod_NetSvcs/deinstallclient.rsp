@@ -1,0 +1,19 @@
+# Copyright (c) 2005, 2019, Oracle and/or its affiliates.  All rights reserved.
+ORACLE_HOME=/u01/app/oracle/product/client_1
+inst_group=oinstall
+ORACLE_HOME_VERSION=19.0.0.0.0
+NETCA_CMANS=CMAN_EDVMR1P0.US.ORACLE.COM
+ORACLE_BASE=/u01/app/oracle
+INVENTORY_LOCATION=/u01/app/oraInventory
+CRS_HOME=false
+HOME_TYPE=CLIENT
+NETCA_LOCAL_LISTENERS=LISTENER
+silent=false
+MinimumSupportedVersion=11.2.0.1.0
+LOCAL_NODE=edvmr1p0
+local=false
+inventory_loc=/u01/app/oraInventory
+ObaseCleanupPtrLoc=/tmp/deinstall2019-06-11_03-17-36PM/utl/orabase_cleanup.lst
+LOGDIR=/u01/app/oraInventory/logs/
+ORACLE_HOME=/u01/app/oracle/product/client_1
+ORACLE_HOME_VERSION_VALID=true

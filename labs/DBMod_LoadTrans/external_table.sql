@@ -1,0 +1,29 @@
+CREATE TABLE sh.sales_ext_range
+( time_id       DATE NOT NULL,
+  prod_id       INTEGER NOT NULL,
+  cust_id       INTEGER NOT NULL,
+  channel_id    INTEGER NOT NULL,
+  promo_id      INTEGER NOT NULL,
+  quantity_sold NUMBER(10,2),
+  amount_sold   NUMBER(10,2)
+)
+ORGANIZATION EXTERNAL
+(
+ TYPE ORACLE_LOADER
+ DEFAULT DIRECTORY ext_dir
+ ACCESS PARAMETERS
+ (
+  RECORDS DELIMITED BY NEWLINE
+  BADFILE 'sh%a_%p.bad'
+  LOGFILE 'sh%a_%p.log'
+  FIELDS TERMINATED BY ','
+  MISSING FIELD VALUES ARE NULL
+ )
+)
+PARALLEL
+REJECT LIMIT UNLIMITED
+ PARTITION by range (time_id)
+ (PARTITION year1998 VALUES LESS THAN (TO_DATE('31-12-1998', 'DD-MM-YYYY'))
+ LOCATION ('DP_sales_1998.dat'),
+ PARTITION year1999 VALUES LESS THAN (TO_DATE('31-12-1999', 'DD-MM-YYYY'))
+ LOCATION (ext_dir2:'DP2_sales_1999.dat'));

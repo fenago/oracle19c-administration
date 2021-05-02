@@ -1,0 +1,53 @@
+#!/bin/bash
+#
+#reset_DBMod_Storage.sh
+
+ORACLE_SID=orclcdb
+ORAENV_ASK="NO"
+. oraenv
+ORAENV_ASK=""
+
+$ORACLE_HOME/bin/sqlplus / as sysdba <<EOF
+/*	reset default tablespaces */
+
+ALTER DATABASE DEFAULT TABLESPACE USERS;
+
+DROP TABLESPACE CDATA INCLUDING contents and datafiles;
+
+alter session set container=ORCLPDB1;
+
+ALTER PLUGGABLE DATABASE DEFAULT TABLESPACE USERS;
+
+DROP TABLESPACE LDATA INCLUDING contents and datafiles;
+
+ALTER DATABASE DEFAULT TEMPORARY TABLESPACE TEMP;
+
+DROP TABLESPACE temp_pdb1 INCLUDING contents and datafiles;
+
+DROP TABLESPACE my_temp INCLUDING contents and datafiles;
+
+DROP USER LU CASCADE;
+
+revoke DBA from PDBADMIN;
+
+alter session set container=CDB\$ROOT;
+
+ALTER DATABASE DEFAULT TEMPORARY TABLESPACE TEMP;
+
+DROP TABLESPACE TEMP_ROOT INCLUDING contents and datafiles;
+
+ALTER PLUGGABLE DATABASE newpdb close;
+
+DROP PLUGGABLE DATABASE newpdb including datafiles;
+
+DROP USER C##U CASCADE;
+
+SHUTDOWN IMMEDIATE
+
+Startup
+
+ALTER PLUGGABLE DATABASE ALL OPEN;
+
+ALTER PLUGGABLE DATABASE ALL SAVE STATE;
+
+EOF

@@ -1,0 +1,11 @@
+PDB3 =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = edvmr1p0.us.oracle.com)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = orclpdb3)
+    )
+  )
+
