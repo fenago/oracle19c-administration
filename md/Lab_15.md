@@ -4,36 +4,30 @@
 Granting all privileges to a new user
 -------------------------------------
 
-First, create a new user called `super` with a password by using the following `CREATE USER` statement:
+First, create a new user called `superuser` with a password by using the following `CREATE USER` statement:
 
 ```
-CREATE USER super IDENTIFIED BY abcd1234;
-```
-
-
-The `super` user created. Note that you should use a secure password instead of `abcd124`.
-
-Second, use the `GRANT ALL PRIVILEGES` statement to grant all privileges to the `super` user:
-
-```
-GRANT ALL PRIVILEGES TO super;
+CREATE USER superuser IDENTIFIED BY abcd1234;
 ```
 
 
-Third, log in to the Oracle Database as the `super` user:
+The `superuser` user created. Note that you should use a secure password instead of `abcd124`.
+
+Second, use the `GRANT ALL PRIVILEGES` statement to grant all privileges to the `superuser` user:
 
 ```
-Enter user-name: super@fenagodb1
-Enter password:
+GRANT ALL PRIVILEGES TO superuser;
 ```
 
 
-And query the `super` user’s privileges:
+Third, log in to the Oracle Database as the `superuser` user.
+
+
+And query the `superuser` user’s privileges:
 
 ```
 SELECT * FROM session_privs
 ORDER BY privilege;
-
 ```
 
 
@@ -348,10 +342,10 @@ USE ANY SQL TRANSLATION PROFILE
 Granting all privileges to an existing user
 -------------------------------------------
 
-To grant all privileges to an existing user, you just need to use the `GRANT ALL PRIVILEGES` statement. For example, the following statement grants all privileges to the user `alice`:
+To grant all privileges to an existing user, you just need to use the `GRANT ALL PRIVILEGES` statement. For example, the following statement grants all privileges to the user `jane`:
 
 ```
-GRANT ALL PRIVILEGES to alice;
+GRANT ALL PRIVILEGES to jane;
 ```
 
 

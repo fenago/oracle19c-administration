@@ -109,7 +109,11 @@ ORA-01940: cannot drop a user that is currently connected
 ```
 
 
-Fifth, end the user bar’s session first and issue the `DROP USER` statement again in the user `sys` session:
+Fifth, end the user bar’s session first:
+
+![](./images/16.png)
+
+And issue the `DROP USER` statement again in the user `sys` session:
 
 ```
 DROP USER bar;
