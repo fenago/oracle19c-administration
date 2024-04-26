@@ -1,4 +1,5 @@
-# How to Unlock a User in Oracle
+# Unlock a User in Oracle
+
 **Summary**: In this lab, you will learn how to unlock a user in Oracle by using the `ALTER USER ACCOUNT UNLOCK` statement.
 
 To unlock a user in Oracle, you follow these steps:
@@ -8,7 +9,6 @@ To unlock a user in Oracle, you follow these steps:
 
 ```
 ALTER USER username IDENTIFIED BY password ACCOUNT UNLOCK;
-
 ```
 
 
@@ -18,32 +18,27 @@ Note that if you unlock an account without resetting the password, then the pass
 
 Let’s see an example of unlocking a user.
 
-Suppose a user `alice` is locked. When `alice` logs in, she will see the following message:
+Create a user `alice` which is locked. 
 
 ```
-Enter user-name: alice@fenagodb1
-Enter password:
-ERROR:
-ORA-28000: the account is locked
+CREATE USER alice IDENTIFIED BY abcd1234;
 
+GRANT CREATE SESSION TO alice;
+
+ALTER USER alice ACCOUNT LOCK;
 ```
 
+When `alice` logs in, she will see the ` account is locked` message.
 
 To unlock the user `alice`, you use these steps:
 
-First, log in to the Oracle Database using the`ot` user:
-
-```
-Enter user-name: ot@orclpdb
-Enter password: <ot_password>
-```
+First, log in to the Oracle Database using the`sys` user:
 
 
 Then, use the `ALTER USER` statement to unlock the user `alice`:
 
 ```
- ALTER USER alice IDENTIFIED BY abcd1234 ACCOUNT UNLOCK;
-
+ALTER USER alice IDENTIFIED BY abcd1234 ACCOUNT UNLOCK;
 ```
 
 

@@ -1,4 +1,5 @@
-# How To Grant SELECT Object Privilege On One or More Tables to a User
+# Grant SELECT Object Privilege On One or More Tables to a User
+
 **Summary**: In this lab, you will learn how to use the Oracle `GRANT` statement to grant `SELECT` object privilege on one or more tables to a user.
 
 Grant SELECT on a table to a user
@@ -22,18 +23,18 @@ GRANT CREATE SESSION TO dw;
 ```
 
 
-Second, grant the `SELECT` object privilege on the `ot.customers` table to the `dw` user:
+Second, grant the `SELECT` object privilege on the `sys.customers` table to the `dw` user:
 
 ```
 GRANT SELECT ON customers TO dw;
 ```
 
 
-Finally, use the `dw` user to log in to the Oracle Database and [query data] from the `ot.customers` table:
+Finally, use the `dw` user to log in to the Oracle Database and [query data] from the `sys.customers` table:
 
 ```
 SELECT COUNT(*) 
-FROM ot.customers;
+FROM sys.customers;
 
 ```
 
@@ -43,7 +44,7 @@ Here is the output:
 ```
   COUNT(*)
 
-    319
+    5
 
 ```
 
@@ -77,13 +78,13 @@ END;
 ```
 
 
-This example grants the `SELECT` object privileges of all tables that belong to the user `OT` to the user `DW`:
+This example grants the `SELECT` object privileges of all tables that belong to the user `SYS` to the user `DW`:
 
 ```
-EXEC grant_select('OT','DW');
+EXEC grant_select('SYS','DW');
 ```
 
 
-When you use the user `DW` to login to the Oracle Database, the user `DW` should have the `SELECT` object privilege on all tables of the `OT`‘s schema.
+When you use the user `DW` to login to the Oracle Database, the user `DW` should have the `SELECT` object privilege on all tables of the `SYS`‘s schema.
 
 In this lab, you have learned how to grant the `SELECT` object privilege on one or more tables to a user.

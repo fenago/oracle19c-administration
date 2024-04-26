@@ -1,4 +1,5 @@
-# How to Grant All Privileges to a User in Oracle
+# Grant All Privileges to a User in Oracle
+
 **Summary**: In this lab, you will learn how to use the Oracle `GRANT ALL PRIVILEGES` statement to grant all privileges to a user.
 
 Granting all privileges to a new user
