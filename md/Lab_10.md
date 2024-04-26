@@ -1,8 +1,8 @@
 # Oracle CREATE USER: Create a New User in The Oracle Database
 **Summary**: In this lab, you will learn how to use the Oracle `CREATE USER` statement to create a new user in the Oracle database.
 
-Introduction to Oracle CREATE USER statement
---------------------------------------------
+Oracle CREATE USER statement
+-----------------------------
 
 The `CREATE USER` statement allows you to create a new database user which you can use to log in to the Oracle database.
 

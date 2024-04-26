@@ -1,4 +1,5 @@
-# Oracle REVOKE Statement Explained By Practical Examples
+# Oracle REVOKE Statement Explained
+
 **Summary**: In this lab, you will learn how to use the Oracle `REVOKE` statement to revoke system and object privileges from a specific user.
 
 Introduction to Oracle `REVOKE` statement

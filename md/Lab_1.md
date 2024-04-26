@@ -1,8 +1,8 @@
 # Oracle Listener
 **Summary**: In this lab, you will learn about the Oracle listener and how to use the listener control commands to manage the listener.
 
-Introduction to the Oracle Listener
------------------------------------
+Oracle Listener
+----------------
 
 The listener is a separate database server process that runs locally on the database server or remotely on the Oracle RAC environment.
 

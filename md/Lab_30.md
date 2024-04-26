@@ -1,4 +1,5 @@
-# An Essential Guide To Oracle ALTER DATABASE LINK By Examples
+# An Essential Guide To Oracle ALTER DATABASE LINK
+
 **Summary**: In this lab, you will learn how to use the Oracle `ALTER DATABASE LINK` statement to update the current password of a remote user of a database link.
 
 Introduction to Oracle ALTER DATABASE LINK statement

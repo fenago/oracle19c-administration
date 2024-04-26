@@ -1,4 +1,5 @@
-# Oracle DROP PROFILE Statement By Practical Examples
+# Oracle DROP PROFILE Statement
+
 **Summary**: In this lab, you will learn how to use the Oracle `DROP PROFILE` statement to delete a user profile from the database.
 
 Introduction to the Oracle DROP PROFILE Statement

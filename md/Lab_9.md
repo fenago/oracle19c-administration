@@ -1,8 +1,9 @@
 # An Essential Guide to Oracle Tablespace Group
+
 **Summary**: In this lab, you will learn about Oracle temporary tablespace group and how to use the tablespace group effectively to optimize internal Oracle operations.
 
-Introduction to Oracle tablespace groups
-----------------------------------------
+Oracle tablespace groups
+------------------------
 
 A tablespace group typically consists of multiple `temporary tablespaces`. A tablespace group allows a user to consume temporary space from multiple temporary tablespaces, instead of a single temporary tablespace. By using a tablespace group, you can avoid the problem caused when one temporary tablespace does not have enough space to hold the results of a sort.
 

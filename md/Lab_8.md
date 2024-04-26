@@ -1,8 +1,9 @@
-# An Essential Guide to Oracle Temporary Tablespaces By Examples
+# Oracle Temporary Tablespaces
+
 **Summary**: In this lab, you will learn about the Oracle temporary tablespaces and how to manipulate the temporary tablespaces effectively.
 
-Introduction to Oracle Temporary Tablespaces
---------------------------------------------
+Oracle Temporary Tablespaces
+----------------------------
 
 A temporary tablespace, as its name implies, stores the temporary data that only exists during the database session.
 

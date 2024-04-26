@@ -1,4 +1,5 @@
-# Learn How to Extend a Tablespace in Oracle By Practical Examples
+# Extend a Tablespace in Oracle
+
 **Summary**: In this lab, you will learn how to extend the size of a tablespace in the Oracle Database.
 
 When tablespaces of the database are full, you will not able to add or remove data on these tablespaces anymore.
@@ -8,26 +9,9 @@ There are a few ways you can extend a tablespace.
 Extending a tablespace by adding a new datafile
 -----------------------------------------------
 
-The first way to extend a tablespace is to add a new datafile by using the `ALTER TABLESPACE` statement:
+The first way to extend a tablespace is to add a new datafile by using the `ALTER TABLESPACE` statement
 
-```
-ALTER TABLESPACE tablespace_name
-    ADD DATAFILE 'path_to_datafile'
-    SIZE size;
-
-```
-
-
-If you use the `AUTOEXTEND ON` clause, Oracle will automatically extend the size of the datafile when needed:
-
-```
-ALTER TABLESPACE tablespace_name
-    ADD DATAFILE 'path_to_datafile'
-    SIZE size
-    AUTOEXTEND ON;
-
-```
-
+If you use the `AUTOEXTEND ON` clause, Oracle will automatically extend the size of the datafile when needed.
 
 Let’s see the following example.
 
@@ -36,7 +20,6 @@ First, `create a new tablespace` called `tbs10` with the size 1MB:
 ```
 CREATE TABLESPACE tbs10 
     DATAFILE 'tbs10.dbf' SIZE 1m;
-
 ```
 
 
@@ -84,7 +67,20 @@ ALTER TABLESPACE tbs10
 ```
 
 
-Finally, insert 1 million rows into the `t1` table. It should work now. This query returns the number of rows from the `t1` table:
+Finally, insert 1 million rows into the `t1` table. It should work now. 
+
+```
+BEGIN
+    FOR counter IN 1..1000000 loop
+        INSERT INTO t1(id)
+        VALUES(counter);
+    END loop;
+END;
+/
+
+```
+
+This query returns the number of rows from the `t1` table:
 
 ```
 SELECT count(*) FROM t1;
@@ -105,14 +101,7 @@ COUNT(*)
 Extending a tablespace by resizing the datafile
 -----------------------------------------------
 
-Another way to extend a tablespace is to resize the data file by using the `ALTER DATABASE RESIZE DATAFILE` statement:
-
-```
-ALTER DATABASE
-    DATAFILE 'path_to_datafile'
-    RESIZE size;
-```
-
+Another way to extend a tablespace is to resize the data file by using the `ALTER DATABASE RESIZE DATAFILE` statement.
 
 Consider the following example.
 
@@ -184,7 +173,7 @@ Here is the output:
 ```
 TABLESPACE_NAME          MB
 
-TBS11               14.9375
+TBS11               14.8125
 
 ```
 

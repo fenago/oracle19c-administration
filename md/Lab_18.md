@@ -1,4 +1,5 @@
-# Learn Oracle CREATE ROLE Statement By Practical Examples
+# Learn Oracle CREATE ROLE Statement
+
 **Summary**: In this lab, you will learn how to use the Oracle `CREATE ROLE` statement to create roles in the Oracle Database.
 
 Introduction to Oracle `CREATE ROLE` statement

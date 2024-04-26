@@ -1,8 +1,9 @@
-# Oracle DROP TABLESPACE Statement By Practical Examples
+# Oracle DROP TABLESPACE Statement
+
 **Summary**: In this lab, you will learn how to remove a tablespace from the database by using the Oracle `DROP TABLESPACE` statement.
 
-Introduction to Oracle DROP TABLESPACE statement
-------------------------------------------------
+Oracle DROP TABLESPACE statement
+--------------------------------
 
 The `DROP TABLESPACE` allows you to remove a `tablespace` from the database. Here is the basic syntax of the `DROP TABLESPACE` statement:
 
@@ -157,5 +158,15 @@ CASCADE CONSTRAINTS;
 
 
 It worked as expected.
+
+
+**Important:** Run following command to drop tablespace `tbs1`:
+
+```
+DROP TABLESPACE tbs1
+INCLUDING CONTENTS AND DATAFILES
+CASCADE CONSTRAINTS;
+```
+
 
 In this lab, you have learned how to use the Oracle `DROP TABLESPACE` statement to remove a tablespace from the database.

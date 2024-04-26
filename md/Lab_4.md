@@ -96,3 +96,4 @@ When you create a connection, a SQL Worksheet for that connection opens automati
 
 ![](./images/9.png)
 
+In the next lab, we will look into creating tablespaces.

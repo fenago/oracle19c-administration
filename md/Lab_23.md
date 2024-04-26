@@ -1,4 +1,5 @@
-# Oracle ALTER ROLE Statement By Practical Examples
+# Oracle ALTER ROLE Statement
+
 **Summary**: In this lab, you will learn how to use the Oracle `ALTER ROLE` statement to modify the authorization needed to enable a role.
 
 Introduction to Oracle ALTER ROLE statement

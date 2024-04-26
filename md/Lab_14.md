@@ -1,4 +1,5 @@
-# Oracle DROP USER Statement By Practical Examples
+# Oracle DROP USER Statement
+
 **Summary**: In this lab, you will learn how to use the Oracle `DROP USER` to delete a user from the database.
 
 Introduction to Oracle DROP USER statement

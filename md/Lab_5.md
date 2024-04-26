@@ -1,8 +1,9 @@
-# Oracle CREATE TABLESPACE Statement By Examples
+# Oracle CREATE TABLESPACE Statement
+
 **Summary**: In this lab, you will learn how to use the Oracle `CREATE TABLESPACE` statement to create a new tablespace in a database.
 
-Introduction to the CREATE TABLESPACE statement
------------------------------------------------
+CREATE TABLESPACE statement
+---------------------------
 
 The `CREATE TABLESPACE` statement allows you to create a new tablespace. The following illustrates how to create a new tablespace named `tbs1` with size 1MB:
 

@@ -1,4 +1,5 @@
-# A Guide To Oracle GRANT Statement By Practical Examples
+# A Guide To Oracle GRANT Statement
+
 **Summary**: In this lab, you will learn how to use the Oracle `GRANT` statement to give privileges to a specific user.
 
 The overview of Oracle privileges
