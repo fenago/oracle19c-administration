@@ -1,5 +1,0 @@
-set echo on
-
-ALTER PLUGGABLE DATABASE pdb_hotclone close;
-DROP PLUGGABLE DATABASE pdb_hotclone INCLUDING DATAFILES;
-exit
