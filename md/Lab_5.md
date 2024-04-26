@@ -104,7 +104,7 @@ END;
 Here is the error message:
 
 ```
-ORA-01653: unable to extend table OT.T1 by 8 in tablespace TBS1
+ORA-01653: unable to extend table T1 by 8 in tablespace TBS1
 ```
 
 

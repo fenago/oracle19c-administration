@@ -49,7 +49,7 @@ END;
 Oracle issued the following error:
 
 ```
-ORA-01653: unable to extend table OT.T1 by 8 in tablespace TBS10
+ORA-01653: unable to extend table T1 by 8 in tablespace TBS10
 
 ```
 

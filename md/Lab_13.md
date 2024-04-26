@@ -1,4 +1,5 @@
-# Oracle ALTER USER Statement By Practical Scenarios
+# Oracle ALTER USER Statement
+
 **Summary**: In this lab, you will learn how to use the Oracle `ALTER USER` statement to modify the authentication or database resource of a database user.
 
 The `ALTER USER` statement allows you to change the authentication or database resource characteristics of a database user.
@@ -28,16 +29,12 @@ ALTER USER dolphin IDENTIFIED BY xyz123;
 
 Log in to the Oracle Database using the dolphin user:
 
-```
-Enter user-name: dolphin@fenagodb1
-Enter password: <dolphin password>
-
-```
+![](./images/14.png)
 
 
 The user `dolphin` should be able to authenticate to the Oracle Database using the new password `xyz123`
 
-2) Using Oracle ALTER USER statement to lock/unlock a user
+2) Using Oracle ALTER USER statement to lock a user
 ----------------------------------------------------------
 
 This example uses the `ALTER USER` statement to lock the user `dolphin`:
@@ -50,14 +47,13 @@ ALTER USER dolphin ACCOUNT LOCK;
 
 If you use the user `dolphin` to log in to the Oracle Database, you should see a message indicating that the user is locked:
 
-```
-Enter user-name: dolphin@fenagodb1
-Enter password: <dolphin password>
-ERROR:
-ORA-28000: the account is locked
+**Note:** Disconnect as `dolphin` user and try to connect again in SQL Developer:
 
-```
+![](./images/15.png)
 
+
+3) Using Oracle ALTER USER statement to unlock a user
+-----------------------------------------------------
 
 To unlock the user `dolphin`, you use the following statement:
 
@@ -68,32 +64,6 @@ ALTER USER dolphin ACCOUNT UNLOCK;
 
 
 Now, the user `dolphin` should be able to log in to the Oracle Database.
-
-3) Using Oracle ALTER USER statement to set the user’s password expired
------------------------------------------------------------------------
-
-To set the password of the user `dolphin` expired, you use the following statement:
-
-```
-ALTER USER dolphin PASSWORD EXPIRE;
-```
-
-
-When you use the user `dolphin` to log in to the database, Oracle issues a message indicating that the password has expired and requests for the password change as follows:
-
-```
-Enter user-name: dolphin@orclpdb
-Enter password: <dolphin password>
-ERROR:
-ORA-28001: the password has expired
-
-
-Changing password for dolphin
-New password: <new password>
-Retype new password: <new password>
-Password changed
-
-```
 
 
 4) Using Oracle ALTER USER statement to set the default profile for a user
@@ -147,7 +117,7 @@ SELECT * FROM session_roles;
 ```
 
 
-First, [create a new role] called `rescue` from the user `OT`‘s session:
+First, create a new role called `rescue` from the user sys session:
 
 ```
 CREATE ROLES rescue;

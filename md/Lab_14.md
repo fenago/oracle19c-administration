@@ -30,22 +30,16 @@ Note that Oracle does not drop roles created by the user even after it deletes t
 
 Notice that if you attempt to delete the user `SYS` or `SYSTEM`, your database will corrupt.
 
-Oracle DROP USER statement examples
------------------------------------
+Oracle DROP USER statement
+---------------------------
 
 Let’s take some examples of removing a user from the database.
 
 ### 1) Using Oracle DROP USER to remove a user that has no schema object
 
-First, log in to the Oracle database using the user `ot` using SQL\*Plus:
+First, log in to the Oracle database using the user `sys` using SQL Developer:
 
-```
-Enter user-name: ot@fenagodb1
-Enter password: <user_password>
-```
-
-
-Second, [create a new user] called `foo`:
+Second, create a new user called `foo`:
 
 ```
 CREATE USER foo IDENTIFIED BY abcd1234;
@@ -84,12 +78,7 @@ TO bar;
 ```
 
 
-Second, use the user `bar` to log in to the Oracle database:
-
-```
-Enter user-name: bar@fenagodb1
-Enter password: <bar_password>
-```
+Second, use the user `bar` to log in to the Oracle database with SQL Developer
 
 
 Third, create a new table named `t1` in the `bar` user’s schema:
@@ -105,7 +94,7 @@ VALUES(1,'A');
 ```
 
 
-Fourth, go back to the session of the user `ot` and drop user `bar`:
+Fourth, go back to the session of the user `sys` and drop user `bar`:
 
 ```
 DROP USER bar;
@@ -120,15 +109,7 @@ ORA-01940: cannot drop a user that is currently connected
 ```
 
 
-Fifth, end the user bar’s session first using the exit command:
-
-```
-exit
-
-```
-
-
-And issue the `DROP USER` statement again in the user `ot` session:
+Fifth, end the user bar’s session first and issue the `DROP USER` statement again in the user `sys` session:
 
 ```
 DROP USER bar;

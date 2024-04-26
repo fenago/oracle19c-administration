@@ -54,11 +54,11 @@ Third, grant the `SELECT`, `INSERT`, `UPDATE` and `DELETE` object privileges to 
 
 CREATE TABLE customers(name varchar(50));
 
-INSERT INTO customers(id) VALUES('a');
-INSERT INTO customers(id) VALUES('b');
-INSERT INTO customers(id) VALUES('c');
-INSERT INTO customers(id) VALUES('d');
-INSERT INTO customers(id) VALUES('e');
+INSERT INTO customers(name) VALUES('a');
+INSERT INTO customers(name) VALUES('b');
+INSERT INTO customers(name) VALUES('c');
+INSERT INTO customers(name) VALUES('d');
+INSERT INTO customers(name) VALUES('e');
 
 GRANT SELECT, INSERT, UPDATE, DELETE ON sys.customers
 TO bob;
@@ -75,7 +75,7 @@ CREATE TABLE  t1(id int);
 SELECT 
     name
 FROM 
-    customers
+    sys.customers
 ORDER BY 
     name
 FETCH FIRST 5 ROWS ONLY; 
@@ -99,7 +99,7 @@ Sixth, go to the `bob`‘s session and select data from the `sys.customers` tabl
 SELECT 
     name
 FROM 
-    customers
+    sys.customers
 ORDER BY 
     name
 FETCH FIRST 5 ROWS ONLY; 
