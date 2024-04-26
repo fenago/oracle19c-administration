@@ -25,7 +25,7 @@ The behavior of the tool depends on the import parameters that you specify, eith
 Oracle Data Pump Import tool example
 ------------------------------------
 
-We will load the dump file set exported in the [Data Pump Export tutorial] for the demonstration.
+We will load the dump file set exported in the `Data Pump Export lab` for the demonstration.
 
 ![Oracle expdp output](./images/Oracle-expdp-output.png)
 

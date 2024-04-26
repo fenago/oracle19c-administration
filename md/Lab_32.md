@@ -1,7 +1,7 @@
 # Oracle Show Tables: List Tables in Oracle Database
 **Summary**: In this lab, you will learn step by step how to show tables in the Oracle Database by querying from the data dictionary views.
 
-If you have worked with MySQL, you may be familiar with the `[SHOW TABLES](http://www.mysqltutorial.org/mysql-show-tables/)` command that lists all tables in a database:
+If you have worked with MySQL, you may be familiar with the `SHOW TABLES` command that lists all tables in a database:
 
 ```
 SHOW TABLES;

@@ -1,4 +1,4 @@
-# A Guide To Oracle GRANT Statement
+# Oracle GRANT Statement
 
 **Summary**: In this lab, you will learn how to use the Oracle `GRANT` statement to give privileges to a specific user.
 
@@ -7,7 +7,7 @@ The overview of Oracle privileges
 
 After [creating a user], you need to decide which actions the user can do in the Oracle database.
 
-In the `[CREATE USER]` tutorial, we used the `GRANT` statement to provide the user `john` the `CREATE SESSION` system privilege to enable the user to log in the Oracle database.
+In the `CREATE USER` lab, we used the `GRANT` statement to provide the user `john` the `CREATE SESSION` system privilege to enable the user to log in the Oracle database.
 
 ```
 GRANT CREATE SESSION TO john;
@@ -74,7 +74,7 @@ Third, optionally use the `WITH ADMIN OPTION` if you want the user to be able to
 
 The user who receives the privileges via the `GRANT` statement is also known as a _grantee_.
 
-Note that the `GRANT` statement also works with roles, which we will cover in the subsequent tutorial.
+Note that the `GRANT` statement also works with roles, which we will cover in the subsequent lab.
 
 Oracle `GRANT` statement examples
 ---------------------------------
@@ -83,11 +83,11 @@ Let’s practice with the `GRANT` statement to get a better understanding.
 
 ### 1) Use Oracle `GRANT` to grant system and object privileges to a user example
 
-In this lab, we will launch two SQL\*Plus sessions, one for the user `ot` that will grant privileges and another for the user `john`.
+In this lab, we will launch two SQL Developer sessions, one for the user `sys` that will grant privileges and another for the user `john`.
 
-First, launch SQL\*Plus and log in to the Oracle database using the user `john`. Note that we assigned the user `john` the `CREATE SESSION` system privilege, so it should be able to log in.
+First, launch SQL Developer and log in to the Oracle database using the user `john`. Note that we assigned the user `john` the `CREATE SESSION` system privilege, so it should be able to log in.
 
-In case you’re not following the `[CREATE USER]` tutorial, you can create a user `john` and grant the `CREATE SESSION` system privilege by using the following statements:
+In case you’re not following the `CREATE USER` lab, you can create a user `john` and grant the `CREATE SESSION` system privilege by using the following statements:
 
 ```
 CREATE USER john IDENTIFIED BY abcd1234;
@@ -95,6 +95,12 @@ CREATE USER john IDENTIFIED BY abcd1234;
 GRANT CREATE SESSION TO john;
 ```
 
+
+**Important:** Drop table `T1` as sys user before proceeding.
+
+```
+DROP TABLE t1;
+```
 
 Second, use the user `john` to log in to the Oracle Database and `create a new table`:
 
@@ -253,7 +259,7 @@ ORA-00942: table or view does not exist
 ```
 
 
-Second, login as `ot` and grant the `SELECT ANY TABLE` system privilege to `jack`:
+Second, login as `sys` and grant the `SELECT ANY TABLE` system privilege to `jack`:
 
 ```
 GRANT SELECT ANY TABLE TO jack;
@@ -281,9 +287,11 @@ Now the user `jack` can select data from any table in any schema in the Oracle d
 
 ### 4) Using Oracle GRANT to grant object privileges to a user example
 
-First, launch the first SQL\*Plus session, log in as `ot` user and `create a new table` named `t2`:
+First, launch the first SQL Developer session, log in as `sys` user and `create a new table` named `t2`:
 
 ```
+DROP TABLE t2;
+
 CREATE TABLE t2(id INT);
 ```
 
@@ -296,10 +304,10 @@ INSERT INTO t2(id) VALUES(2);
 ```
 
 
-Third, launch the second SQL\*Plus session, log in as `john`, and query data from the `ot.t2` table:
+Third, launch the second SQL Developer session, log in as `john`, and query data from the `sys.t2` table:
 
 ```
-SELECT * FROM ot.t2;
+SELECT * FROM sys.t2;
 ```
 
 
@@ -310,28 +318,28 @@ ORA-00942: table or view does not exist
 ```
 
 
-This is because the user `john` does not have the privilege to query data from the `ot.t2` table.
+This is because the user `john` does not have the privilege to query data from the `sys.t2` table.
 
-Fourth, go back to the first SQL\*Plus session and grant the `SELECT` object privilege on `ot.t2` to `john`:
-
-```
-GRANT SELECT ON ot.t2 TO john;
-```
-
-
-Fifth, go to the second session SQL\*Plus, and query data from the `ot.t2` table:
+Fourth, go back to the first SQL Developer session and grant the `SELECT` object privilege on `sys.t2` to `john`:
 
 ```
-SELECT * FROM ot.t2
+GRANT SELECT ON sys.t2 TO john;
 ```
 
 
-Now, `john` should be able to query data from the `ot.t2` table.
-
-Sixth, try to insert some rows into the `ot.t2` table:
+Fifth, go to the second session SQL Developer, and query data from the `sys.t2` table:
 
 ```
-INSERT INTO ot.t2(id) VALUES(3)
+SELECT * FROM sys.t2
+```
+
+
+Now, `john` should be able to query data from the `sys.t2` table.
+
+Sixth, try to insert some rows into the `sys.t2` table:
+
+```
+INSERT INTO sys.t2(id) VALUES(3)
 ```
 
 
@@ -342,13 +350,13 @@ ORA-01031: insufficient privileges
 ```
 
 
-To allow `john` to insert and update data in the `ot.t2` table, you need to grant the `[INSERT]` and `[UPDATE]` object privilege to `john`:
+To allow `john` to insert and update data in the `sys.t2` table, you need to grant the `[INSERT]` and `[UPDATE]` object privilege to `john`:
 
 ```
-GRANT INSERT, UPDATE ON ot.t2 TO john;
+GRANT INSERT, UPDATE ON sys.t2 TO john;
 ```
 
 
-Now, `john` should be able to insert and update data in the `ot.t2` table.
+Now, `john` should be able to insert and update data in the `sys.t2` table.
 
 In this lab, you have learned how to use the Oracle `GRANT` statement to assign system and object privileges to a specific user.

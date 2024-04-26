@@ -30,7 +30,7 @@ Note that to drop a public database link, you need to have the `DROP PUBLIC DATA
 Oracle DROP DATABASE LINK statement example
 -------------------------------------------
 
-This example removes the `SALES` private database link created in the `[CREATE DATABASE LINK]` tutorial:
+This example removes the `SALES` private database link created in the `CREATE DATABASE LINK` lab:
 
 ```
 DROP DATABASE LINK sales;
