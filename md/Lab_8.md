@@ -54,13 +54,7 @@ SELECT * FROM dba_temp_free_space;
 Creating a temporary tablespace
 -------------------------------
 
-To create a new temporary tablespace, you use the `CREATE TEMPORARY TABLESPACE` statement:
-
-```
-CREATE TEMPORARY TABLESPACE tablespace_name
-    TEMPFILE 'path_to_file' 
-    SIZE size;
-```
+To create a new temporary tablespace, you use the `CREATE TEMPORARY TABLESPACE` statement.
 
 
 Oracle default tablespace examples

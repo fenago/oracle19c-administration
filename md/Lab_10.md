@@ -96,20 +96,41 @@ WHERE
 ```
 
 
-![Oracle CREATE USER example](./images/Oracle-CREATE-USER-example.png)
+![Oracle CREATE USER example](./images/10.png)
 
 As you can see from the output, the user `john` has a default tablespace as `USERS`, profile as `DEFAULT`, and log in to the database using a `PASSWORD`.
 
 Let’s use the `john` account to log in to the database.
 
-Launch the SQL\*Plus program and enter the following information:
 
-```
-Enter user-name: john@fenagodb1
-Enter password:<john_password>
+2.	Create a New Oracle SQL Developer Database Connection
 
-```
+a.	To create a new database connection, in the Connections Navigator, right-click Connections and select New Connection from the context menu.
 
+![](./images/7.png)
+
+The New / Select Database Connection dialog box appears.
+
+b.	Create a database connection by using the following information:
+
+i.	Connection Name: **john**
+
+ii.	Username: **john**
+
+iii. Password: **abcd1234**
+
+iv.	Hostname: **localhost**
+
+v.	Port: **1521**
+
+vi.	Service Name: **FENAGODB1**
+
+vii. Role: **default**
+
+![](./images/11.png)
+
+Test the connection by clicking `Test` button and then click `Connect` button.
+ 
 
 Oracle issued the following error:
 
@@ -129,17 +150,10 @@ GRANT CREATE SESSION TO john;
 
 Now, the user `john` should be able to log in to the database.
 
-```
-Enter user-name: john@fenagodb1
-Enter password:
-
-Connected to:
-Oracle Database 12c Enterprise Edition Release 12.2.0.1.0 - 64bit Production
-
-```
+![](./images/12.png)
 
 
-### 2) Using Oracle `CREATE USER` statement to create a new local user with password expired example
+### 2) Using Oracle `CREATE USER` statement to create a new local user with password expired
 
 First, use the `CREATE USER` statement to create a new user `jane`:
 
@@ -160,7 +174,7 @@ SELECT
 FROM
     dba_users
 WHERE 
-    account_status = 'OPEN';
+    account_status = 'OPEN' OR account_status = 'EXPIRED';
 
 ```
 
@@ -175,25 +189,15 @@ GRANT CREATE SESSION TO jane;
 ```
 
 
-Finally, use the user `jane` to log in to the database via the SQL\*plus program:
+Finally, use the user `jane` to log in to the database via the SQL developer program:
+
+![](./images/13.png)
+
+
+Run following command as sys user and try to login again with `jane` user:
 
 ```
-SQL> connect jane@orclpdb/abcd1234
-ERROR:
-ORA-28001: the password has expired
-
-```
-
-
-Oracle requested to change the password for `jane`, you must provide the new password and confirm it before you can log in:
-
-```
-Changing password for jane
-New password:<new_password>
-Retype new password:<new_password>
-Password changed
-Connected.
-SQL>
+alter user jane IDENTIFIED BY abcd1234 account unlock;
 ```
 
 
