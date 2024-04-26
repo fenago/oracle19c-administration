@@ -52,11 +52,47 @@ Oracle allows you to remove objects such as tables and indexes from a read-only 
 
 When you create a new tablespace, it is in the read-write mode. To change a tablespace to a read-only tablespace, you use the `ALTER TABLESPACE` command with the `READ ONLY` option.
 
-More on Oracle Tablespaces
---------------------------
 
-*   [Create tablespace] – show you how to create a new tablespace in the database.
-*   [Drop tablespace] – describe the steps of removing a tablespace from the database.
-*   [Extend tablespace] – how to extend the size of a tablespace.
-*   [Temporary tablespace] – manipulate temporary tablespace effectively.
-*   [Tablespace group] – how to use the tablespace group more effectively to optimize internal Oracle operations
+
+1.	Start Oracle SQL Developer by Using the SQL Developer Desktop Icon Double-click the SQL Developer desktop icon.
+ 
+![](./images/5.png)
+
+The SQL Developer interface appears.
+
+![](./images/6.png)
+
+2.	Create a New Oracle SQL Developer Database Connection
+
+a.	To create a new database connection, in the Connections Navigator, right-click Connections and select New Connection from the context menu.
+
+![](./images/7.png)
+
+The New / Select Database Connection dialog box appears.
+
+b.	Create a database connection by using the following information:
+
+i.	Connection Name: **myconnection**
+
+ii.	Username: **sys**
+
+iii. Password: **fenago**
+
+iv.	Hostname: **localhost**
+
+v.	Port: **1521**
+
+vi.	Service Name: **FENAGODB1**
+
+vii. Role: **SYSDBA**
+
+Ensure that you select the Save Password check box.
+
+![](./images/8.png)
+
+Test the connection by clicking `Test` button and then click `Connect` button.
+ 
+When you create a connection, a SQL Worksheet for that connection opens automatically.
+
+![](./images/9.png)
+

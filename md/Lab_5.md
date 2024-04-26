@@ -16,7 +16,7 @@ CREATE TABLESPACE tbs1
 In this statement:
 
 *   First, specify the name of the tablespace after the `CREATE TABLESPACE` keywords. In this example, the tablespace name is `tbs1`.
-*   Second, specify the path to the data file of the tablespace in the `DATAFILE` clause. In this case, it is `tbs1.dbf`. Note that you can use the datafile full path.
+*   Second, specify the path to the data file of the tablespace in the `DATAFILE` clause. In this case, it is `tbs1_data.dbf`. Note that you can use the datafile full path.
 *   Third, specify the size of the tablespace in the `SIZE` clause. In this example, `1m` stands for `1MB`, which is quite small.
 
 Once the tablespace is created, you can find its information by querying data from the `dba_data_files` view:
@@ -41,17 +41,9 @@ The `CREATE TABLESPACE` is quite complex with many options, you can find more in
 Tablespaces and `CREATE TABLE` statement
 ----------------------------------------
 
-When you create a new table, Oracle automatically places the table in the default tablespace of the [user] which you use to create the table. However, you can explicitly specify the tablespace to which the table belongs as shown in the following query:
+When you create a new table, Oracle automatically places the table in the default tablespace of the [user] which you use to create the table. However, you can explicitly specify the tablespace to which the table belongs as shown in the following query.
 
-```
-CREATE TABLE table_name(
-   ...
-) 
-TABLESPACE tablespace_name;
-```
-
-
-Note that you must have privilege on the tablespace that you specify in the `[CREATE TABLE]` statement.
+Note that you must have privilege on the tablespace that you specify in the `CREATE TABLE` statement.
 
 Consider the following example.
 
@@ -119,7 +111,7 @@ To fix this, you can resize the tablespace using the following `ALTER DATABASE` 
 
 ```
 ALTER DATABASE
-   DATAFILE 'tbs1.dbf' 
+   DATAFILE 'tbs1_data.dbf' 
    RESIZE 10m;
 ```
 
@@ -130,7 +122,7 @@ The second way to avoid this issue, when creating a new tablespace, you can use 
 
 ```
 CREATE TABLESPACE tbs1
-   DATAFILE 'tbs1.dbf'
+   DATAFILE 'tbs1_data.dbf'
    SIZE 1m
    AUTOEXTEND 20m;
 ```

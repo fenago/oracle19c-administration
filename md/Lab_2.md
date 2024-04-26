@@ -15,6 +15,9 @@ STARTUP
 ```
 
 
+![](./images/4.png)
+
+
 When the Oracle Database starts an instance, it goes through the following stages: `NOMOUNT`, `MOUNT`, and `OPEN`.
 
 ![Oracle Startup - database stages](./images/Oracle-Startup-database-stages.png)
@@ -62,11 +65,12 @@ The following picture illustrates the Oracle database startup process:
 Oracle `STARTUP` command
 ------------------------
 
+**Note:** Run `SHUTDOWN` command before running each command below first. Otherwise, you will get cannot start already running Oracle error.
+
 The basic syntax of the `STARTUP` command is as follows:
 
 ```
 STARTUP;
-
 ```
 
 
@@ -77,16 +81,7 @@ STARTUP OPEN;
 
 ```
 
-
-If you want to start the database instance in a specific stage, you can use the following syntax:
-
-```
-STARTUP stage;
-
-```
-
-
-For example, to start up a database instance in the `NOMOUNT` stage, you use the following command:
+To start up a database instance in the `NOMOUNT` stage, you use the following command:
 
 ```
 STARTUP NOMOUNT;
@@ -117,7 +112,6 @@ shutdown immediate;
 Here is the output:
 
 ```
-Database closed.
 Database dismounted.
 ORACLE instance shut down.
 ```

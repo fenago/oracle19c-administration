@@ -8,7 +8,7 @@ A tablespace group typically consists of multiple `temporary tablespaces`. A tab
 
 The following describes the property of a tablespace group:
 
-*   A tablespace group must contain at least one [temporary tablespace].
+*   A tablespace group must contain at least one `temporary tablespace`.
 *   The name of a tablespace group cannot be the same as any `tablespace`.
 *   A tablespace group can be assigned as a _default temporary tablespace_ for the database or a temporary tablespace for a user.
 

@@ -1,18 +1,9 @@
 # Use SHUTDOWN IMMEDIATE to Shut Down the Oracle Database
 **Summary**: In this lab, you will learn how to use the Oracle `SHUTDOWN` statement to shut down the Oracle Database.
 
-TL;DR
------
 
-Use the `SHUTDOWN IMMEDIATE` command to shut down the Oracle Database gracefully:
-
-```
-SHUTDOWN IMMEDIATE
-```
-
-
-Introduction to the Oracle `SHUTDOWN` statement
------------------------------------------------
+Oracle `SHUTDOWN` statement
+---------------------------
 
 To shut down a currently running Oracle Database instance, you use the `SHUTDOWN` command as follows:
 
@@ -86,20 +77,17 @@ To issue the `SHUTDOWN` statement, you must connect to the database as `SYSDBA`,
 Oracle `SHUTDOWN` statement example
 -----------------------------------
 
-First, launch SQL\*Plus:
+Make sure you have switched to oracle user in the terminal:
 
 ```
-> sqlplus
+su - oracle
 ```
 
-
-Second, log in to the Oracle database using the `SYS` user:
+Second, launch SQL\*Plus:
 
 ```
-Enter user-name: sys as sysdba
-Enter password: <sys_password>
+sqlplus / as sysdba
 ```
-
 
 Third, check the current status of the Oracle instance:
 
