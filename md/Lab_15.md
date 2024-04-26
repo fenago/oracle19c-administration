@@ -37,7 +37,7 @@ ORDER BY privilege;
 ```
 
 
-Here is the output in Oracle 12c:
+Here is the output in Oracle 19c:
 
 ```
 PRIVILEGE                              

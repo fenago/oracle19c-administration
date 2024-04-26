@@ -1,11 +1,17 @@
 # Oracle STARTUP - How to Start an Oracle Database Instance
 **Summary**: In this lab, you will learn how to use the Oracle `STARTUP` command to start an Oracle Database instance.
 
+
+Connect with sqlplus CLI:
+
+```
+sqlplus / as sysdba
+```
+
 To start up a database instance, you use the `STARTUP` command:
 
 ```
 STARTUP
-
 ```
 
 
