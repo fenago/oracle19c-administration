@@ -2,7 +2,7 @@
 
 **Summary**: In this lab, you will learn how to use the Oracle `ALTER DATABASE LINK` statement to update the current password of a remote user of a database link.
 
-Introduction to Oracle ALTER DATABASE LINK statement
+Oracle ALTER DATABASE LINK statement
 ----------------------------------------------------
 
 Typically, when you [create a database link] that connects to a remote database via a user, the user is dedicated and not used by anyone else.

@@ -1,7 +1,7 @@
 # Oracle SET ROLE: Enable and Disable Roles for Your Current Session
 **Summary**: In this lab, you will learn how to use the Oracle `SET ROLE` statement to enable or disable roles for your current session.
 
-Introduction to Oracle SET ROLE statement
+Oracle SET ROLE statement
 -----------------------------------------
 
 The `SET ROLE` statement allows you to enable and disable [roles] for your current session.

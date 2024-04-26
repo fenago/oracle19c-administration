@@ -1,7 +1,7 @@
 # Oracle Data Pump Export - Unloading Data From the Oracle Dataabase
 **Summary**: In this lab, you will learn how to use the Oracle Data Pump Export utility to unload data (and metadata) from the Oracle database.
 
-Introduction to Oracle Data Pump Export tool
+Oracle Data Pump Export tool
 --------------------------------------------
 
 Oracle Data Pump Export is a built-in utility program for unloading data and metadata into a set of dump files. The dump file set then can be imported by the [Data Pump Import] utility on the same or another Oracle Database system.

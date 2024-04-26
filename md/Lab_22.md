@@ -1,7 +1,7 @@
 # Oracle CREATE PROFILE: Setting Database Resource & Password Limits
 **Summary**: In this lab, you will learn how to use the Oracle `CREATE PROFILE` statement to create a profile for users.
 
-Introduction to Oracle CREATE PROFILE statement
+Oracle CREATE PROFILE statement
 -----------------------------------------------
 
 A user profile is a set of limits on the database resources and the user password. Once you assign a profile to a user, then that user cannot exceed the database resource and password limits.

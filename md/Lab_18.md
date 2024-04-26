@@ -2,7 +2,7 @@
 
 **Summary**: In this lab, you will learn how to use the Oracle `CREATE ROLE` statement to create roles in the Oracle Database.
 
-Introduction to Oracle `CREATE ROLE` statement
+Oracle `CREATE ROLE` statement
 ----------------------------------------------
 
 A role is a group of privileges. Instead of granting individual privileges to users, you can group related privileges into a role and grant this role to users. Roles help manage privileges more efficiently.

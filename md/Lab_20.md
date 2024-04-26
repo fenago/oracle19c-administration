@@ -2,7 +2,7 @@
 
 **Summary**: In this lab, you will learn how to use the Oracle `ALTER ROLE` statement to modify the authorization needed to enable a role.
 
-Introduction to Oracle ALTER ROLE statement
+Oracle ALTER ROLE statement
 -------------------------------------------
 
 The `ALTER ROLE` statement allows you to modify the authorization needed to enable a role.

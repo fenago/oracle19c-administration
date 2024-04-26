@@ -47,7 +47,7 @@ Here are some common object privileges:
 
 To grant one or more privileges to a user, you use the `GRANT` statement
 
-Introduction to the Oracle `GRANT` statement
+Oracle `GRANT` statement
 --------------------------------------------
 
 The `GRANT` statement assigns one or more privileges to a specific user. The following illustrates the basic syntax of the `GRANT` statement:

@@ -1,7 +1,7 @@
 # Oracle Data Pump Import (impdp)
 **Summary**: In this lab, you will learn how to use the Oracle Data Pump Import to load an export dump file set into a target Oracle Database system.
 
-Introduction to Oracle Data Pump Import tool
+Oracle Data Pump Import tool
 --------------------------------------------
 
 The Data Pump Import program is a tool that allows you to load an export **dump file set** into a target Oracle database system. The Data Pump Import utility comes with the Oracle Installation by default.

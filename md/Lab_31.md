@@ -1,7 +1,7 @@
 # Oracle DROP DATABASE LINK By Practial Examples
 **Summary**: In this lab, you will learn how to use the Oracle `DROP DATABASE LINK` statement to remove a database link from the database.
 
-Introduction to the Oracle DROP DATABASE LINK statement
+Oracle DROP DATABASE LINK statement
 -------------------------------------------------------
 
 The `DROP DATABASE LINK` statement allows you to drop a [database link] from the database. Here is the syntax of the `DROP DATABASE LINK` statement:

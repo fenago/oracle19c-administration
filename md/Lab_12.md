@@ -2,8 +2,8 @@
 
 **Summary**: In this lab, you will learn how to use the Oracle `REVOKE` statement to revoke system and object privileges from a specific user.
 
-Introduction to Oracle `REVOKE` statement
------------------------------------------
+Oracle `REVOKE` statement
+-------------------------
 
 The Oracle `REVOKE` statement revokes system and object privileges from a user. Here is the basic syntax of the Oracle `REVOKE` statement:
 
@@ -48,15 +48,24 @@ GRANT CREATE TABLE TO bob;
 ```
 
 
-Third, grant the `SELECT`, `INSERT`, `UPDATE` and `DELETE` object privileges to `bob` on `ot.customers` table:
+Third, grant the `SELECT`, `INSERT`, `UPDATE` and `DELETE` object privileges to `bob` on `sys.customers` table:
 
 ```
-GRANT SELECT, INSERT, UPDATE, DELETE ON ot.customers
+
+CREATE TABLE customers(name varchar(50));
+
+INSERT INTO customers(id) VALUES('a');
+INSERT INTO customers(id) VALUES('b');
+INSERT INTO customers(id) VALUES('c');
+INSERT INTO customers(id) VALUES('d');
+INSERT INTO customers(id) VALUES('e');
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON sys.customers
 TO bob;
 ```
 
 
-Now, `bob` can create a new table in his own schema and manipulate data in the `ot.customers` table.
+Now, `bob` can create a new table in his own schema and manipulate data in the `sys.customers` table.
 
 Fourth, log in to the Oracle Database as `bob` and execute the following statements:
 
@@ -79,12 +88,12 @@ Both queries are executed successfully because the user `bob` has sufficient pri
 Fifth, revoke the object privileges from `bob`:
 
 ```
-REVOKE SELECT, INSERT, UPDATE, DELETE ON ot.customers
+REVOKE SELECT, INSERT, UPDATE, DELETE ON sys.customers
 FROM bob;
 ```
 
 
-Sixth, go to the `bob`‘s session and select data from the `ot.customers` table:
+Sixth, go to the `bob`‘s session and select data from the `sys.customers` table:
 
 ```
 SELECT 
@@ -104,7 +113,7 @@ ORA-00942: table or view does not exist
 ```
 
 
-This is correct because `bob` is no longer has the `SELECT` object privilege on the `ot.customers` table.
+This is correct because `bob` is no longer has the `SELECT` object privilege on the `sys.customers` table.
 
 Seventh, revoke the `CREATE TABLE` system privilege from `bob`:
 

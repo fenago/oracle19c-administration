@@ -1,7 +1,7 @@
 # SQL*Loader - Step by Step Guide How to Load a Datafile Into a Table
 **Summary**: In this lab, you will learn how to use the Oracle SQL\*Loader tool to load from a flat-file into a table in the database.
 
-Introduction to SQL\*Loader tool
+SQL\*Loader tool
 --------------------------------
 
 SQL\*Loader allows you to load data from an external file into a table in the database. It can parse many delimited file formats such as CSV, tab-delimited, and pipe-delimited.

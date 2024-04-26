@@ -2,7 +2,7 @@
 
 **Summary**: In this lab, you will learn how to use the Oracle `DROP USER` to delete a user from the database.
 
-Introduction to Oracle DROP USER statement
+Oracle DROP USER statement
 ------------------------------------------
 
 The `DROP USER` statement allows you to delete a user from the Oracle Database. If the user has schema objects, the `DROP USER` statement also can remove all the user’s schema objects along with the user.
