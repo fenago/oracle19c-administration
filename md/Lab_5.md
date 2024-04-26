@@ -121,10 +121,10 @@ If you insert 10,00 rows into the t1 table again, it should work.
 The second way to avoid this issue, when creating a new tablespace, you can use the `AUTOEXTEND ON` clause as follows:
 
 ```
-CREATE TABLESPACE tbs1
-   DATAFILE 'tbs1_data.dbf'
+CREATE TABLESPACE tbs1_test
+   DATAFILE 'tbs1_test_data.dbf'
    SIZE 1m
-   AUTOEXTEND 20m;
+   AUTOEXTEND ON;
 ```
 
 

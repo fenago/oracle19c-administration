@@ -33,19 +33,18 @@ Let’s take some examples of using the `DROP TABLESPACE` statement.
 
 ### 1) Using Oracle DROP TABLESPACE to remove an empty tablespace example
 
-First, `create a new tablespace` named `tbs1`:
+First, `create a new tablespace` named `tbs1` if not exists already:
 
 ```
-CREATE TABLESPACE tbs1
-    DATAFILE 'tbs1_data.dbf'
+CREATE TABLESPACE tbs1dev
+    DATAFILE 'tbs1dev_data.dbf'
     SIZE 10m;
 ```
-
 
 Second, use the `DROP TABLESPACE` to remove the `tbs1` tablespace:
 
 ```
-DROP TABLESPACE tbs1;
+DROP TABLESPACE tbs1dev;
 ```
 
 
