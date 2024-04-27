@@ -146,6 +146,10 @@ Next, grant object privileges of the `orders` and `order_items` tables to the `o
 ```
 CREATE TABLE orders(order_name varchar(50));
 
+INSERT INTO orders(order_name) VALUES('testOrder');
+INSERT INTO orders(order_name) VALUES('grocery');
+INSERT INTO orders(order_name) VALUES('hardware');
+
 CREATE TABLE order_items(item_name varchar(50));
 
 GRANT SELECT, INSERT, UPDATE, DELETE

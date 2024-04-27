@@ -2,23 +2,9 @@
 **Summary**: In this lab, you will learn how to use the Oracle `SET ROLE` statement to enable or disable roles for your current session.
 
 Oracle SET ROLE statement
------------------------------------------
+-------------------------
 
-The `SET ROLE` statement allows you to enable and disable [roles] for your current session.
-
-Here is the basic syntax of the `SET ROLE` statement:
-
-```
-SET ROLE role;
-```
-
-
-In this syntax, you just need to specify the role that was previously granted to your account. If the role requires a password, you use the following syntax:
-
-```
-SET ROLE role IDENTIFIED BY password;
-```
-
+The `SET ROLE` statement allows you to enable and disable **roles** for your current session.
 
 It is possible to enable multiple roles at once like the following statement:
 
@@ -48,14 +34,6 @@ SET ROLE ALL;
 
 Note the `SET ROLE ALL` statement will not enable the roles with passwords, which have been granted directly to you.
 
-If you want to enable all roles except for a role, you use this syntax:
-
-```
-SET ROLE ALL EXCEPT except_role;
-```
-
-
-The except\_role role must be previously granted directly to you. It cannot be granted indirectly to you through other roles.
 
 To disable all roles including the `DEFAULT` role, you use the following statement:
 
@@ -68,7 +46,6 @@ The `session_roles` data dictionary view provides the currently enabled roles in
 
 ```
 SELECT * FROM session_roles;
-
 ```
 
 
@@ -84,18 +61,22 @@ GRANT CREATE SESSION TO scott;
 ```
 
 
-Second, [create two roles] called `warehouse_manager` and `warehouse_staff`:
+Second, create two roles called `warehouse_manager` and `warehouse_staff`:
 
 ```
 CREATE ROLE warehouse_staff;
 CREATE ROLE warehouse_manager IDENTIFIED BY xyz123;
-
 ```
 
 
 Third, grant object privileges on `inventories` table to the `warehouse_staff` role:
 
 ```
+CREATE TABLE inventories(
+    id INT PRIMARY KEY,
+    inventory_name varchar(50)
+);
+
 GRANT SELECT, INSERT, UPDATE, DELETE
 ON inventories
 TO warehouse_staff;
@@ -105,6 +86,13 @@ TO warehouse_staff;
 Fourth, grant object privileges on `warehouses` table to the `warehouse_manager` role:
 
 ```
+CREATE TABLE warehouses(
+    id INT PRIMARY KEY,
+    warehouses_name varchar(50),
+    location varchar(50),
+);
+
+
 GRANT SELECT, INSERT, UPDATE, DELETE
 ON warehouses
 TO warehouse_manager;

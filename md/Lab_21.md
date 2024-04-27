@@ -25,13 +25,7 @@ Let’s take some examples of using the `DROP ROLE` statement
 1) Oracle DROP ROLE statement basic example
 -------------------------------------------
 
-First, log in to the Oracle Database using the `ot` account.
-
-```
-Enter user-name: ot@fenagodb1 as sysdba
-Enter password: <ot_password>
-```
-
+First, log in to the Oracle Database using the `sys` account using sql developer.
 
 Next, create a new role called `developer`:
 
@@ -74,13 +68,7 @@ no rows selected
 2) Oracle DROP ROLE statement basic example
 -------------------------------------------
 
-First, log in as `ot` user:
-
-```
-Enter user-name: ot@fenagodb1 as sysdba
-Enter password: <ot_password>
-```
-
+First, log in as `sys` user in sql developer.
 
 Second, create a new role called `auditor` and grant the `SELECT` object privilege on the `orders` table in the [sample database]:
 
@@ -102,7 +90,7 @@ GRANT auditor TO audi;
 Fourth, log in to the Oracle database as the `audi` user in the second session and issue the following command:
 
 ```
-SELECT COUNT(*) FROM ot.orders;
+SELECT COUNT(*) FROM sys.orders;
 ```
 
 
@@ -111,8 +99,7 @@ Here is the output:
 ```
   COUNT(*)
 
-   105
-
+  2
 ```
 
 
@@ -160,7 +147,7 @@ It means that the `audit` role has been revoked from the user `audi`.
 Seventh, from the audi’s session, try to execute the following query to verify if the role has been revoked completely:
 
 ```
-SELECT * FROM ot.orders;
+SELECT * FROM sys.orders;
 ```
 
 
@@ -171,6 +158,6 @@ no rows selected
 ```
 
 
-Now user `audi` couldn’t query data from the `ot.orders` anymore.
+Now user `audi` couldn’t query data from the `sys.orders` anymore.
 
 In this lab, you have learned how to use Oracle `DROP ROLE` statement to delete a role from the database.
