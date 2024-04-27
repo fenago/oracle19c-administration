@@ -111,7 +111,7 @@ CREATE TABLE emails(
 Second, launch the SQL\*Loader program from the directory in which you store the files using the `sqlldr` command:
 
 ```
-C:\loader> sqlldr parfile=dept_loader.par
+/home/oracle/loader> sqlldr parfile=dept_loader.par
 ```
 
 

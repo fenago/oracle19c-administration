@@ -34,36 +34,48 @@ Here is a CSV file that has two columns: language id and name.
 
 ![](./images/Oracle-External-Table-Data-File.png)
 
-[Download the languages.csv file](./images/languages.csv)
 
 We will create an external table that maps to the `languages.csv` file.
 
 ### 1) Create a directory object
 
-First, place the `language.csv` file in the `C:\loader` directory.
+First, place the `language.csv` file in the `/home/oracle/loader` directory by running following commands in the terminal:
+
+```
+cd ~/Desktop/oracle19c-administration
+
+mkdir -p /home/oracle/loader
+
+cp languages.csv /home/oracle/loader
+
+chowm -R oracle /home/oracle/loader
+```
 
 Second, log in to the Oracle database using the `sysdba` user via the SQL\*Plus program:
 
 ```
-Enter user-name: sys@fenagodb1 as sysdba   
-Enter password: <sysdba_password>
+su - oracle
+
+sqlplus / as sysdba
 ```
 
 
-Third, create a new directory object called `lang_external` that maps to the `C:\loader` directory:
+Third, create a new directory object called `lang_external` that maps to the `/home/oracle/loader` directory:
 
 ```
-SQL> create directory lang_external as 'C:\loader';   
+SQL> create directory lang_external as '/home/oracle/loader';   
+
 <pre class="lang:plsql decode:true "></pre>
 ```
 
 
 ### 2) Grant `READ` and `WRITE` access on the directory object to users:
 
-The following statement grant `READ` and `WRITE` privileges to the `OT` user:
+The following statement grant `READ` and `WRITE` privileges to the `SYS` user:
 
 ```
-SQL> grant read,write on directory lang_external to ot;
+SQL> grant read,write on directory lang_external to sys;
+
 Grant succeeded.
 ```
 
@@ -140,7 +152,6 @@ AS
 SELECT language_name 
 FROM languages
 WHERE language_name LIKE 'A%';
-
 ```
 
 

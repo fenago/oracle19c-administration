@@ -86,7 +86,7 @@ ALTER ROLE db_designer NOT IDENTIFIED;
 ```
 
 
-Seventh, go to the user michael’s session, and reissue the `[SET ROLE]` statement again. This time we don’t need a password since the role has been changed:
+Seventh, go to the user michael’s session, and reissue the `SET ROLE` statement again. This time we don’t need a password since the role has been changed:
 
 ```
 SET ROLE db_designer;
