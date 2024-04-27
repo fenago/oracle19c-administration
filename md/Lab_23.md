@@ -33,6 +33,8 @@ Let’s take an example of using the `ALTER ROLE` statement to change an `IDENTI
 First, [create a new role] called `db_designer`:
 
 ```
+DROP ROLE db_designer;
+
 CREATE ROLE db_designer IDENTIFIED BY abcd1234;
 
 ```
@@ -48,9 +50,12 @@ GRANT CREATE TABLE, CREATE VIEW TO db_designer;
 Third, create a user called `michael`:
 
 ```
+DROP USER michael CASCADE;
+
 CREATE USER michael IDENTIFIED BY xyz123;
 ```
 
+**Important:** Make sure to disconnect sql developer session as `michael` before running above commands.
 
 Fourth, grant the `db_designer` and `connect` roles to the user `michael`:
 

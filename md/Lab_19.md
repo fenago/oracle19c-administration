@@ -89,7 +89,7 @@ Fourth, grant object privileges on `warehouses` table to the `warehouse_manager`
 CREATE TABLE warehouses(
     id INT PRIMARY KEY,
     warehouses_name varchar(50),
-    location varchar(50),
+    location varchar(50)
 );
 
 

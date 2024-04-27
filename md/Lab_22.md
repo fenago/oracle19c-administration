@@ -58,8 +58,7 @@ SELECT
 FROM 
     dba_users
 WHERE 
-    username = 'OT';
-
+    username = 'SYS';
 ```
 
 
@@ -67,7 +66,7 @@ Here is the output:
 
 ![Oracle CREATE PROFILE - get profile of a user](./images/Oracle-CREATE-PROFILE-get-profile-of-a-user.png)
 
-So the user `OT` has the `DEFAULT` profile.
+So the user `SYS` has the `DEFAULT` profile.
 
 When you create a user without explicitly specifying a profile, Oracle will assign the `DEFAULT` profile to the user.
 

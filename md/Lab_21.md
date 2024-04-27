@@ -98,8 +98,7 @@ Here is the output:
 
 ```
   COUNT(*)
-
-  2
+  3
 ```
 
 
@@ -149,14 +148,6 @@ Seventh, from the audi’s session, try to execute the following query to verify
 ```
 SELECT * FROM sys.orders;
 ```
-
-
-Oracle issued this output:
-
-```
-no rows selected
-```
-
 
 Now user `audi` couldn’t query data from the `sys.orders` anymore.
 
