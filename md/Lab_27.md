@@ -1,8 +1,9 @@
 # Oracle Data Pump Import (impdp)
+
 **Summary**: In this lab, you will learn how to use the Oracle Data Pump Import to load an export dump file set into a target Oracle Database system.
 
 Oracle Data Pump Import tool
---------------------------------------------
+-----------------------------
 
 The Data Pump Import program is a tool that allows you to load an export **dump file set** into a target Oracle database system. The Data Pump Import utility comes with the Oracle Installation by default.
 
@@ -16,6 +17,8 @@ How to run the Data Pump Import tool
 To invoke the Data Pump Import tool, you use the following command:
 
 ```
+su - oracle
+
 impdp
 ```
 
@@ -29,15 +32,14 @@ We will load the dump file set exported in the `Data Pump Export lab` for the de
 
 ![Oracle expdp output](./images/Oracle-expdp-output.png)
 
-First, create a parameter file named `customer_imp.par` with the following contents and place it in the `c:\export` folder:
+First, create a parameter file named `customer_imp.par` with the following contents and place it in the `/home/oracle/export` folder:
 
 ```
-userid=ot@fenagodb1/Abcd1234
-directory=ot_external
+userid=system/fenago
+directory=system_external
 dumpfile=customer_exp%U.dmp
 logfile=customer_imp.log
-remap_table=ot.customers:customers_bk
-
+remap_table=system.customers:customers_bk
 ```
 
 

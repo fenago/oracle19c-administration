@@ -21,12 +21,42 @@ According to Oracle, the new Data Pump Export can be up to 40 times faster. Here
 *   Using a subquery to export partial data.
 *   Renaming tables/schemas/tablespaces
 
+
+
+Create Customer Table
+---------------------
+
+Connect with SQL Plus:
+
+```
+su - oracle
+
+sqlplus / as sysdba
+```
+
+First, create a new table as **system** user and insert few rows:
+
+
+```
+conn system/fenago
+
+CREATE TABLE customers(name varchar(50));
+
+INSERT INTO customers(name) VALUES('a');
+INSERT INTO customers(name) VALUES('b');
+INSERT INTO customers(name) VALUES('c');
+INSERT INTO customers(name) VALUES('d');
+INSERT INTO customers(name) VALUES('e');
+```
+
 Calling Data Pump Export program
 --------------------------------
 
 You invoke the Data Pump Export program using the `expdp` command. The behaviors of the program are determined by the parameters specified either on the command line or in a parameter file.
 
 ```
+su - oracle
+
 expdp
 ```
 
@@ -34,24 +64,23 @@ expdp
 Oracle Data Pump Export example
 -------------------------------
 
-First, create a new directory object `ot_external` that maps to the `c:\export` folder:
+First, create a new directory object `system_external` that maps to the `/home/oracle/export` folder:
 
 ```
-CREATE DIRECTORY ot_external AS 'C:\export';
+CREATE DIRECTORY system_external AS '/home/oracle/export';
 
 ```
 
 
-Second, create a parameter file named `customer.par` with the following contents and place the file in the `C:\export` directory:
+Second, create a parameter file named `customer.par` with the following contents and place the file in the `/home/oracle/export` directory:
 
 ```
-userid=ot@fenagodb1/Abcd1234
-directory=ot_external
+userid=system/fenago
+directory=system_external
 dumpfile=customer_exp%U.dmp
 logfile=customer_exp.log
 filesize=50K
 tables=customers
-
 ```
 
 
@@ -67,8 +96,9 @@ In this parameter file:
 Third, invoke the Data Pump Export program to export the `customers` table to the dump files:
 
 ```
-expdp parfile=customer.par
+cd /home/oracle/export
 
+expdp parfile=customer.par
 ```
 
 
@@ -76,13 +106,13 @@ Here is the dump file set:
 
 ![Oracle expdp output](./images/Oracle-expdp-output.png)
 
-Now, it is your turn to export all objects in the `OT` schema to the dump files by creating a new parameter file with the following contents:
+Now, it is your turn to export all objects in the `system` schema to the dump files by creating a new parameter file with the following contents:
 
 ```
-userid=ot@fenagodb1/Abcd1234
-directory=ot_external
-dumpfile=ot_exp%U.dmp
-logfile=ot_exp.log
+userid=system/fenago
+directory=system_external
+dumpfile=system_exp%U.dmp
+logfile=system_exp.log
 filesize=50K
 schemas=ot
 ```
@@ -91,7 +121,9 @@ schemas=ot
 Run this command:
 
 ```
-expdp parfile=ot.par
+cd /home/oracle/export
+
+expdp parfile=system.par
 ```
 
 
