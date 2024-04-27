@@ -95,23 +95,33 @@ Here is the link to download the three files in a zip file format:
 
 [Download the data, control and parameter files](./images/sqlloader-files.zip)
 
+
+```
+cd ~/Desktop/oracle19c-administration/lab25
+
+mkdir -p /home/oracle/sqlloader
+
+cp -r * /home/oracle/sqlloader
+
+chown -R oracle /home/oracle/sqlloader
+```
+
 ### Load data from a flat file into the table
 
-First, [create a new table] to store the email data from the input datafile:
+First, create a new table to store the email data from the input datafile:
 
 ```
 CREATE TABLE emails(
     email_id NUMBER PRIMARY KEY,
     email VARCHAR2(150) NOT NULL
 );
-
 ```
 
 
 Second, launch the SQL\*Loader program from the directory in which you store the files using the `sqlldr` command:
 
 ```
-/home/oracle/loader> sqlldr parfile=dept_loader.par
+/home/oracle/sqlloader> sqlldr parfile=email.par
 ```
 
 

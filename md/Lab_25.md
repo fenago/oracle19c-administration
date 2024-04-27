@@ -39,7 +39,7 @@ We will create an external table that maps to the `languages.csv` file.
 
 ### 1) Create a directory object
 
-First, place the `language.csv` file in the `/home/oracle/loader` directory by running following commands in the terminal:
+First, place the `language.csv` file in the `/home/oracle/loader` directory by running following commands in the terminal as **root** user:
 
 ```
 cd ~/Desktop/oracle19c-administration
@@ -48,7 +48,7 @@ mkdir -p /home/oracle/loader
 
 cp languages.csv /home/oracle/loader
 
-chowm -R oracle /home/oracle/loader
+chown -R oracle /home/oracle/loader
 ```
 
 Second, log in to the Oracle database using the `sysdba` user via the SQL\*Plus program:
@@ -59,13 +59,12 @@ su - oracle
 sqlplus / as sysdba
 ```
 
+![](./images/17.png)
 
 Third, create a new directory object called `lang_external` that maps to the `/home/oracle/loader` directory:
 
 ```
 SQL> create directory lang_external as '/home/oracle/loader';   
-
-<pre class="lang:plsql decode:true "></pre>
 ```
 
 
@@ -78,7 +77,6 @@ SQL> grant read,write on directory lang_external to sys;
 
 Grant succeeded.
 ```
-
 
 ### 3) Creating the external table
 
@@ -99,6 +97,7 @@ ORGANIZATION EXTERNAL(
 
 ```
 
+![](./images/18.png)
 
 When you create the external table using the `CREATE TABLE ORGANIZATION EXTERNAL` statement, you need to specify the following attributes:
 
@@ -139,7 +138,6 @@ ORDER BY
 
 ```
 
-
 Here is the partial output:
 
 ![Oracle External Table Example](./images/Oracle-External-Table-Example.png)
@@ -177,6 +175,7 @@ INSERT INTO languages(language_id, language_name)
 VALUES(190,'Alien');
 ```
 
+![](./images/19.png)
 
 Oracle external table troubleshooting
 -------------------------------------

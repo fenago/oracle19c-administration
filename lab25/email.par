@@ -1,0 +1,6 @@
+USERID=sys@fenagodb1/fenago
+CONTROL=email.ctl
+LOG=email.log
+BAD=email.bad
+DATA=email.dat
+DIRECT=true
