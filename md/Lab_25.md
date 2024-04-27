@@ -1,4 +1,4 @@
-# An Essential Guide to Oracle External Tables
+# Oracle External Tables
 
 **Summary**: In this lab, you will learn about Oracle external tables that allow you to access data in flat files as if it were in tables.
 

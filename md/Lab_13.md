@@ -83,7 +83,7 @@ WHERE
 ```
 
 
-When you [create a new user] without specifying a profile, Oracle will assign the `DEFAULT` profile to the user.
+When you create a new user without specifying a profile, Oracle will assign the `DEFAULT` profile to the user.
 
 Let’s [create a new user profile] called `ocean`:
 

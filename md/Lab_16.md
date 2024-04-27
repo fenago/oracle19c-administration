@@ -14,7 +14,7 @@ GRANT SELECT ON table_name TO {user | role};
 
 The following example illustrates how to grant the `SELECT` object privilege on a table to a user.
 
-First, [create a new user] called `DW` and grant the `CREATE SESSION` to the user:
+First, create a new user called `DW` and grant the `CREATE SESSION` to the user:
 
 ```
 CREATE USER dw IDENTIFIED BY abcd1234;
@@ -74,14 +74,13 @@ BEGIN
             'GRANT SELECT ON '||r.owner||'.'||r.table_name||' to ' || grantee;
     END LOOP;
 END; 
-
 ```
 
 
 This example grants the `SELECT` object privileges of all tables that belong to the user `SYS` to the user `DW`:
 
 ```
-EXEC grant_select('SYS','DW');
+EXEC grant_select('HR','DW');
 ```
 
 

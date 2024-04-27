@@ -1,9 +1,9 @@
-# Learn Oracle CREATE ROLE Statement
+# Oracle CREATE ROLE Statement
 
 **Summary**: In this lab, you will learn how to use the Oracle `CREATE ROLE` statement to create roles in the Oracle Database.
 
 Oracle `CREATE ROLE` statement
-----------------------------------------------
+------------------------------
 
 A role is a group of privileges. Instead of granting individual privileges to users, you can group related privileges into a role and grant this role to users. Roles help manage privileges more efficiently.
 
@@ -44,14 +44,14 @@ Let’s take some examples of using the `CREATE ROLE` statement.
 
 ### 1) Using Oracle CREATE ROLE without a password example
 
-First, create a new role named `mdm` (master data management) in the [sample database]:
+First, create a new role named `mdm` (master data management) in the sample database as sys user:
 
 ```
 CREATE ROLES mdm;
 ```
 
 
-Second, grant object privileges on `customers`, `contacts`, `products`, `product_categories`, `warehouses`, `locations`, `employees` tables to the `mdm` role:
+Second, grant object privileges on `customers`, `t2` tables to the `mdm` role:
 
 ```
 GRANT SELECT, INSERT, UPDATE, DELETE
@@ -59,32 +59,13 @@ ON customers
 TO mdm;
 
 GRANT SELECT, INSERT, UPDATE, DELETE
-ON contacts
-TO mdm;
-
-GRANT SELECT, INSERT, UPDATE, DELETE
-ON products
-TO mdm;
-
-GRANT SELECT, INSERT, UPDATE, DELETE
-ON product_categories
-TO mdm;
-
-GRANT SELECT, INSERT, UPDATE, DELETE
-ON warehouses
-TO mdm;
-
-GRANT SELECT, INSERT, UPDATE, DELETE
-ON locations
-TO mdm;
-
-GRANT SELECT, INSERT, UPDATE, DELETE
-ON employees
+ON t2
 TO mdm;
 ```
 
+**Note:** You can create `customers` and `t2` tables if they don't exist already before running above commands.
 
-Third, [create a new user] named `alice` and grant the `CREATE SESSION` privilege to `alice`:
+Third, create a new user named `alice` and grant the `CREATE SESSION` privilege to `alice`:
 
 ```
 CREATE USER alice IDENTIFIED BY abcd1234;
@@ -94,18 +75,12 @@ GRANT CREATE SESSION TO alice;
 ```
 
 
-Fourth, log in to the database as `alice`:
+Fourth, log in to the database as `alice` using sql developer.
+
+and attempt to `query data` from the `sys.customers` table:
 
 ```
-Enter user-name: alice@fenagodb1
-Enter password:
-```
-
-
-and attempt to [query data] from the `ot.employees` table:
-
-```
-SELECT * FROM ot.employees;
+SELECT * FROM sys.customers;
 
 ```
 
@@ -150,7 +125,12 @@ MDM
 ```
 
 
-Now, `alice` can manipulate data in the master data tables such as `customers` and `employees`.
+Now, `alice` can manipulate data in the master data tables such as `customers` and `t2`. Now, attempt to `query data` from the `sys.customers` table:
+
+```
+SELECT * FROM sys.customers;
+```
+
 
 ### 2) Using Oracle `CREATE ROLE` to create a role with `IDENTIFIED BY password` example
 
@@ -161,9 +141,13 @@ CREATE ROLE order_entry IDENTIFIED BY xyz123;
 ```
 
 
-Next, [grant object privileges] of the `orders` and `order_items` tables to the `order_entry` role:
+Next, grant object privileges of the `orders` and `order_items` tables to the `order_entry` role:
 
 ```
+CREATE TABLE orders(order_name varchar(50));
+
+CREATE TABLE order_items(item_name varchar(50));
+
 GRANT SELECT, INSERT, UPDATE, DELETE
 ON orders
 TO order_entry;

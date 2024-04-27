@@ -197,7 +197,7 @@ Here is the output:
 
 ### 2) Use Oracle `GRANT` to assign privileges WITH ADMIN OPTION example
 
-First, [create a new user] called `jack` and grant the user the `CREATE SESSION` so that the user can log in:
+First, create a new user called `jack` and grant the user the `CREATE SESSION` so that the user can log in:
 
 ```
 CREATE USER jack IDENTIFIED BY abcd1234 

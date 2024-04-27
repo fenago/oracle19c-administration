@@ -1,4 +1,4 @@
-# Learn Oracle CREATE DATBASE LINK Statement
+# Oracle CREATE DATBASE LINK Statement
 
 **Summary**: In this lab, you will learn about the Oracle database link and how to create a database link to a remote Oracle Database server.
 
