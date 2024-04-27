@@ -115,6 +115,8 @@ su - oracle
 sqlplus / as sysdba
 ```
 
+![](./images/20.png)
+
 First, create a new table to store the email data from the input datafile:
 
 
@@ -128,6 +130,8 @@ CREATE TABLE emails(
 ```
 
 
+![](./images/21.png)
+
 Second, launch the SQL\*Loader program from the directory in which you store the files using the `sqlldr` command:
 
 ```
@@ -138,21 +142,9 @@ cd /home/oracle/sqlloader
 sqlldr parfile=email.par
 ```
 
-
 Here is the output:
 
-```
-Path used:      Direct
-
-Load completed - logical record count 3.
-
-Table EMAILS:
-3 Rows successfully loaded.
-
-Check the log file:
-email.log
-for more information about the load.
-```
+![](./images/22.png)
 
 
 Third, log in to the Oracle as **system** user and verify the contents of the `emails` table:
@@ -161,10 +153,9 @@ Third, log in to the Oracle as **system** user and verify the contents of the `e
 SELECT * FROM emails;
 ```
 
-
 Here is the result set:
 
-![SQL*Loader Example](./images/oracle-sqlloader-output.png)
+![](./images/23.png)
 
 Finally, review the log file:
 
@@ -215,8 +206,8 @@ Total logical records discarded:        0
 Total stream buffers loaded by SQL*Loader main thread:        2
 Total stream buffers loaded by SQL*Loader load thread:        0
 
-Run began on Tue Jul 23 08:04:46 2019
-Run ended on Tue Jul 23 08:04:48 2019
+Run began on Tue Jul 23 08:04:46 2023
+Run ended on Tue Jul 23 08:04:48 2023
 
 Elapsed time was:     00:00:01.47
 CPU time was:         00:00:00.07
