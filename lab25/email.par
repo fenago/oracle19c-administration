@@ -1,4 +1,4 @@
-USERID=sys@fenagodb1/fenago
+USERID=system/fenago
 CONTROL=email.ctl
 LOG=email.log
 BAD=email.bad

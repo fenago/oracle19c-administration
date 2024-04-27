@@ -1,102 +1,198 @@
-# Oracle DROP PROFILE Statement
+# Oracle External Tables
 
-**Summary**: In this lab, you will learn how to use the Oracle `DROP PROFILE` statement to delete a user profile from the database.
+**Summary**: In this lab, you will learn about Oracle external tables that allow you to access data in flat files as if it were in tables.
 
-Oracle DROP PROFILE Statement
--------------------------------------------------
+What is an Oracle external table
+--------------------------------
 
-The `DROP PROFILE` statement allows you to delete a profile from the Oracle database. Here is the basic syntax of the `DROP PROFILE` statement:
+An external table is a table whose data come from flat files stored outside of the database.
 
-```
-DROP PROFILE profile_name [CASCADE];
-```
+Oracle can parse any file format supported by the SQL\*Loader.
 
+Why do you need to use external tables
+--------------------------------------
 
-In this syntax:
+The external tables can be useful in the ETL process of data warehouses because the data does not need to be staged and can be queried in parallel.
 
-*   First, specify the name of the profile that you want to delete after the `DROP PROFILE` keywords.
-*   Then, optionally use the `CASCADE` keyword if you want to de-assign the profile from all users who have been assigned the profile. Oracle will automatically assign the `DEFAULT` profile to these users.
+Notice that you should not use external tables for frequently accessed tables.
 
-Note that if the profile has been assigned to one user, you must use the `CASCADE` option to delete the profile. In addition, you can delete any profile except for the `DEFAULT` profile.
+Creating an Oracle external table steps
+---------------------------------------
 
-Oracle DROP PROFILE examples
-----------------------------
+You follow these steps to create an external table:
 
-Let’s take some examples of using the `DROP PROFILE` statement to remove a profile from the Oracle database.
+*   First, create a directory which contains the file to be accessed by Oracle using the `CREATE DIRECTORY` statement.
+*   Second, grant `READ` and `WRITE` access to users who access the external table using the `GRANT` statement.
+*   Third, create the external table by using the `CREATE TABLE ORGANIZATION EXTERNAL` statement.
 
-### 1) Using the Oracle DROP PROFILE to delete a profile that has not been assigned to any user
+![Oracle External Table](./images/Oracle-External-Table.png)
 
-First, [create a new profile] named `mobile_app`:
+Creating an Oracle external table example
+-----------------------------------------
 
-```
-CREATE PROFILE mobile_app LIMIT 
-    PASSWORD_LIFE_TIME UNLIMITED;
+Here is a CSV file that has two columns: language id and name.
 
-```
-
-
-Then, use the `DROP PROFILE` statement to delete the `mobile_app` profile:
-
-```
-DROP PROFILE mobile_app;
-
-```
+![](./images/Oracle-External-Table-Data-File.png)
 
 
-### 2) Using the Oracle DROP PROFILE to delete a profile with the `CASCADE` option
+We will create an external table that maps to the `languages.csv` file.
 
-First, create a new profile called `db_manager`:
+### 1) Create a directory object
+
+First, place the `language.csv` file in the `/home/oracle/loader` directory by running following commands in the terminal as **root** user:
 
 ```
-CREATE PROFILE db_manager LIMIT
-    FAILED_LOGIN_ATTEMPTS 5
-    PASSWORD_LIFE_TIME 1;
+cd ~/Desktop/oracle19c-administration
 
+mkdir -p /home/oracle/loader
+
+cp languages.csv /home/oracle/loader
+
+chown -R oracle /home/oracle/loader
 ```
 
-
-Next, create a user called `peter` and assign the `db_manager` profile to the user:
-
-```
-CREATE USER peter IDENTIFIED BY abcd1234
-    PROFILE db_manager;
+Second, log in to the Oracle database using the `sysdba` user via the SQL\*Plus program:
 
 ```
+su - oracle
 
+sqlplus / as sysdba
+```
 
-Then, attempt to drop the `db_manager` profile:
+![](./images/17.png)
+
+Third, create a new directory object called `lang_external` that maps to the `/home/oracle/loader` directory:
 
 ```
-DROP PROFILE db_manager;
+SQL> create directory lang_external as '/home/oracle/loader';   
 ```
 
 
-Oracle issued the following error:
+### 2) Grant `READ` and `WRITE` access on the directory object to users:
+
+The following statement grant `READ` and `WRITE` privileges to the `SYS` user:
 
 ```
-ORA-02382: profile DB_MANAGER has users assigned, cannot drop without CASCADE
+SQL> grant read,write on directory lang_external to sys;
+
+Grant succeeded.
+```
+
+### 3) Creating the external table
+
+Use the `CREATE TABLE ORGANIZATION EXTERNAL` statement to create the external table called `languages`:
+
+```
+CREATE TABLE languages(
+    language_id INT,
+    language_name VARCHAR2(30)
+)
+ORGANIZATION EXTERNAL(
+    TYPE oracle_loader
+    DEFAULT DIRECTORY lang_external
+    ACCESS PARAMETERS 
+    (FIELDS TERMINATED BY ',')
+    LOCATION ('languages.csv')
+);
+
+```
+
+![](./images/18.png)
+
+When you create the external table using the `CREATE TABLE ORGANIZATION EXTERNAL` statement, you need to specify the following attributes:
+
+### `TYPE`
+
+The `TYPE` determines the type of the external table. Oracle provides two types: `ORACLE_LOADER` and `ORACLE_DATADUMP`:
+
+*   The `ORACLE_LOADER` access driver is the default that loads data from text data files. Technically speaking, the `ORACLE_LOADER` loads data from an external table to an internal table. However, it cannot unload the data i.e., it cannot move data from the internal table to the external table.
+*   The `ORACLE_DATAPUMP` access driver can perform both loads and unloads. It requires the data in the binary dump file format.
+
+### `DEFAULT DIRECTORY`
+
+The `DEFAULT DIRECTORY` clause allows you to specify the default directory for storing all input and output files. It accepts a directory object, not a directory path.
+
+### `ACCESS PARAMETERS`
+
+The `ACCESS PARAMETERS` clause allows you to describe the external data source. Note that each access driver has its own access parameters.
+
+### `LOCATION`
+
+The `LOCATION` clause specifies the data files for the external table.
+
+You specify the data file in the form `directory:file`. If you omit the `directory` part, Oracle uses the `DEFAULT DIRECTORY` for the file.
+
+Using an Oracle external table
+------------------------------
+
+Once the external table is created, you can [query] it like a normal table:
+
+```
+SELECT 
+    language_id, 
+    language_name 
+FROM 
+    languages
+ORDER BY 
+    language_name;
+
+```
+
+Here is the partial output:
+
+![Oracle External Table Example](./images/Oracle-External-Table-Example.png)
+
+You can also [create a view] based on the external table:
+
+```
+CREATE VIEW language_a 
+AS
+SELECT language_name 
+FROM languages
+WHERE language_name LIKE 'A%';
 ```
 
 
-After that, use the `CASCADE` option in the `DROP PROFILE` statement to delete the `db_manager` profile:
+However, you cannot apply the `INSERT`, `DELETE`, and `UPDATE` to the external table:
 
 ```
-DROP PROFILE db_manager CASCADE;
-```
-
-
-Finally, view the profile of the user `peter`:
-
-```
-SELECT username, profile
-FROM dba_users
-WHERE username = 'PETER';
-
+DELETE FROM languages 
+WHERE language_id = 1;
 ```
 
 
-![oracle drop profile example](./images/oracle-drop-profile-example.png)
+Here is the error message:
 
-Oracle automatically assigned the `DEFAULT` profile to the user `peter` as expected.
+```
+SQL Error: ORA-30657: operation not supported on external organized table
+```
 
-In this lab, you’ve learned how to use the `DROP PROFILE` statement to remove a profile from the Oracle Database.
+
+The same error will occur if you attempt to insert a new row into the external table:
+
+```
+INSERT INTO languages(language_id, language_name) 
+VALUES(190,'Alien');
+```
+
+![](./images/19.png)
+
+Oracle external table troubleshooting
+-------------------------------------
+
+If you forget to grant the directory permission to users who access the external table, you will receive the following error:
+
+```
+ORA-29913: error in executing ODCIEXTTABLEFETCH callout
+ORA-30653: reject limit reached
+```
+
+
+Oracle will issue the following error if you attempt to define a constraint such as `primary key` and `foreign key` constraints on the external table.
+
+```
+ORA-30657: operation not supported on external organized table
+```
+
+
+In this lab, you have learned about Oracle external tables and how to use them to access data from flat files as they were in normal tables.
