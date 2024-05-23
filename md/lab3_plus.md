@@ -1,5 +1,5 @@
 
-# Step-by-Step Lab: Creating and Managing a New Container Database (CDB) Named fenagoCDB
+# Step-by-Step Lab: Creating and Managing a New Container Database (CDB) Named fenagoDB
 
 ## Prerequisites
 - Ensure that the Oracle Database software is installed.
@@ -10,7 +10,7 @@
 ### 1. Set Environment Variables
 ```bash
 export ORACLE_HOME=/u01/app/oracle/product/19.3.0/dbhome_1
-export ORACLE_SID=fenagoCDB
+export ORACLE_SID=fenagoDB
 ```
 
 *Explanation:* These commands set the environment variables required for Oracle to identify the correct database home and the instance to be managed.
@@ -24,15 +24,15 @@ sqlplus / as sysdba
 
 ### 3. Create the Initialization Parameter File (PFILE)
 ```sql
-CREATE PFILE='/tmp/initfenagoCDB.ora' FROM SPFILE;
+CREATE PFILE='/tmp/initfenagoDB.ora' FROM SPFILE;
 ```
 
 *Explanation:* This command creates a PFILE from the SPFILE. The PFILE is a text file that contains initialization parameters for starting the database instance.
 
 ### 4. Edit the PFILE
-Edit `/tmp/initfenagoCDB.ora` to include the necessary parameters for creating the CDB. Ensure the following parameters are set:
+Edit `/tmp/initfenagoDB.ora` to include the necessary parameters for creating the CDB. Ensure the following parameters are set:
 ```plaintext
-db_name=fenagoCDB
+db_name=fenagoDB
 enable_pluggable_database=true
 ```
 
@@ -40,7 +40,7 @@ enable_pluggable_database=true
 
 ### 5. Start the Instance in NOMOUNT Mode
 ```sql
-STARTUP NOMOUNT PFILE='/tmp/initfenagoCDB.ora';
+STARTUP NOMOUNT PFILE='/tmp/initfenagoDB.ora';
 ```
 
 *Explanation:* This command starts the Oracle instance without mounting the database, allowing you to create the database structure.
@@ -48,7 +48,7 @@ STARTUP NOMOUNT PFILE='/tmp/initfenagoCDB.ora';
 ### 6. Create the CDB
 Execute the `CREATE DATABASE` command to create the CDB:
 ```sql
-CREATE DATABASE fenagoCDB
+CREATE DATABASE fenagoDB
 USER SYS IDENTIFIED BY password
 USER SYSTEM IDENTIFIED BY password
 LOGFILE GROUP 1 ('/u01/app/oracle/oradata/fenagoCDB/redo01.log') SIZE 100M,
@@ -71,7 +71,7 @@ SEED
 
 ### 7. Create SPFILE from PFILE
 ```sql
-CREATE SPFILE FROM PFILE='/tmp/initfenagoCDB.ora';
+CREATE SPFILE FROM PFILE='/tmp/initfenagoDB.ora';
 ```
 
 *Explanation:* This command creates an SPFILE from the PFILE. The SPFILE is a binary file that stores the database initialization parameters in a persistent manner.
@@ -97,46 +97,46 @@ SELECT name, open_mode, cdb FROM V$DATABASE;
 If the SPFILE is missing, you need to create the PFILE manually:
 
 ### 1. Create a PFILE Manually
-Create a PFILE `/tmp/initfenagoCDB.ora` with the following contents:
+Create a PFILE `/tmp/initfenagoDB.ora` with the following contents:
 ```bash
-vi /tmp/initfenagoCDB.ora
+vi /tmp/initfenagoDB.ora
 ```
 
 Add the following lines to the file:
 ```plaintext
-db_name=fenagoCDB
+db_name=fenagoDB
 enable_pluggable_database=true
 ```
 
 ### 2. Start the Instance in NOMOUNT Mode
 ```sql
-STARTUP NOMOUNT PFILE='/tmp/initfenagoCDB.ora';
+STARTUP NOMOUNT PFILE='/tmp/initfenagoDB.ora';
 ```
 
 ### 3. Create the CDB
 ```sql
-CREATE DATABASE fenagoCDB
+CREATE DATABASE fenagoDB
 USER SYS IDENTIFIED BY password
 USER SYSTEM IDENTIFIED BY password
-LOGFILE GROUP 1 ('/u01/app/oracle/oradata/fenagoCDB/redo01.log') SIZE 100M,
-        GROUP 2 ('/u01/app/oracle/oradata/fenagoCDB/redo02.log') SIZE 100M,
-        GROUP 3 ('/u01/app/oracle/oradata/fenagoCDB/redo03.log') SIZE 100M
+LOGFILE GROUP 1 ('/u01/app/oracle/oradata/fenagoDB/redo01.log') SIZE 100M,
+        GROUP 2 ('/u01/app/oracle/oradata/fenagoDB/redo02.log') SIZE 100M,
+        GROUP 3 ('/u01/app/oracle/oradata/fenagoDB/redo03.log') SIZE 100M
 EXTENT MANAGEMENT LOCAL
-DATAFILE '/u01/app/oracle/oradata/fenagoCDB/system01.dbf' SIZE 700M REUSE
-SYSAUX DATAFILE '/u01/app/oracle/oradata/fenagoCDB/sysaux01.dbf' SIZE 550M REUSE
+DATAFILE '/u01/app/oracle/oradata/fenagoDB/system01.dbf' SIZE 700M REUSE
+SYSAUX DATAFILE '/u01/app/oracle/oradata/fenagoDB/sysaux01.dbf' SIZE 550M REUSE
 DEFAULT TABLESPACE users
-DEFAULT TEMPORARY TABLESPACE temp TEMPFILE '/u01/app/oracle/oradata/fenagoCDB/temp01.dbf' SIZE 20M REUSE
-UNDO TABLESPACE undotbs1 DATAFILE '/u01/app/oracle/oradata/fenagoCDB/undotbs01.dbf' SIZE 200M REUSE
+DEFAULT TEMPORARY TABLESPACE temp TEMPFILE '/u01/app/oracle/oradata/fenagoDB/temp01.dbf' SIZE 20M REUSE
+UNDO TABLESPACE undotbs1 DATAFILE '/u01/app/oracle/oradata/fenagoDB/undotbs01.dbf' SIZE 200M REUSE
 ENABLE PLUGGABLE DATABASE
 SEED
-  FILE_NAME_CONVERT = ('/u01/app/oracle/oradata/fenagoCDB/', '/u01/app/oracle/oradata/fenagoCDB/pdbseed/')
+  FILE_NAME_CONVERT = ('/u01/app/oracle/oradata/fenagoDB/', '/u01/app/oracle/oradata/fenagoCDB/pdbseed/')
   SYSTEM DATAFILES SIZE 125M AUTOEXTEND ON NEXT 10M MAXSIZE UNLIMITED
   SYSAUX DATAFILES SIZE 100M;
 ```
 
 ### 4. Create SPFILE from PFILE
 ```sql
-CREATE SPFILE FROM PFILE='/tmp/initfenagoCDB.ora';
+CREATE SPFILE FROM PFILE='/tmp/initfenagoDB.ora';
 ```
 
 ### 5. Restart the Database
@@ -151,6 +151,6 @@ SELECT name, open_mode, cdb FROM V$DATABASE;
 ```
 
 ## Conclusion
-You have successfully created a new Container Database (CDB) named fenagoCDB and managed it using both standard and manual methods. These steps include setting environment variables, connecting to SQL*Plus, creating initialization parameter files, and verifying the database creation.
+You have successfully created a new Container Database (CDB) named fenagoDB and managed it using both standard and manual methods. These steps include setting environment variables, connecting to SQL*Plus, creating initialization parameter files, and verifying the database creation.
 
 This guide provides a comprehensive approach to managing CDBs in Oracle, ensuring that you can handle both typical and exceptional scenarios effectively.
