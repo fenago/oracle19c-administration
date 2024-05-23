@@ -35,6 +35,9 @@ Oracle Listener control commands
 To launch the listener control, you use the LSNCTRL command from the terminal on Linux:
 
 ```
+export ORACLE_HOME=/u01/app/oracle/product/19.3.0/dbhome_1
+export PATH=$ORACLE_HOME/bin:$PATH
+
 lsnrctrl
 ```
 
