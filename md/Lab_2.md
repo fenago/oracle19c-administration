@@ -213,3 +213,68 @@ fenagodb             OPEN
 
 
 In this lab, you have learned how to start a database instance using the Oracle `STARTUP` command.
+
+note:  to determine if this is a CDB or PDB, execute this:
+
+```
+SELECT CDB FROM V$DATABASE;
+SELECT instance_name, status FROM V$INSTANCE;
+
+```
+
+PDB: To start a Pluggable Database (PDB) within a CDB, you would use the ALTER PLUGGABLE DATABASE command after the CDB is started (Don't run this!):
+
+```
+ALTER PLUGGABLE DATABASE pdb_name OPEN;
+
+```
+
+
+# Oracle Database Instance Information Queries
+
+Sure, you can use the following queries to get detailed information about the database instance, including whether it is a CDB or PDB, and its name and status:
+
+## Check if the database is a CDB:
+```sql
+SELECT CDB FROM V$DATABASE;
+```
+
+## Get the instance name and status:
+```sql
+SELECT instance_name, status FROM V$INSTANCE;
+```
+
+## Get detailed information about the database:
+```sql
+SELECT name, open_mode, database_role, platform_name FROM V$DATABASE;
+```
+
+## If it is a CDB, list all PDBs and their statuses:
+```sql
+SELECT pdb_name, open_mode FROM CDB_PDBS;
+```
+
+## Get information about the current container:
+```sql
+SELECT name, con_id, open_mode FROM V$CONTAINERS;
+```
+
+## Here's how you can combine these queries to get a comprehensive overview:
+```sql
+-- Check if the database is a CDB
+SELECT CDB FROM V$DATABASE;
+
+-- Get the instance name and status
+SELECT instance_name, status FROM V$INSTANCE;
+
+-- Get detailed information about the database
+SELECT name, open_mode, database_role, platform_name FROM V$DATABASE;
+
+-- If the database is a CDB, list all PDBs and their statuses
+SELECT pdb_name, open_mode FROM CDB_PDBS;
+
+-- Get information about the current container
+SELECT name, con_id, open_mode FROM V$CONTAINERS;
+```
+
+Run these queries in SQL*Plus or any other SQL client connected to your Oracle database to get the details you need.
