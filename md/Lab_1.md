@@ -29,6 +29,12 @@ In this step, you will switch to oracle user from terminal
 
 ![](./images/2.png)
 
+Note:  you can run dbca to create Container or PDBs:
+
+```
+dbca
+```
+
 Oracle Listener control commands
 --------------------------------
 
