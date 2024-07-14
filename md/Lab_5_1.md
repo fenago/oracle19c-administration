@@ -1,5 +1,3 @@
-Yes, we did create a `CDBDEV` in a prior lab. If `CDBDEV` already exists, we should either drop the existing `CDBDEV` before starting this lab or use a different name for the new CDB to avoid conflicts. For this lab, I'll assume we want to create a new CDB and name it `CDBLAB`.
-
 ### Practice 5-1: Shutting Down and Starting Up the Oracle Database
 
 #### Objective:
