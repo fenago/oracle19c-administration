@@ -3,6 +3,10 @@
 #### Objective:
 To verify the operating system and Oracle Database versions and understand the directory structure of the Oracle 19.3.0 DB environment.
 
+Open terminal and run "xhost +" command as root user:
+
+![](./images/1.png)
+
 #### Steps:
 
 1. **Check the Operating System Version**
