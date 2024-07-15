@@ -1,118 +1,176 @@
-### Lab 3.1: Creating a New CDB
+### Lab 3.1: Creating a New CDB Using DBCA GUI and Response File
 
-#### Objective:
-To create a new Container Database (CDB) named `CDBTEST` using DBCA in silent mode with specified characteristics.
+**Objective:**
+To create a new Container Database (CDB) named `CDBTEST` using the DBCA GUI, save the response file, and use it to create a second CDB in silent mode. The steps will include starting and stopping both CDBs.
 
-#### Steps:
+**Steps:**
+
+#### Part A: Create the First CDB Using DBCA GUI
 
 1. **Set Up Environment Variables**
 
-   First, make sure the Oracle environment variables are set correctly. Run the following commands to set the Oracle environment:
+   Open a terminal and set the Oracle environment variables:
+
    ```sh
    export ORACLE_SID=CDBTEST
    export ORACLE_HOME=/u01/app/oracle/product/19.3.0/dbhome_1
    export PATH=$ORACLE_HOME/bin:$PATH
    ```
 
-2. **Create a Response File for DBCA**
+2. **Launch DBCA GUI**
 
-   Create a response file named `dbca_cdbtest.rsp` with the following content:
+   Start the Database Configuration Assistant (DBCA) with the GUI:
+
    ```sh
-   touch /u01/app/oracle/product/19.3.0/dbhome_1/dbca_cdbtest.rsp
+   dbca
    ```
 
-   Edit the file with your preferred text editor and add the following:
-   ```sh
-   nano /u01/app/oracle/product/19.3.0/dbhome_1/dbca_cdbtest.rsp
-   ```
+3. **Create a New Database**
 
-   **Note:** You can also use `vscode`.
+   Follow these steps in the DBCA GUI:
 
-   Copy and paste the following configuration into the response file:
-   ```ini
-   [GENERAL]
-   RESPONSEFILE_VERSION = "19.0.0"
-   OPERATION_TYPE = "createDatabase"
-   
-   [CREATEDATABASE]
-   GDBNAME = "CDBTEST"
-   SID = "CDBTEST"
-   TEMPLATE_NAME = "General_Purpose.dbc"
-   SYSPASSWORD = "fenago"
-   SYSTEMPASSWORD = "fenago"
-   DATAFILEDESTINATION = "/u01/app/oracle/oradata/CDBTEST"
-   STORAGE_TYPE = "FS"
-   CHARACTERSET = "AL32UTF8"
-   NATIONALCHARACTERSET = "AL16UTF16"
-   TOTALMEMORY = "2048"
-   
-   [CREATEPLUGGABLEDATABASE]
-   TEMPDATADIR = "/u01/app/oracle/oradata/CDBTEST/temp01.dbf"
-   
-   [INITPARAMS]
-   db_create_file_dest = "/u01/app/oracle/oradata/CDBTEST"
-   db_create_online_log_dest_1 = "/u01/app/oracle/oradata/CDBTEST"
-   enable_pluggable_database = TRUE
-   db_block_size = 8192
-   db_domain = ""
-   db_name = CDBTEST
-   db_unique_name = CDBTEST
-   open_cursors = 300
-   processes = 300
-   audit_file_dest = /u01/app/oracle/admin/CDBTEST/adump
-   audit_trail = db
-   compatible = 19.0.0
-   control_files = ("/u01/app/oracle/oradata/CDBTEST/control01.ctl")
-   db_recovery_file_dest = /u01/app/oracle/fast_recovery_area
-   db_recovery_file_dest_size = 2G
-   diagnostic_dest = /u01/app/oracle
-   remote_login_passwordfile = EXCLUSIVE
-   undo_tablespace = UNDOTBS
-   ```
+   - **Welcome Screen**: Click `Next`.
+   - **Database Operation**: Select `Create a database` and click `Next`.
+   - **Creation Mode**: Select `Advanced configuration` and click `Next`.
+   - **Database Template**: Choose `General Purpose or Transaction Processing` and click `Next`.
+   - **Database Identification**: Enter `Global Database Name: CDBTEST` and `SID: CDBTEST`. Click `Next`.
+   - **Management Options**: Enable `Configure Enterprise Manager (EM) Express` and set the port to `5502`. Click `Next`.
+   - **Storage Option**: Select `File System` and click `Next`.
+   - **Database File Locations**: Set the database file location to `/u01/app/oracle/oradata/CDBTEST`. Click `Next`.
+   - **Fast Recovery Area**: Enable it and set the location to `/u01/app/oracle/fast_recovery_area` with size `2048 MB`. Click `Next`.
+   - **Network Configuration**: Ensure listener is configured. Click `Next`.
+   - **Data Vault Option**: Skip this step by clicking `Next`.
+   - **Initialization Parameters**: Set memory to `2048 MB`, `Processes` to `300`, and ensure `Character Set` is `AL32UTF8`. Click `Next`.
+   - **Storage Locations**: Verify the storage settings and click `Next`.
+   - **Creation Options**: Select `Create Database` and check `Generate Database Creation Scripts`. Click `Next`.
 
-3. **Run DBCA in Silent Mode**
+4. **Save the Response File**
 
-   Before running the DBCA command, you can validate the response file using:
-   ```sh
-   dbca -silent -validate -responseFile /u01/app/oracle/product/19.3.0/dbhome_1/dbca_cdbtest.rsp
-   ```
-   
-   Use the following command to run DBCA in silent mode with the created response file:
-   ```sh
-   $ORACLE_HOME/bin/dbca -silent -createDatabase -responseFile /u01/app/oracle/product/19.3.0/dbhome_1/dbca_cdbtest.rsp
-   ```
+   In the summary screen, save the response file for future use:
 
-4. **Verify the Creation of the CDB**
+   - Click on `Save Response File`.
+   - Save it as `/u01/app/oracle/product/19.3.0/dbhome_1/dbca_CDBTEST.rsp`.
 
-   Once DBCA completes, you should verify the creation of the CDB by connecting to the database and checking its status.
+5. **Create the Database**
 
-   **Switch to the Oracle User:**
-   ```sh
-   su - oracle
-   ```
+   Click `Finish` to create the database.
 
-   **Connect to the Database:**
+6. **Verify the Database Creation**
+
+   After the database is created, connect to it and verify:
+
    ```sh
    sqlplus / as sysdba
+   SQL> SELECT name, open_mode FROM v$database;
    ```
 
-   **Check the CDB Status:**
-   ```sql
-   SELECT name, open_mode FROM v$database;
+   Expected Output:
+
+   ```sh
+   NAME    OPEN_MODE
+   ------- ----------
+   CDBTEST READ WRITE
    ```
 
-   **Expected Output:**
-   The output should confirm that the database `CDBTEST` is created and open.
+7. **Check EM Express Port**
 
-5. **Check the EM Express Port**
+   Verify EM Express configuration:
 
-   To verify that the EM Express is configured correctly on port 5502, run the following SQL command:
-   ```sql
+   ```sh
    SELECT dbms_xdb_config.getHttpsPort() FROM dual;
    ```
 
-   **Expected Output:**
-   The port number should be 5502.
+   Expected Output:
+
+   ```sh
+   GETHTTPSPORT
+   ------------
+   5502
+   ```
+
+8. **Stop the Database**
+
+   ```sh
+   sqlplus / as sysdba
+   SQL> SHUTDOWN IMMEDIATE;
+   ```
+
+#### Part B: Create the Second CDB Using the Response File
+
+1. **Edit the Response File**
+
+   Edit the saved response file to create a new CDB named `CDBTEST2`:
+
+   ```sh
+   cp /u01/app/oracle/product/19.3.0/dbhome_1/dbca_CDBTEST.rsp /u01/app/oracle/product/19.3.0/dbhome_1/dbca_CDBTEST2.rsp
+   nano /u01/app/oracle/product/19.3.0/dbhome_1/dbca_CDBTEST2.rsp
+   ```
+
+   Change the following parameters:
+
+   ```ini
+   [CREATEDATABASE]
+   GDBNAME = "CDBTEST2"
+   SID = "CDBTEST2"
+   ```
+
+2. **Run DBCA in Silent Mode**
+
+   Run DBCA in silent mode using the edited response file:
+
+   ```sh
+   dbca -silent -createDatabase -responseFile /u01/app/oracle/product/19.3.0/dbhome_1/dbca_CDBTEST2.rsp
+   ```
+
+3. **Verify the Second Database Creation**
+
+   After the database is created, connect to it and verify:
+
+   ```sh
+   export ORACLE_SID=CDBTEST2
+   sqlplus / as sysdba
+   SQL> SELECT name, open_mode FROM v$database;
+   ```
+
+   Expected Output:
+
+   ```sh
+   NAME      OPEN_MODE
+   --------- ----------
+   CDBTEST2  READ WRITE
+   ```
+
+4. **Check EM Express Port for the Second CDB**
+
+   Verify EM Express configuration for `CDBTEST2`:
+
+   ```sh
+   SELECT dbms_xdb_config.getHttpsPort() FROM dual;
+   ```
+
+   Expected Output:
+
+   ```sh
+   GETHTTPSPORT
+   ------------
+   5502
+   ```
+
+5. **Stop the Second Database**
+
+   ```sh
+   sqlplus / as sysdba
+   SQL> SHUTDOWN IMMEDIATE;
+   ```
+
+6. **Start the First Database**
+
+   ```sh
+   export ORACLE_SID=CDBTEST
+   sqlplus / as sysdba
+   SQL> STARTUP;
+   ```
 
 ### Summary
-By following these steps, you will successfully create a new CDB named `CDBTEST` using DBCA in silent mode with the specified characteristics. This practice helps in understanding the automated creation of databases and configuring essential parameters using response files.
+
+In this lab, you created a new CDB named `CDBTEST` using the DBCA GUI, saved the response file, and used it to create a second CDB named `CDBTEST2` in silent mode. You verified the creation of both databases, checked the EM Express configuration, and managed the database instances. This practice helps you understand both GUI-based and silent mode database creation and management in Oracle.
