@@ -31,16 +31,16 @@ In this lab, I will guide you through the process of creating a small Oracle dat
    -responseFile NO_VALUE \
    -characterSet AL32UTF8 \
    -totalMemory 1024 \
-   -sysPassword Welcome_1 \
-   -systemPassword Welcome_1 \
-   -pdbAdminPassword Welcome_1 \
+   -sysPassword fenago \
+   -systemPassword fenago \
+   -pdbAdminPassword fenago \
    -emConfiguration DBEXPRESS \
-   -dbsnmpPassword Welcome_1 \
-   -emExpressPort 5500 \
+   -dbsnmpPassword fenago \
+   -emExpressPort 5589 \
    -enableArchive true \
-   -recoveryAreaDestination /u03/app/oracle/fast_recovery_area \
+   -recoveryAreaDestination /u01/app/oracle/fast_recovery_area \
    -recoveryAreaSize 5000 \
-   -datafileDestination /u02/app/oracle/oradata
+   -datafileDestination /u01/app/oracle/oradata
    ```
 
    This command will create a new container database named `drlee` with a pluggable database `pdb1`. Adjust memory settings and file destinations as needed for your environment.
