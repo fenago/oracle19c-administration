@@ -33,10 +33,14 @@ To verify the operating system and Oracle Database versions and understand the d
    ```sh
    sqlplus / as sysdba
    ```
+   
    Now you need to start up the database:
-      ```sql
+   ```sql
    STARTUP;
    ```
+
+   ![](./images/e1.png)
+   
    Once in the SQL*Plus environment, run:
    ```sql
    SELECT * FROM v$version;
@@ -115,6 +119,8 @@ To shut down the Oracle database instance, you can use the following commands:
    ```sql
    SHUTDOWN IMMEDIATE;
    ```
+   
+   ![](./images/e2.png)
 
    This command will perform a clean shutdown of the Oracle database instance. If you want to force the shutdown without waiting for current operations to complete, you can use:
    ```sql
@@ -263,7 +269,8 @@ Yes, Oracle Database includes Oracle Enterprise Manager Database Express (EM Exp
 
    ```sh
    sqlplus / as sysdba
-
+   
+   SQL> STARTUP;
    SQL> EXEC DBMS_XDB_CONFIG.SETHTTPSPORT(5500);
    ```
 
@@ -271,6 +278,8 @@ Yes, Oracle Database includes Oracle Enterprise Manager Database Express (EM Exp
    ```sh
    SQL> SELECT DBMS_XDB_CONFIG.GETHTTPSPORT FROM DUAL;
    ```
+
+![](./images/e3.png)
 
 #### Step 2: Access EM Express
 
@@ -283,6 +292,10 @@ Yes, Oracle Database includes Oracle Enterprise Manager Database Express (EM Exp
 
    Replace `<hostname>` with the actual hostname or IP address of your database server. If you are running it on the same machine, you can use `localhost`.
 
+![](./images/e4.png)
+
+   You can click proceed and ignore the warning.
+
 2. **Log In to EM Express**
 
    You will be prompted to log in. Use the credentials for a user with DBA privileges, such as `SYS` or `SYSTEM`.
@@ -293,7 +306,9 @@ Yes, Oracle Database includes Oracle Enterprise Manager Database Express (EM Exp
    Password: YourPassword
    ```
 
-   Ensure to select `AS SYSDBA` if you are logging in as the `SYS` user.
+![](./images/e5.png)
+
+   Ensure to select `AS SYSDBA` if you are logging in as the `SYS` user if option is available.
 
 ### Step 3: Managing Your Database with EM Express
 
@@ -302,6 +317,8 @@ Once logged in, you can perform various database management tasks, including:
 - Managing users and security
 - Configuring storage structures
 - Managing database instances and services
+
+![](./images/e6.png)
 
 #### Example Screens and Tasks:
 
