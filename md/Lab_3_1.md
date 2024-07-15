@@ -16,8 +16,13 @@ To create a new Container Database (CDB) named `CDBTEST` using the DBCA GUI, sav
    export ORACLE_HOME=/u01/app/oracle/product/19.3.0/dbhome_1
    export PATH=$ORACLE_HOME/bin:$PATH
    ```
+   then
+   ```
+   lsnrctl status
+   lsnrctl start
+   ```
 
-2. **Launch DBCA GUI**
+3. **Launch DBCA GUI**
 
    Start the Database Configuration Assistant (DBCA) with the GUI:
 
@@ -25,7 +30,7 @@ To create a new Container Database (CDB) named `CDBTEST` using the DBCA GUI, sav
    dbca
    ```
 
-3. **Create a New Database**
+4. **Create a New Database**
 
    Follow these steps in the DBCA GUI:
 
@@ -44,18 +49,18 @@ To create a new Container Database (CDB) named `CDBTEST` using the DBCA GUI, sav
    - **Storage Locations**: Verify the storage settings and click `Next`.
    - **Creation Options**: Select `Create Database` and check `Generate Database Creation Scripts`. Click `Next`.
 
-4. **Save the Response File**
+5. **Save the Response File**
 
    In the summary screen, save the response file for future use:
 
    - Click on `Save Response File`.
    - Save it as `/u01/app/oracle/product/19.3.0/dbhome_1/dbca_CDBTEST.rsp`.
 
-5. **Create the Database**
+6. **Create the Database**
 
    Click `Finish` to create the database.
 
-6. **Verify the Database Creation**
+7. **Verify the Database Creation**
 
    After the database is created, connect to it and verify:
 
@@ -72,7 +77,7 @@ To create a new Container Database (CDB) named `CDBTEST` using the DBCA GUI, sav
    CDBTEST READ WRITE
    ```
 
-7. **Check EM Express Port**
+8. **Check EM Express Port**
 
    Verify EM Express configuration:
 
@@ -88,7 +93,7 @@ To create a new Container Database (CDB) named `CDBTEST` using the DBCA GUI, sav
    5502
    ```
 
-8. **Stop the Database**
+9. **Stop the Database**
 
    ```sh
    sqlplus / as sysdba
