@@ -33,27 +33,26 @@ To create a new Container Database (CDB) named `CDBTEST` using DBCA in silent mo
    [GENERAL]
    RESPONSEFILE_VERSION = "19.0.0"
    OPERATION_TYPE = "createDatabase"
-
+   
    [CREATEDATABASE]
    GDBNAME = "CDBTEST"
    SID = "CDBTEST"
    TEMPLATE_NAME = "General_Purpose.dbc"
-   SYSTEM_PASSWORD = "fenago"
    SYSPASSWORD = "fenago"
+   SYSTEMPASSWORD = "fenago"
    DATAFILEDESTINATION = "/u01/app/oracle/oradata/CDBTEST"
-   STORAGE_TYPE = "OMF"
+   STORAGE_TYPE = "FS"
    CHARACTERSET = "AL32UTF8"
    NATIONALCHARACTERSET = "AL16UTF16"
    TOTALMEMORY = "2048"
-
+   
    [CREATEPLUGGABLEDATABASE]
    TEMPDATADIR = "/u01/app/oracle/oradata/CDBTEST/temp01.dbf"
-
+   
    [INITPARAMS]
    db_create_file_dest = "/u01/app/oracle/oradata/CDBTEST"
    db_create_online_log_dest_1 = "/u01/app/oracle/oradata/CDBTEST"
    enable_pluggable_database = TRUE
-   local_listener = ""
    db_block_size = 8192
    db_domain = ""
    db_name = CDBTEST
@@ -63,20 +62,19 @@ To create a new Container Database (CDB) named `CDBTEST` using DBCA in silent mo
    audit_file_dest = /u01/app/oracle/admin/CDBTEST/adump
    audit_trail = db
    compatible = 19.0.0
-   control_files = (/u01/app/oracle/oradata/CDBTEST/control01.ctl)
+   control_files = ("/u01/app/oracle/oradata/CDBTEST/control01.ctl")
    db_recovery_file_dest = /u01/app/oracle/fast_recovery_area
    db_recovery_file_dest_size = 2G
    diagnostic_dest = /u01/app/oracle
    remote_login_passwordfile = EXCLUSIVE
    undo_tablespace = UNDOTBS
-
    ```
 
 3. **Run DBCA in Silent Mode**
 
    Before running the DBCA command, you can validate the response file using:
    ```sh
-   dbca -silent -createDatabase -validate -responseFile /u01/app/oracle/product/19.3.0/dbhome_1/dbca_cdbtest.rsp
+   dbca -silent -validate -responseFile /u01/app/oracle/product/19.3.0/dbhome_1/dbca_cdbtest.rsp
    ```
    
    Use the following command to run DBCA in silent mode with the created response file:
