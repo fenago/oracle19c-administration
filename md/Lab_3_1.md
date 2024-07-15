@@ -35,14 +35,18 @@ To create a new Container Database (CDB) named `CDBTEST` using the DBCA GUI, sav
    Follow these steps in the DBCA GUI:
 
    - **Welcome Screen**: Click `Next`.
+   ![](./images/e7.png)
    - **Database Operation**: Select `Create a database` and click `Next`.
    - **Creation Mode**: Select `Advanced configuration` and click `Next`.
    - **Database Template**: Choose `General Purpose or Transaction Processing` and click `Next`.
+   ![](./images/e8.png)
    - **Database Identification**: Enter `Global Database Name: CDBTEST` and `SID: CDBTEST`. Click `Next`.
+   ![](./images/e9.png)
    - **Management Options**: Enable `Configure Enterprise Manager (EM) Express` and set the port to `5502`. Click `Next`.
    - **Storage Option**: Select `File System` and click `Next`.
    - **Database File Locations**: Set the database file location to `/u01/app/oracle/oradata/CDBTEST`. Click `Next`.
-   - **Fast Recovery Area**: Enable it and set the location to `/u01/app/oracle/fast_recovery_area` with size `2048 MB`. Click `Next`.
+   - **Fast Recovery Area**: Enable it and set the location to `/u01/app/oracle/fast_recovery_area` with size `16384 MB`. Click `Next`.
+   ![](./images/e10.png)
    - **Network Configuration**: Ensure listener is configured. Click `Next`.
    - **Data Vault Option**: Skip this step by clicking `Next`.
    - **Initialization Parameters**: Set memory to `2048 MB`, `Processes` to `300`, and ensure `Character Set` is `AL32UTF8`. Click `Next`.
@@ -111,14 +115,14 @@ To create a new Container Database (CDB) named `CDBTEST` using the DBCA GUI, sav
    nano /u01/app/oracle/product/19.3.0/dbhome_1/dbca_CDBTEST2.rsp
    ```
 
-   Change the following parameters:
+   Change the following parameters and in all other locations replace "CDBTEST" with "CDBTEST2" using nano or vscode editor:
 
    ```ini
-   [CREATEDATABASE]
    GDBNAME = "CDBTEST2"
    SID = "CDBTEST2"
    ```
-
+   ![](./images/e11.png)
+   
 2. **Run DBCA in Silent Mode**
 
    Run DBCA in silent mode using the edited response file:
