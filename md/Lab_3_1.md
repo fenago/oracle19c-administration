@@ -174,3 +174,226 @@ To create a new Container Database (CDB) named `CDBTEST` using the DBCA GUI, sav
 ### Summary
 
 In this lab, you created a new CDB named `CDBTEST` using the DBCA GUI, saved the response file, and used it to create a second CDB named `CDBTEST2` in silent mode. You verified the creation of both databases, checked the EM Express configuration, and managed the database instances. This practice helps you understand both GUI-based and silent mode database creation and management in Oracle.
+
+### Lab 3.1 Part 2: Verifying the CDB and System Details
+
+**Objective:**
+To verify and provide details on the CDB and the system using read-only commands from the command line and SQL*Plus. This will ensure that the database and system configurations are correct and provide insight into the system's health and configuration.
+
+**Steps:**
+
+#### 1. Set Up Environment Variables
+
+Open a terminal and set the Oracle environment variables:
+
+```sh
+export ORACLE_SID=CDBTEST
+export ORACLE_HOME=/u01/app/oracle/product/19.3.0/dbhome_1
+export PATH=$ORACLE_HOME/bin:$PATH
+```
+
+#### 2. Verify the Linux System Details
+
+**a. Check the Linux Distribution and Version:**
+
+```sh
+cat /etc/os-release
+```
+
+*Explanation:*
+This command displays the Linux distribution and version. It's important to verify that the OS meets the Oracle database's requirements.
+
+**Expected Output:**
+
+```sh
+NAME="Oracle Linux Server"
+VERSION="7.9"
+ID="ol"
+ID_LIKE="fedora"
+VERSION_ID="7.9"
+...
+```
+
+**b. Check the Kernel Version:**
+
+```sh
+uname -r
+```
+
+*Explanation:*
+This command shows the kernel version, which is important for ensuring compatibility with Oracle software.
+
+**Expected Output:**
+
+```sh
+4.14.35-1818.3.3.el7uek.x86_64
+```
+
+**c. Check System Uptime:**
+
+```sh
+uptime
+```
+
+*Explanation:*
+This command shows how long the system has been running, which can be useful for understanding the system's stability.
+
+**Expected Output:**
+
+```sh
+ 14:22:16 up 10 days,  3:45,  2 users,  load average: 0.15, 0.10, 0.09
+```
+
+#### 3. Verify Database and Instance Details Using SQL*Plus
+
+**a. Connect to the Database:**
+
+```sh
+sqlplus / as sysdba
+```
+
+**b. Check the Database Name and Open Mode:**
+
+```sh
+SELECT name, open_mode FROM v$database;
+```
+
+*Explanation:*
+This query confirms that the database is correctly named and is open for read/write operations.
+
+**Expected Output:**
+
+```sh
+NAME      OPEN_MODE
+--------- ----------
+CDBTEST   READ WRITE
+```
+
+**c. Verify the Instance Name and Status:**
+
+```sh
+SELECT instance_name, status FROM v$instance;
+```
+
+*Explanation:*
+This query shows the name and status of the instance, which should be running.
+
+**Expected Output:**
+
+```sh
+INSTANCE_NAME   STATUS
+--------------  ------------
+CDBTEST         OPEN
+```
+
+**d. List All PDBs and Their Status:**
+
+```sh
+SELECT con_id, name, open_mode FROM v$pdbs;
+```
+
+*Explanation:*
+This query lists all pluggable databases (PDBs) and their status, verifying that they are properly created and accessible.
+
+**Expected Output:**
+
+```sh
+CON_ID  NAME       OPEN_MODE
+------  ---------- ----------
+2       PDB$SEED   READ ONLY
+3       PDB1       READ WRITE
+4       PDB2       READ WRITE
+5       PDB3       READ WRITE
+```
+
+**e. Check the Memory Usage:**
+
+```sh
+SELECT component, current_size FROM v$sga_dynamic_components;
+```
+
+*Explanation:*
+This query displays the current memory allocation for different components of the System Global Area (SGA), which is crucial for performance monitoring.
+
+**Expected Output:**
+
+```sh
+COMPONENT              CURRENT_SIZE
+---------------------  ------------
+shared pool            536870912
+large pool             16777216
+java pool              16777216
+streams pool           16777216
+...
+```
+
+**f. Verify Tablespace Usage:**
+
+```sh
+SELECT tablespace_name, used_space, tablespace_size
+FROM dba_tablespace_usage_metrics;
+```
+
+*Explanation:*
+This query shows the usage of tablespaces, helping to monitor and manage storage effectively.
+
+**Expected Output:**
+
+```sh
+TABLESPACE_NAME   USED_SPACE   TABLESPACE_SIZE
+---------------   -----------  ---------------
+SYSTEM            5242880      20971520
+SYSAUX            2097152      10485760
+UNDOTBS1          1048576      5242880
+...
+```
+
+**g. Check the Alert Log for Recent Errors:**
+
+```sh
+SELECT originating_timestamp, message_text
+FROM v$alert_log
+WHERE originating_timestamp > SYSDATE - 1
+ORDER BY originating_timestamp;
+```
+
+*Explanation:*
+This query checks for any recent errors in the alert log, which is critical for identifying potential issues in the database.
+
+**Expected Output:**
+
+```sh
+ORIGINATING_TIMESTAMP      MESSAGE_TEXT
+-----------------------    ----------------------------
+14-JUL-2024 12:00:00       ARCH: Archival completed successfully
+14-JUL-2024 12:01:00       Log switch completed
+...
+```
+
+#### 4. Exit SQL*Plus
+
+```sh
+exit
+```
+
+#### 5. Summarize and Close the Terminal
+
+**a. Summarize the Findings:**
+
+- **Linux Distribution and Version:** Confirms the OS meets Oracle's requirements.
+- **Kernel Version:** Ensures compatibility with Oracle software.
+- **System Uptime:** Indicates system stability.
+- **Database and Instance Details:** Confirms database is open and functional.
+- **Memory Usage:** Helps monitor SGA allocation for performance.
+- **Tablespace Usage:** Aids in effective storage management.
+- **Alert Log:** Identifies any recent errors or issues.
+
+**b. Close the Terminal:**
+
+```sh
+exit
+```
+
+### Summary
+
+In this part of the lab, you used various read-only commands to verify and provide details on the CDB and system configuration. Understanding these commands and their outputs is essential for effective database and system management, ensuring everything is correctly set up and functioning as expected.
