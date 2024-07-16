@@ -195,6 +195,14 @@ Following these steps should help you successfully create the CDBDEV database. I
 
 
 1. **Create/Edit the `listener.ora` File**:
+   Set your environment (always do this when you start a new shell... and xhost +)
+
+       ```bash
+    export ORACLE_BASE=/u01/app/oracle
+    export ORACLE_HOME=/u01/app/oracle/product/19.3.0/dbhome_1
+    export ORACLE_SID=CDBDEV
+    export PATH=$ORACLE_HOME/bin:$PATH
+    ```
 
    If the `listener.ora` file does not exist, create it in the `$ORACLE_HOME/network/admin` directory. If it exists, ensure it is configured correctly.
 
@@ -205,15 +213,30 @@ Following these steps should help you successfully create the CDBDEV database. I
    Add the following configuration:
 
    ```plaintext
-   LISTENER =
-     (DESCRIPTION_LIST =
-       (DESCRIPTION =
-         (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
-       )
-     )
+    LISTENER =
+      (DESCRIPTION_LIST =
+        (DESCRIPTION =
+          (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
+        )
+      )
+    
+    SID_LIST_LISTENER =
+      (SID_LIST =
+        (SID_DESC =
+          (GLOBAL_DBNAME = CDBDEV)
+          (ORACLE_HOME = /u01/app/oracle/product/19.3.0/dbhome_1)
+          (SID_NAME = CDBDEV)
+        )
+        (SID_DESC =
+          (GLOBAL_DBNAME = CDBDEVXDB)
+          (ORACLE_HOME = /u01/app/oracle/product/19.3.0/dbhome_1)
+          (SID_NAME = CDBDEV)
+        )
+      )
+    
    ```
 
-2. **Configure the `tnsnames.ora` File**:
+3. **Configure the `tnsnames.ora` File**:
 
    Ensure that the `tnsnames.ora` file exists and is configured to connect to the `CDBDEV` service. This file is also located in `$ORACLE_HOME/network/admin`.
 
@@ -234,7 +257,7 @@ Following these steps should help you successfully create the CDBDEV database. I
      )
    ```
 
-3. **Start/Reload the Listener**:
+4. **Start/Reload the Listener**:
 
    After configuring the `listener.ora` file, restart or reload the listener.
 
@@ -243,7 +266,7 @@ Following these steps should help you successfully create the CDBDEV database. I
    lsnrctl start
    ```
 
-4. **Register the Database with the Listener**:
+5. **Register the Database with the Listener**:
 
    Connect to the database as SYSDBA and register the database with the listener.
 
@@ -252,9 +275,9 @@ Following these steps should help you successfully create the CDBDEV database. I
    ALTER SYSTEM REGISTER;
    ```
 
-5. **Verify the Listener Status**:
+6. **Verify the Listener Status**:
 
-   Check the status of the listener again to ensure it is now supporting the `CDBDEV` service.
+   Exit from sql*plus and Check the status of the listener again to ensure it is now supporting the `CDBDEV` service.
 
    ```bash
    lsnrctl status
