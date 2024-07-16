@@ -207,12 +207,12 @@ cd $ORACLE_HOME/dbs
 1. **Create/Edit the `listener.ora` File**:
    Set your environment (always do this when you start a new shell... and xhost +)
 
-       ```bash
+   ```bash
         export ORACLE_BASE=/u01/app/oracle
         export ORACLE_HOME=/u01/app/oracle/product/19.3.0/dbhome_1
         export ORACLE_SID=CDBDEV
         export PATH=$ORACLE_HOME/bin:$PATH
-        ```
+   ```
 
    If the `listener.ora` file does not exist, create it in the `$ORACLE_HOME/network/admin` directory. If it exists, ensure it is configured correctly.
 
