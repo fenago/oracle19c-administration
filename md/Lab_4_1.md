@@ -8,7 +8,7 @@ Start a NEW terminal shell and execute:
 ```
 xhost +
 ```
-Then create the directories needed (note that if you want a new DB - then replace CDBDEV with your new DB)
+Then create the directories needed (note that if you want a new DB - then replace CDBDEV with your new DB): REMEMBER YOU ARE DOING THIS AS ROOT
 
 ```
 mkdir -p /u01/app/oracle/oradata/CDBDEV
@@ -89,8 +89,14 @@ It looks like the Oracle environment variables are not being set correctly due t
     mkdir -p /u01/app/oracle/fast_recovery_area
     mkdir -p /u01/app/oracle/admin/CDBDEV/adump
     ```
+    Also delete any files from a prior attempt:
 
-5. **Start the Database Instance in NOMOUNT Mode**:
+   ```bash
+   rm /u01/app/oracle/product/19.3.0/dbhome_1/dbs/ora_control1
+   rm /u01/app/oracle/product/19.3.0/dbhome_1/dbs/ora_control2
+   ```
+
+6. **Start the Database Instance in NOMOUNT Mode**:
 
     ```bash
     sqlplus / as sysdba
@@ -108,8 +114,8 @@ It looks like the Oracle environment variables are not being set correctly due t
     USER SYS IDENTIFIED BY fenago
     USER SYSTEM IDENTIFIED BY fenago
     LOGFILE GROUP 1 ('/u01/app/oracle/oradata/CDBDEV/redo01.log') SIZE 100M,
-            GROUP 2 ('/u01/app/oracle/oradata/CDBDEV/redo02.log') SIZE 100M,
-            GROUP 3 ('/u01/app/oracle/oradata/CDBDEV/redo03.log') SIZE 100M
+        GROUP 2 ('/u01/app/oracle/oradata/CDBDEV/redo02.log') SIZE 100M,
+        GROUP 3 ('/u01/app/oracle/oradata/CDBDEV/redo03.log') SIZE 100M
     MAXLOGFILES 5
     MAXLOGMEMBERS 5
     MAXLOGHISTORY 1
@@ -125,7 +131,7 @@ It looks like the Oracle environment variables are not being set correctly due t
     DEFAULT TEMPORARY TABLESPACE temp
        TEMPFILE '/u01/app/oracle/oradata/CDBDEV/temp01.dbf'
        SIZE 20M REUSE
-    UNDO TABLESPACE undotbs
+    UNDO TABLESPACE undotbs1
        DATAFILE '/u01/app/oracle/oradata/CDBDEV/undotbs01.dbf'
        SIZE 200M REUSE AUTOEXTEND ON MAXSIZE UNLIMITED
     ENABLE PLUGGABLE DATABASE
