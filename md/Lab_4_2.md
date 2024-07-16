@@ -42,14 +42,14 @@ Ensure that the CDBDEV database is up and running, and that you have SQL Develop
     ```sql
     CREATE PLUGGABLE DATABASE pdb1
     ADMIN USER pdbadmin IDENTIFIED BY fenago
-    FILE_NAME_CONVERT = ('/u01/app/oracle/oradata/CDBDEV/', '/u01/app/oracle/oradata/CDBDEV/pdb1/');
+    FILE_NAME_CONVERT = ('/u01/app/oracle/oradata/CDBDEV/', '/u01/app/oracle/oradata/CDBDEV/pdb1/', '/u01/app/oracle/oradata/pdbseed/', '/u01/app/oracle/oradata/CDBDEV/pdb1/');
     ```
 
 4. **Create PDB2**:
     ```sql
     CREATE PLUGGABLE DATABASE pdb2
     ADMIN USER pdbadmin IDENTIFIED BY fenago
-    FILE_NAME_CONVERT = ('/u01/app/oracle/oradata/CDBDEV/', '/u01/app/oracle/oradata/CDBDEV/pdb2/');
+    FILE_NAME_CONVERT = ('/u01/app/oracle/oradata/CDBDEV/', '/u01/app/oracle/oradata/CDBDEV/pdb2/', '/u01/app/oracle/oradata/pdbseed/', '/u01/app/oracle/oradata/CDBDEV/pdb2/');
     ```
 
 #### 3. Open the Pluggable Databases
