@@ -307,10 +307,13 @@ cd $ORACLE_HOME/dbs
 
    ```bash
    sqlplus / as sysdba
+   ```
+then
+   ```
    ALTER SYSTEM REGISTER;
    ```
 
-6. **Verify the Listener Status**:
+5. **Verify the Listener Status**:
 
    Exit from sql*plus and Check the status of the listener again to ensure it is now supporting the `CDBDEV` service.
 
