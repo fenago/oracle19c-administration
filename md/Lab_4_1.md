@@ -89,11 +89,12 @@ It looks like the Oracle environment variables are not being set correctly due t
     mkdir -p /u01/app/oracle/fast_recovery_area
     mkdir -p /u01/app/oracle/admin/CDBDEV/adump
     ```
-    Also delete any files from a prior attempt:
+    Also delete any files from a prior attempt and note that if the SQL fails - you'll need to delete these artifacts to run again:
 
    ```bash
    rm /u01/app/oracle/product/19.3.0/dbhome_1/dbs/ora_control1
    rm /u01/app/oracle/product/19.3.0/dbhome_1/dbs/ora_control2
+   rm /u01/app/oracle/oradata/CDBDEV/redo0*.log
    ```
 
 6. **Start the Database Instance in NOMOUNT Mode**:
@@ -141,28 +142,151 @@ It looks like the Oracle environment variables are not being set correctly due t
        SYSAUX DATAFILES SIZE 100M;
     ```
 
-8. **Execute Catalog and Catproc Scripts**:
+8. **Execute Catalog and Catproc Scripts from inside of SQL*Plus **:
 
     ```sql
     @$ORACLE_HOME/rdbms/admin/catalog.sql
+    ```
+    then
+   ```sql
     @$ORACLE_HOME/rdbms/admin/catproc.sql
     ```
+##### Purpose of Running catalog.sql and catproc.sql
+After creating an Oracle database, you need to run two scripts: catalog.sql and catproc.sql. These scripts are essential for setting up the data dictionary and installing standard PL/SQL packages.
 
-9. **Add Entry to /etc/oratab**: Add the new entry for CDBDEV to `/etc/oratab`.
+- catalog.sql: This script creates the data dictionary views and tables. The data dictionary is a collection of database tables and views containing reference information about the database, its structures, and its users.
 
-    ```bash
-    echo "CDBDEV:/u01/app/oracle/product/19.3.0/dbhome_1:Y" | sudo tee -a /etc/oratab
-    cat /etc/oratab
-    ```
+- catproc.sql: This script installs the standard PL/SQL packages and procedures needed by Oracle. These packages provide various utility functions, including job scheduling, execution control, and data manipulation.
 
-10. **Verify Database Characteristics**: Verify that the specified tablespaces are created for the CDB$ROOT.
+9. **Exit SQL*Plus**
 
-    ```sql
+   ```sql
+   EXIT;
+   ```
+
+10. **Add Entry to /etc/oratab**
+
+   Add the new entry to `/etc/oratab`:
+   ```sh
+   echo "CDBDEV:/u01/app/oracle/product/19.3.0/dbhome_1:Y" | sudo tee -a /etc/oratab
+   ```
+
+   Verify the entry:
+   ```sh
+   cat /etc/oratab
+   ```
+
+11. **Verify Database Characteristics**
+
+    Verify that the specified tablespaces are created for the `CDB$ROOT`:
+    ```sh
     sqlplus / as sysdba
+    ```
+    ```sql
     SELECT tablespace_name FROM dba_tablespaces;
     ```
 
+    **Expected Output:**
+    The output should include `SYSTEM`, `SYSAUX`, `UNDOTBS`, `TEMP`, and `USERS`.
+
 Following these steps should help you successfully create the CDBDEV database. If you encounter any issues, please provide the specific error messages so I can assist further.
+
+### Lab Addendum: Connecting to the CDB Using SQL Developer
+
+#### Objective:
+To guide students on how to launch SQL Developer, connect to the newly created Container Database (CDB) `CDBDEV`, and provide a tour of SQL Developer from an administrative perspective.
+
+### Steps to Follow
+
+#### 1. Launch SQL Developer
+1. **Open SQL Developer**:
+   - Locate the SQL Developer launcher icon on your desktop.
+   - Double-click the SQL Developer icon to open the application.
+
+#### 2. Create a New Connection
+
+1. **Open the New Connection Window**:
+   - In SQL Developer, go to the menu bar and select `File` -> `New` -> `Database Connection...`.
+   - Alternatively, you can click the green `+` button in the Connections pane.
+
+2. **Enter Connection Details**:
+   - **Connection Name**: `CDBDEV_Admin`
+   - **Username**: `SYS`
+   - **Password**: `fenago`
+   - **Connection Type**: `Basic`
+   - **Role**: `SYSDBA`
+   - **Hostname**: `localhost` (or the appropriate hostname where the Oracle database is running)
+   - **Port**: `1521`
+   - **SID**: `CDBDEV`
+
+   The connection details should look like this:
+
+   ```
+   Connection Name: CDBDEV_Admin
+   Username: SYS
+   Password: fenago
+   Connection Type: Basic
+   Role: SYSDBA
+   Hostname: localhost
+   Port: 1521
+   SID: CDBDEV
+   ```
+
+3. **Test the Connection**:
+   - Click the `Test` button to verify the connection details. You should see a success message if everything is configured correctly.
+
+4. **Save and Connect**:
+   - Click the `Save` button to save the connection.
+   - Click the `Connect` button to establish the connection to `CDBDEV`.
+
+#### 3. Explore SQL Developer from an Admin Perspective
+
+1. **Connections Pane**:
+   - Once connected, you will see `CDBDEV_Admin` listed under the Connections pane.
+   - Expand the `CDBDEV_Admin` connection to see the various database objects.
+
+2. **Navigating the Database**:
+   - **Tables**: Expand `CDBDEV_Admin` -> `Tables` to view and manage tables.
+   - **Views**: Expand `CDBDEV_Admin` -> `Views` to see the database views.
+   - **Indexes**: Expand `CDBDEV_Admin` -> `Indexes` to view the indexes.
+   - **Users**: Expand `CDBDEV_Admin` -> `Security` -> `Users` to manage database users.
+   - **Roles**: Expand `CDBDEV_Admin` -> `Security` -> `Roles` to manage database roles.
+   - **Storage**: Expand `CDBDEV_Admin` -> `Storage` to manage tablespaces and other storage options.
+
+3. **Running SQL Scripts**:
+   - Click on the `SQL Worksheet` button (the pencil icon) or right-click on the `CDBDEV_Admin` connection and select `SQL Worksheet`.
+   - In the worksheet, you can run SQL commands and scripts. For example, to view the tablespaces:
+
+     ```sql
+     SELECT tablespace_name FROM dba_tablespaces;
+     ```
+
+   - Execute the command by pressing `F5` or clicking the `Run Script` button.
+
+4. **Viewing Database Sessions**:
+   - Navigate to `CDBDEV_Admin` -> `Performance` -> `Sessions` to monitor active database sessions.
+
+5. **Monitoring Performance**:
+   - SQL Developer provides various performance monitoring tools under the `Performance` tab.
+   - You can view active sessions, wait events, and other performance metrics.
+
+6. **Creating and Managing Users**:
+   - Go to `CDBDEV_Admin` -> `Security` -> `Users`.
+   - Right-click on `Users` and select `Create User` to create a new database user.
+   - Fill in the necessary details and click `OK` to create the user.
+
+7. **Exporting and Importing Data**:
+   - SQL Developer allows you to export and import data using the Data Pump utility.
+   - Navigate to `CDBDEV_Admin` -> `Data Pump` to access these features.
+
+8. **PL/SQL Development**:
+   - Use the `PL/SQL` tab to develop and debug PL/SQL code.
+   - SQL Developer provides a PL/SQL debugger and profiler to help with code development.
+
+### Summary
+
+By following these steps, you will be able to launch SQL Developer, connect to the `CDBDEV` database, and explore various administrative functionalities. This tour covers the essential aspects of database management using SQL Developer, enabling you to efficiently manage and monitor your Oracle database.
+
 
 #### Optional
 
@@ -197,155 +321,3 @@ If you prefer to use `. oraenv`, follow these steps instead:
 By running `. oraenv`, it will source the necessary environment variables from the `/etc/oratab` file.
 
 After setting the environment variables using either method, proceed with the remaining steps to create and configure the CDBDEV database.
-
------------------------DELETE BELOW THIS---------------------
-
-
-#### Steps:
-
-1. **Verify CDBDEV is not in /etc/oratab**
-
-   Check if `CDBDEV` is recorded in `/etc/oratab`. If it is, remove the entry:
-   ```sh
-   vi /etc/oratab
-   ```
-   Remove the line containing `CDBDEV` if it exists.
-
-2. **Set Oracle Environment Variables**
-
-   Set the Oracle environment variables using the `oraenv` script:
-   ```sh
-   . oraenv
-   ```
-   When prompted, enter `CDBDEV`.
-
-3. **Create an Initialization Parameter File**
-
-   Create an initialization parameter file from the sample `init.ora` file:
-   ```sh
-   cp $ORACLE_HOME/dbs/init.ora $ORACLE_HOME/dbs/initCDBDEV.ora
-   ```
-
-   Edit the `initCDBDEV.ora` file and set the following parameters:
-   ```ini
-   # Change <ORACLE_BASE> to point to the oracle base (the one you specify at install time)
-
-    db_name='CDBDEV'
-    enable_pluggable_database=true
-    memory_target=1G
-    processes=150
-    audit_file_dest='/u01/app/oracle/admin/CDBDEV/adump'
-    audit_trail='db'
-    db_block_size=8192
-    db_domain=''
-    db_create_file_dest='/u01/app/oracle/oradata'
-    db_recovery_file_dest='/u01/app/oracle/fast_recovery_area'
-    db_recovery_file_dest_size=2G
-    diagnostic_dest='/u01/app/oracle'
-    dispatchers='(PROTOCOL=TCP) (SERVICE=CDBDEVXDB)'
-    open_cursors=300
-    remote_login_passwordfile='EXCLUSIVE'
-    undo_tablespace=UNDOTBS1
-
-    # You may want to ensure that control files are created on separate physical devices
-    control_files=(ora_control1, ora_control2)
-    compatible='11.2.0'
-   ```
-   
-4. **Verify Required Directories Exist**
-
-   Verify that the directories exist, create them if they do not:
-   ```sh
-   mkdir -p /u01/app/oracle/oradata
-   mkdir -p /u01/app/oracle/fast_recovery_area
-   mkdir -p /u01/app/oracle/admin/CDBDEV/adump
-   ```
-
-5. **Start the Database Instance in NOMOUNT Mode**
-
-   Start the database instance in `NOMOUNT` mode:
-   ```sh
-   sqlplus / as sysdba
-   ```
-   ```sql
-   STARTUP NOMOUNT PFILE=$ORACLE_HOME/dbs/initCDBDEV.ora;
-   ```
-
-6. **Create the CDB**
-
-   Execute the script with the `CREATE DATABASE` command:
-   ```sql
-   CREATE DATABASE CDBDEV
-   USER SYS IDENTIFIED BY fenago
-   USER SYSTEM IDENTIFIED BY fenago
-   LOGFILE GROUP 1 ('/u01/app/oracle/oradata/CDBDEV/redo01.log') SIZE 100M,
-           GROUP 2 ('/u01/app/oracle/oradata/CDBDEV/redo02.log') SIZE 100M,
-           GROUP 3 ('/u01/app/oracle/oradata/CDBDEV/redo03.log') SIZE 100M
-   MAXLOGFILES 5
-   MAXLOGMEMBERS 5
-   MAXLOGHISTORY 1
-   MAXDATAFILES 100
-   CHARACTER SET AL32UTF8
-   NATIONAL CHARACTER SET AL16UTF16
-   EXTENT MANAGEMENT LOCAL
-   DATAFILE '/u01/app/oracle/oradata/CDBDEV/system01.dbf' SIZE 700M REUSE
-   SYSAUX DATAFILE '/u01/app/oracle/oradata/CDBDEV/sysaux01.dbf' SIZE 550M REUSE
-   DEFAULT TABLESPACE users
-      DATAFILE '/u01/app/oracle/oradata/CDBDEV/users01.dbf'
-      SIZE 200M REUSE AUTOEXTEND ON MAXSIZE UNLIMITED
-   DEFAULT TEMPORARY TABLESPACE temp
-      TEMPFILE '/u01/app/oracle/oradata/CDBDEV/temp01.dbf'
-      SIZE 20M REUSE
-   UNDO TABLESPACE undotbs
-      DATAFILE '/u01/app/oracle/oradata/CDBDEV/undotbs01.dbf'
-      SIZE 200M REUSE AUTOEXTEND ON MAXSIZE UNLIMITED
-   ENABLE PLUGGABLE DATABASE
-      SEED
-      FILE_NAME_CONVERT = ('/u01/app/oracle/oradata/CDBDEV/', '/u01/app/oracle/oradata/pdbseed/')
-      SYSTEM DATAFILES SIZE 125M AUTOEXTEND ON NEXT 10M MAXSIZE UNLIMITED
-      SYSAUX DATAFILES SIZE 100M;
-   ```
-
-   If you receive errors, use the SQL*Plus command `SHUTDOWN ABORT`, correct the errors, and restart from step 5.
-
-7. **Execute Catalog and Catproc Scripts**
-
-   Run the following scripts:
-   ```sql
-   @$ORACLE_HOME/rdbms/admin/catalog.sql
-   @$ORACLE_HOME/rdbms/admin/catproc.sql
-   ```
-
-8. **Exit SQL*Plus**
-
-   ```sql
-   EXIT;
-   ```
-
-9. **Add Entry to /etc/oratab**
-
-   Add the new entry to `/etc/oratab`:
-   ```sh
-   echo "CDBDEV:/u01/app/oracle/product/19.3.0/dbhome_1:Y" | sudo tee -a /etc/oratab
-   ```
-
-   Verify the entry:
-   ```sh
-   cat /etc/oratab
-   ```
-
-10. **Verify Database Characteristics**
-
-    Verify that the specified tablespaces are created for the `CDB$ROOT`:
-    ```sh
-    sqlplus / as sysdba
-    ```
-    ```sql
-    SELECT tablespace_name FROM dba_tablespaces;
-    ```
-
-    **Expected Output:**
-    The output should include `SYSTEM`, `SYSAUX`, `UNDOTBS`, `TEMP`, and `USERS`.
-
-### Summary
-By following these steps, you will successfully create a new CDB named `CDBDEV` using the `CREATE DATABASE` SQL command with the specified characteristics. This practice helps in understanding the manual creation of databases and configuring essential parameters.
