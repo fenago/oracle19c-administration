@@ -75,7 +75,7 @@ In this lab, I will guide you through the process of creating a small Oracle dat
    ./dbca -silent -deleteDatabase \
    -sourceDB drlee \
    -sid drlee \
-   -sysPassword Welcome_1
+   -sysPassword fenago
    ```
 
    This command will remove the `drlee` database from the system.

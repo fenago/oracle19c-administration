@@ -40,7 +40,7 @@ For each database except `fenagodb`, perform the following steps:
    ```bash
    $ORACLE_HOME/bin/dbca -silent -deleteDatabase \
    -sourceDB <database_sid> \
-   -sysPassword Welcome_1
+   -sysPassword fenago
    ```
 
    Repeat these steps for each database identified in Step 1.
@@ -89,8 +89,8 @@ For each database except `fenagodb`, perform the following steps:
 
    ```sql
    CREATE DATABASE drlee31
-   USER SYS IDENTIFIED BY Welcome_1
-   USER SYSTEM IDENTIFIED BY Welcome_1
+   USER SYS IDENTIFIED BY fenago
+   USER SYSTEM IDENTIFIED BY fenago
    LOGFILE GROUP 1 ('/u01/app/oracle/oradata/drlee31/redo1a.log', '/u02/app/oracle/oradata/drlee31/redo1b.log') SIZE 100M,
            GROUP 2 ('/u01/app/oracle/oradata/drlee31/redo2a.log', '/u02/app/oracle/oradata/drlee31/redo2b.log') SIZE 100M
    CHARACTER SET AL32UTF8
@@ -116,7 +116,7 @@ For each database except `fenagodb`, perform the following steps:
 2. **Create the pluggable database:**
 
    ```sql
-   CREATE PLUGGABLE DATABASE pdb1 ADMIN USER pdbadmin IDENTIFIED BY Welcome_1
+   CREATE PLUGGABLE DATABASE pdb1 ADMIN USER pdbadmin IDENTIFIED BY fenago
    FILE_NAME_CONVERT = ('/u01/app/oracle/oradata/drlee31/pdbseed/', '/u01/app/oracle/oradata/drlee31/pdb1/');
    ```
 

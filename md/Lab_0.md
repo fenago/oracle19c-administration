@@ -318,7 +318,7 @@ Yes, Oracle Database includes Oracle Enterprise Manager Database Express (EM Exp
    **Example:**
    ```
    Username: SYS
-   Password: YourPassword
+   Password: fenago
    ```
 
 ![](./images/e5.png)

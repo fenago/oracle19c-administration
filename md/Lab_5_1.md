@@ -40,8 +40,8 @@ To stop all running databases and listeners, create a new CDB named `CDBLAB` wit
    -templateName General_Purpose.dbc \
    -gdbName CDBLAB -sid CDBLAB \
    -createAsContainerDatabase true \
-   -numberOfPDBs 3 \
-   -pdbName PDB1,PDB2,PDB3 \
+   -numberOfPDBs 1 \
+   -pdbName PDB1 \
    -pdbAdminPassword fenago \
    -sysPassword fenago \
    -systemPassword fenago \
@@ -56,6 +56,7 @@ To stop all running databases and listeners, create a new CDB named `CDBLAB` wit
    -redoLogFileSize 50 \
    -automaticMemoryManagement true \
    -enableArchive true
+   -archiveLogDest /u01/app/oracle/archivelog
    ```
 
 4. **Verify the CDB and PDBs Creation**
