@@ -3,13 +3,132 @@
 #### Objective:
 To create a new Container Database (CDB) named `CDBDEV` using the `CREATE DATABASE` SQL command with specified characteristics.
 
+#### Pre-req
+Start a NEW terminal shell and execute:
+```
+xhost +
+su - oracle
+```
+
+It looks like the Oracle environment variables are not being set correctly due to the ORACLE_BASE environment variable not being set for the current user. Let's go through the steps to troubleshoot and resolve this issue:
+
+1. **Check /etc/oratab**: Ensure that CDBDEV is not present in the `/etc/oratab` file. If it is, remove it.
+
+    ```bash
+    vi /etc/oratab
+    ```
+
+    Delete any line containing `CDBDEV` if it exists.
+
+2. **Set Oracle Environment Variables Manually**: Since the ORACLE_BASE is not set automatically, you can set it manually in the terminal.
+
+    ```bash
+    export ORACLE_BASE=/u01/app/oracle
+    export ORACLE_HOME=/u01/app/oracle/product/19.3.0/dbhome_1
+    export ORACLE_SID=CDBDEV
+    ```
+
+3. **Create Initialization Parameter File**: Follow the steps to create and edit the initialization parameter file.
+
+    ```bash
+    cp $ORACLE_HOME/dbs/init.ora $ORACLE_HOME/dbs/initCDBDEV.ora
+    vi $ORACLE_HOME/dbs/initCDBDEV.ora
+    ```
+
+    Set the following parameters in the `initCDBDEV.ora` file:
+
+    ```plaintext
+    db_name='CDBDEV'
+    enable_pluggable_database=true
+    db_create_file_dest='/u01/app/oracle/oradata'
+    db_recovery_file_dest='/u01/app/oracle/fast_recovery_area'
+    db_recovery_file_dest_size=2G
+    audit_file_dest='/u01/app/oracle/admin/CDBDEV/adump'
+    diagnostic_dest='/u01/app/oracle'
+    ```
+
+4. **Verify Required Directories**: Ensure that the required directories exist. Create them if they do not.
+
+    ```bash
+    mkdir -p /u01/app/oracle/oradata
+    mkdir -p /u01/app/oracle/fast_recovery_area
+    mkdir -p /u01/app/oracle/admin/CDBDEV/adump
+    ```
+
+5. **Start the Database Instance in NOMOUNT Mode**:
+
+    ```bash
+    sqlplus / as sysdba
+    STARTUP NOMOUNT PFILE=$ORACLE_HOME/dbs/initCDBDEV.ora;
+    ```
+
+6. **Create the CDB**: Execute the CREATE DATABASE command.
+
+    ```sql
+    CREATE DATABASE CDBDEV
+    USER SYS IDENTIFIED BY fenago
+    USER SYSTEM IDENTIFIED BY fenago
+    LOGFILE GROUP 1 ('/u01/app/oracle/oradata/CDBDEV/redo01.log') SIZE 100M,
+            GROUP 2 ('/u01/app/oracle/oradata/CDBDEV/redo02.log') SIZE 100M,
+            GROUP 3 ('/u01/app/oracle/oradata/CDBDEV/redo03.log') SIZE 100M
+    MAXLOGFILES 5
+    MAXLOGMEMBERS 5
+    MAXLOGHISTORY 1
+    MAXDATAFILES 100
+    CHARACTER SET AL32UTF8
+    NATIONAL CHARACTER SET AL16UTF16
+    EXTENT MANAGEMENT LOCAL
+    DATAFILE '/u01/app/oracle/oradata/CDBDEV/system01.dbf' SIZE 700M REUSE
+    SYSAUX DATAFILE '/u01/app/oracle/oradata/CDBDEV/sysaux01.dbf' SIZE 550M REUSE
+    DEFAULT TABLESPACE users
+       DATAFILE '/u01/app/oracle/oradata/CDBDEV/users01.dbf'
+       SIZE 200M REUSE AUTOEXTEND ON MAXSIZE UNLIMITED
+    DEFAULT TEMPORARY TABLESPACE temp
+       TEMPFILE '/u01/app/oracle/oradata/CDBDEV/temp01.dbf'
+       SIZE 20M REUSE
+    UNDO TABLESPACE undotbs
+       DATAFILE '/u01/app/oracle/oradata/CDBDEV/undotbs01.dbf'
+       SIZE 200M REUSE AUTOEXTEND ON MAXSIZE UNLIMITED
+    ENABLE PLUGGABLE DATABASE
+       SEED
+       FILE_NAME_CONVERT = ('/u01/app/oracle/oradata/CDBDEV/', '/u01/app/oracle/oradata/pdbseed/')
+       SYSTEM DATAFILES SIZE 125M AUTOEXTEND ON NEXT 10M MAXSIZE UNLIMITED
+       SYSAUX DATAFILES SIZE 100M;
+    ```
+
+7. **Execute Catalog and Catproc Scripts**:
+
+    ```sql
+    @$ORACLE_HOME/rdbms/admin/catalog.sql
+    @$ORACLE_HOME/rdbms/admin/catproc.sql
+    ```
+
+8. **Add Entry to /etc/oratab**: Add the new entry for CDBDEV to `/etc/oratab`.
+
+    ```bash
+    echo "CDBDEV:/u01/app/oracle/product/19.3.0/dbhome_1:Y" | sudo tee -a /etc/oratab
+    cat /etc/oratab
+    ```
+
+9. **Verify Database Characteristics**: Verify that the specified tablespaces are created for the CDB$ROOT.
+
+    ```sql
+    sqlplus / as sysdba
+    SELECT tablespace_name FROM dba_tablespaces;
+    ```
+
+Following these steps should help you successfully create the CDBDEV database. If you encounter any issues, please provide the specific error messages so I can assist further.
+
+
+
+
 #### Steps:
 
 1. **Verify CDBDEV is not in /etc/oratab**
 
    Check if `CDBDEV` is recorded in `/etc/oratab`. If it is, remove the entry:
    ```sh
-   sudo vi /etc/oratab
+   vi /etc/oratab
    ```
    Remove the line containing `CDBDEV` if it exists.
 
