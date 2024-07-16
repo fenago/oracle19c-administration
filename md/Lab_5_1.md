@@ -36,27 +36,26 @@ To stop all running databases and listeners, create a new CDB named `CDBLAB` wit
 
    Use the following command to create a new CDB named `CDBLAB` with three PDBs (`PDB1`, `PDB2`, and `PDB3`):
    ```sh
-   dbca -silent -createDatabase \
+    dbca -silent -createDatabase \
    -templateName General_Purpose.dbc \
-   -gdbName CDBLAB -sid CDBLAB \
+   -gdbname CDBLAB -sid CDBLAB -responseFile NO_VALUE \
+   -characterSet AL32UTF8 \
+   -sysPassword fenago \
+   -systemPassword fenago \
    -createAsContainerDatabase true \
    -numberOfPDBs 1 \
    -pdbName PDB1 \
    -pdbAdminPassword fenago \
-   -sysPassword fenago \
-   -systemPassword fenago \
-   -datafileDestination '/u01/app/oracle/oradata' \
+   -databaseType MULTIPURPOSE \
+   -memoryMgmtType auto_sga \
+   -totalMemory 1536 \
    -storageType FS \
-   -characterSet AL32UTF8 \
-   -nationalCharacterSet AL16UTF16 \
+   -datafileDestination "/u01/app/oracle/oradata/" \
+   -redoLogFileSize 50 \
    -listeners LISTENER \
    -emConfiguration DBEXPRESS \
    -emExpressPort 5501 \
-   -totalMemory 2048 \
-   -redoLogFileSize 50 \
-   -automaticMemoryManagement true \
-   -enableArchive true
-   -archiveLogDest /u01/app/oracle/archivelog
+   -ignorePreReqs
    ```
 
 4. **Verify the CDB and PDBs Creation**
