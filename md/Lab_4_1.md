@@ -119,7 +119,41 @@ It looks like the Oracle environment variables are not being set correctly due t
 
 Following these steps should help you successfully create the CDBDEV database. If you encounter any issues, please provide the specific error messages so I can assist further.
 
+#### Optional
 
+No, you don't need to run the `. oraenv` command if you manually set the environment variables using `export`. Here's a recap of what you need to do:
+
+1. **Set Oracle Environment Variables Manually**: Set the Oracle environment variables manually in the terminal:
+
+    ```bash
+    export ORACLE_BASE=/u01/app/oracle
+    export ORACLE_HOME=/u01/app/oracle/product/19.3.0/dbhome_1
+    export ORACLE_SID=CDBDEV
+    ```
+
+After setting these environment variables, you can proceed with the rest of the steps to create the CDBDEV database.
+
+If you prefer to use `. oraenv`, follow these steps instead:
+
+1. **Update /etc/oratab**: Ensure that `CDBDEV` is in the `/etc/oratab` file with the correct path.
+
+    ```bash
+    echo "CDBDEV:/u01/app/oracle/product/19.3.0/dbhome_1:Y" | sudo tee -a /etc/oratab
+    ```
+
+2. **Run . oraenv**: Execute the `oraenv` command and specify `CDBDEV`.
+
+    ```bash
+    . oraenv
+    ```
+
+    When prompted, enter `CDBDEV`.
+
+By running `. oraenv`, it will source the necessary environment variables from the `/etc/oratab` file.
+
+After setting the environment variables using either method, proceed with the remaining steps to create and configure the CDBDEV database.
+
+-----------------------DELETE BELOW THIS---------------------
 
 
 #### Steps:
@@ -149,13 +183,28 @@ Following these steps should help you successfully create the CDBDEV database. I
 
    Edit the `initCDBDEV.ora` file and set the following parameters:
    ```ini
-   db_name='CDBDEV'
-   enable_pluggable_database=true
-   db_create_file_dest='/u01/app/oracle/oradata'
-   db_recovery_file_dest='/u01/app/oracle/fast_recovery_area'
-   db_recovery_file_dest_size=2G
-   audit_file_dest='/u01/app/oracle/admin/CDBDEV/adump'
-   diagnostic_dest='/u01/app/oracle'
+   # Change <ORACLE_BASE> to point to the oracle base (the one you specify at install time)
+
+    db_name='CDBDEV'
+    enable_pluggable_database=true
+    memory_target=1G
+    processes=150
+    audit_file_dest='/u01/app/oracle/admin/CDBDEV/adump'
+    audit_trail='db'
+    db_block_size=8192
+    db_domain=''
+    db_create_file_dest='/u01/app/oracle/oradata'
+    db_recovery_file_dest='/u01/app/oracle/fast_recovery_area'
+    db_recovery_file_dest_size=2G
+    diagnostic_dest='/u01/app/oracle'
+    dispatchers='(PROTOCOL=TCP) (SERVICE=CDBDEVXDB)'
+    open_cursors=300
+    remote_login_passwordfile='EXCLUSIVE'
+    undo_tablespace=UNDOTBS1
+
+    # You may want to ensure that control files are created on separate physical devices
+    control_files=(ora_control1, ora_control2)
+    compatible='11.2.0'
    ```
    
 4. **Verify Required Directories Exist**
