@@ -191,6 +191,123 @@ After creating an Oracle database, you need to run two scripts: catalog.sql and 
 
 Following these steps should help you successfully create the CDBDEV database. If you encounter any issues, please provide the specific error messages so I can assist further.
 
+### Lab Addendum: Open up the Database by Configuring the Listener
+
+
+1. **Create/Edit the `listener.ora` File**:
+
+   If the `listener.ora` file does not exist, create it in the `$ORACLE_HOME/network/admin` directory. If it exists, ensure it is configured correctly.
+
+   ```bash
+   vi $ORACLE_HOME/network/admin/listener.ora
+   ```
+
+   Add the following configuration:
+
+   ```plaintext
+   LISTENER =
+     (DESCRIPTION_LIST =
+       (DESCRIPTION =
+         (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
+       )
+     )
+   ```
+
+2. **Configure the `tnsnames.ora` File**:
+
+   Ensure that the `tnsnames.ora` file exists and is configured to connect to the `CDBDEV` service. This file is also located in `$ORACLE_HOME/network/admin`.
+
+   ```bash
+   vi $ORACLE_HOME/network/admin/tnsnames.ora
+   ```
+
+   Add the following entry:
+
+   ```plaintext
+   CDBDEV =
+     (DESCRIPTION =
+       (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
+       (CONNECT_DATA =
+         (SERVER = DEDICATED)
+         (SERVICE_NAME = CDBDEV)
+       )
+     )
+   ```
+
+3. **Start/Reload the Listener**:
+
+   After configuring the `listener.ora` file, restart or reload the listener.
+
+   ```bash
+   lsnrctl stop
+   lsnrctl start
+   ```
+
+4. **Register the Database with the Listener**:
+
+   Connect to the database as SYSDBA and register the database with the listener.
+
+   ```bash
+   sqlplus / as sysdba
+   ALTER SYSTEM REGISTER;
+   ```
+
+5. **Verify the Listener Status**:
+
+   Check the status of the listener again to ensure it is now supporting the `CDBDEV` service.
+
+   ```bash
+   lsnrctl status
+   ```
+
+### Example Commands
+
+Here's a summary of the commands you'll need to run:
+
+```bash
+# Create/Edit listener.ora
+vi $ORACLE_HOME/network/admin/listener.ora
+# Add the following content:
+LISTENER =
+  (DESCRIPTION_LIST =
+    (DESCRIPTION =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
+    )
+  )
+
+# Create/Edit tnsnames.ora
+vi $ORACLE_HOME/network/admin/tnsnames.ora
+# Add the following content:
+CDBDEV =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = CDBDEV)
+    )
+  )
+
+# Restart the listener
+lsnrctl stop
+lsnrctl start
+
+# Register the database with the listener
+sqlplus / as sysdba
+ALTER SYSTEM REGISTER;
+
+# Verify listener status
+lsnrctl status
+```
+
+### Verification
+
+After performing these steps, retry connecting to the database using SQL Developer. You should now be able to connect successfully if the listener is properly configured and the database is registered.
+
+### Summary
+
+This addendum ensures that students can correctly set up the listener and connect to their Oracle database using SQL Developer. Proper configuration of `listener.ora` and `tnsnames.ora` is crucial for remote connections, which is an essential part of database administration.
+
+
 ### Lab Addendum: Connecting to the CDB Using SQL Developer
 
 #### Objective:
