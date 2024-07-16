@@ -42,7 +42,7 @@ To stop all running databases and listeners, create a new CDB named `CDBLAB` wit
    -createAsContainerDatabase true \
    -numberOfPDBs 3 \
    -pdbName PDB1,PDB2,PDB3 \
-   -pdbAdminPassword YourPDBPassword \
+   -pdbAdminPassword fenago \
    -sysPassword fenago \
    -systemPassword fenago \
    -datafileDestination '/u01/app/oracle/oradata' \
@@ -53,10 +53,9 @@ To stop all running databases and listeners, create a new CDB named `CDBLAB` wit
    -listenerPort 1521 \
    -emConfiguration DBEXPRESS \
    -emExpressPort 5501 \
-   -memoryMgmtType auto_sga \
    -totalMemory 2048 \
    -redoLogFileSize 50 \
-   -automaticMemoryManagement false \
+   -automaticMemoryManagement true \
    -enableArchive true
    ```
 
