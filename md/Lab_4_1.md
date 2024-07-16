@@ -26,6 +26,7 @@ It looks like the Oracle environment variables are not being set correctly due t
     export ORACLE_BASE=/u01/app/oracle
     export ORACLE_HOME=/u01/app/oracle/product/19.3.0/dbhome_1
     export ORACLE_SID=CDBDEV
+    export PATH=$ORACLE_HOME/bin:$PATH
     ```
 
 3. **Create Initialization Parameter File**: Follow the steps to create and edit the initialization parameter file.
@@ -39,10 +40,11 @@ It looks like the Oracle environment variables are not being set correctly due t
 
     ```plaintext
     # Change <ORACLE_BASE> to point to the oracle base (the one you specify at install time)
-    
+        
     db_name='CDBDEV'
     enable_pluggable_database=true
-    memory_target=1G
+    sga_target=512M
+    pga_aggregate_target=512M
     processes=150
     audit_file_dest='/u01/app/oracle/admin/CDBDEV/adump'
     audit_trail='db'
@@ -56,11 +58,8 @@ It looks like the Oracle environment variables are not being set correctly due t
     open_cursors=300
     remote_login_passwordfile='EXCLUSIVE'
     undo_tablespace=UNDOTBS1
-    
-    # You may want to ensure that control files are created on separate physical devices
     control_files=(ora_control1, ora_control2)
     compatible='11.2.0'
-
     ```
 
 4. **Verify Required Directories**: Ensure that the required directories exist. Create them if they do not.
@@ -75,10 +74,14 @@ It looks like the Oracle environment variables are not being set correctly due t
 
     ```bash
     sqlplus / as sysdba
+    ```
+
+    Then call:
+   ```
     STARTUP NOMOUNT PFILE=$ORACLE_HOME/dbs/initCDBDEV.ora;
     ```
 
-6. **Create the CDB**: Execute the CREATE DATABASE command.
+7. **Create the CDB**: Execute the CREATE DATABASE command.
 
     ```sql
     CREATE DATABASE CDBDEV
@@ -112,21 +115,21 @@ It looks like the Oracle environment variables are not being set correctly due t
        SYSAUX DATAFILES SIZE 100M;
     ```
 
-7. **Execute Catalog and Catproc Scripts**:
+8. **Execute Catalog and Catproc Scripts**:
 
     ```sql
     @$ORACLE_HOME/rdbms/admin/catalog.sql
     @$ORACLE_HOME/rdbms/admin/catproc.sql
     ```
 
-8. **Add Entry to /etc/oratab**: Add the new entry for CDBDEV to `/etc/oratab`.
+9. **Add Entry to /etc/oratab**: Add the new entry for CDBDEV to `/etc/oratab`.
 
     ```bash
     echo "CDBDEV:/u01/app/oracle/product/19.3.0/dbhome_1:Y" | sudo tee -a /etc/oratab
     cat /etc/oratab
     ```
 
-9. **Verify Database Characteristics**: Verify that the specified tablespaces are created for the CDB$ROOT.
+10. **Verify Database Characteristics**: Verify that the specified tablespaces are created for the CDB$ROOT.
 
     ```sql
     sqlplus / as sysdba
