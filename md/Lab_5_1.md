@@ -63,12 +63,23 @@ To stop all running databases and listeners, create a new CDB named `CDBLAB` wit
    In the DBCA welcome screen or main menu, select the "Manage Pluggable Databases" option.
    ![](./images/e12.png)
 
-   DBCA will prompt you to connect to the CDB CDBLAB. Provide the necessary credentials.
+   select the "Create a Pluggable Database" option.
+   ![](./images/e12_1.png)
+
+   DBCA will prompt you to connect to the CDB `CDBLAB`. Provide the necessary credentials.
    ![](./images/e13.png)
 
-   Click Create from Existing PDB and create `PDB2` and `PDB3` ony by one.
+   Click **Create a new pluggable database from another PDB** and create `PDB2` and `PDB3` ony by one.
+   ![](./images/e14.png)
 
+   ![](./images/e15.png)
 
+   ![](./images/e17.png)
+
+   ![](./images/e18.png)
+
+   ![](./images/e19.png)
+   
 4. **Verify the CDB and PDBs Creation**
 
    Connect to the CDB and verify the creation of the PDBs:
