@@ -1,6 +1,6 @@
 LISTENER =
   (DESCRIPTION_LIST =
     (DESCRIPTION =
-      (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = your_port))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
     )
   )

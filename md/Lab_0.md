@@ -262,6 +262,16 @@ Yes, Oracle Database includes Oracle Enterprise Manager Database Express (EM Exp
 #### Step 1: Enable EM Express
 
 1. **Ensure the Database Listener is Running**
+
+   Make sure the `listener.ora` is created. If not, create it:
+   ```sh
+   cd ~/Desktop/oracle19c-administration
+
+   cp listener.ora /u01/app/oracle/product/19.3.0/dbhome_1/network/admin/
+  
+   sudo chown -R oracle /u01/app/oracle/product/19.3.0/dbhome_1/network/admin/listener.ora
+   ```
+
    Make sure the listener is running. If not, start it:
    ```sh
    lsnrctl start

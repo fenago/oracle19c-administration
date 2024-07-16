@@ -16,6 +16,16 @@ To create a new Container Database (CDB) named `CDBTEST` using the DBCA GUI, sav
    export ORACLE_HOME=/u01/app/oracle/product/19.3.0/dbhome_1
    export PATH=$ORACLE_HOME/bin:$PATH
    ```
+
+   Make sure the `listener.ora` is created. If not, create it:
+   ```sh
+   cd ~/Desktop/oracle19c-administration
+
+   cp listener.ora /u01/app/oracle/product/19.3.0/dbhome_1/network/admin/
+  
+   sudo chown -R oracle /u01/app/oracle/product/19.3.0/dbhome_1/network/admin/listener.ora
+   ```
+
    then
    ```
    lsnrctl status
