@@ -58,6 +58,17 @@ To stop all running databases and listeners, create a new CDB named `CDBLAB` wit
    -ignorePreReqs
    ```
 
+   Run the command `dbca` to launch the Oracle Database Configuration Assistant.
+
+   In the DBCA welcome screen or main menu, select the "Manage Pluggable Databases" option.
+   ![](./images/e12.png)
+
+   DBCA will prompt you to connect to the CDB CDBLAB. Provide the necessary credentials.
+   ![](./images/e13.png)
+
+   Click Create from Existing PDB and create `PDB2` and `PDB3` ony by one.
+
+
 4. **Verify the CDB and PDBs Creation**
 
    Connect to the CDB and verify the creation of the PDBs:
