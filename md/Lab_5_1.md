@@ -72,6 +72,8 @@ To stop all running databases and listeners, create a new CDB named `CDBLAB` wit
    Click **Create a new pluggable database from another PDB** and create `PDB2` and `PDB3` ony by one.
    ![](./images/e14.png)
 
+   ![](./images/e16.png)
+
    ![](./images/e15.png)
 
    ![](./images/e17.png)
@@ -79,7 +81,7 @@ To stop all running databases and listeners, create a new CDB named `CDBLAB` wit
    ![](./images/e18.png)
 
    ![](./images/e19.png)
-   
+
 4. **Verify the CDB and PDBs Creation**
 
    Connect to the CDB and verify the creation of the PDBs:
