@@ -38,13 +38,29 @@ It looks like the Oracle environment variables are not being set correctly due t
     Set the following parameters in the `initCDBDEV.ora` file:
 
     ```plaintext
+    # Change <ORACLE_BASE> to point to the oracle base (the one you specify at install time)
+    
     db_name='CDBDEV'
     enable_pluggable_database=true
+    memory_target=1G
+    processes=150
+    audit_file_dest='/u01/app/oracle/admin/CDBDEV/adump'
+    audit_trail='db'
+    db_block_size=8192
+    db_domain=''
     db_create_file_dest='/u01/app/oracle/oradata'
     db_recovery_file_dest='/u01/app/oracle/fast_recovery_area'
     db_recovery_file_dest_size=2G
-    audit_file_dest='/u01/app/oracle/admin/CDBDEV/adump'
     diagnostic_dest='/u01/app/oracle'
+    dispatchers='(PROTOCOL=TCP) (SERVICE=CDBDEVXDB)'
+    open_cursors=300
+    remote_login_passwordfile='EXCLUSIVE'
+    undo_tablespace=UNDOTBS1
+    
+    # You may want to ensure that control files are created on separate physical devices
+    control_files=(ora_control1, ora_control2)
+    compatible='11.2.0'
+
     ```
 
 4. **Verify Required Directories**: Ensure that the required directories exist. Create them if they do not.
