@@ -19,9 +19,9 @@ To stop all running databases and listeners, create a new CDB named `CDBLAB` wit
    SHUTDOWN IMMEDIATE;
    ```
 
-   Stop all running listeners:
+   Make sure listener is running:
    ```sh
-   lsnrctl stop
+   lsnrctl status
    ```
 
 2. **Set Oracle Environment Variables**
@@ -49,8 +49,7 @@ To stop all running databases and listeners, create a new CDB named `CDBLAB` wit
    -storageType FS \
    -characterSet AL32UTF8 \
    -nationalCharacterSet AL16UTF16 \
-   -createListener LISTENER \
-   -listenerPort 1521 \
+   -listeners LISTENER \
    -emConfiguration DBEXPRESS \
    -emExpressPort 5501 \
    -totalMemory 2048 \
