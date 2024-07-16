@@ -7,6 +7,26 @@ To create a new Container Database (CDB) named `CDBDEV` using the `CREATE DATABA
 Start a NEW terminal shell and execute:
 ```
 xhost +
+```
+Then create the directories needed (note that if you want a new DB - then replace CDBDEV with your new DB)
+
+```
+mkdir -p /u01/app/oracle/oradata/CDBDEV
+mkdir -p /u01/app/oracle/oradata/pdbseed
+mkdir -p /u01/app/oracle/fast_recovery_area
+mkdir -p /u01/app/oracle/admin/CDBDEV/adump
+
+chown -R oracle:oinstall /u01/app/oracle/oradata
+chown -R oracle:oinstall /u01/app/oracle/fast_recovery_area
+chown -R oracle:oinstall /u01/app/oracle/admin
+
+chmod -R 775 /u01/app/oracle/oradata
+chmod -R 775 /u01/app/oracle/fast_recovery_area
+chmod -R 775 /u01/app/oracle/admin
+```
+Then switch to oracle
+
+```
 su - oracle
 ```
 
@@ -59,7 +79,7 @@ It looks like the Oracle environment variables are not being set correctly due t
     remote_login_passwordfile='EXCLUSIVE'
     undo_tablespace=UNDOTBS1
     control_files=(ora_control1, ora_control2)
-    compatible='11.2.0'
+    compatible='19.0.0'
     ```
 
 4. **Verify Required Directories**: Ensure that the required directories exist. Create them if they do not.
