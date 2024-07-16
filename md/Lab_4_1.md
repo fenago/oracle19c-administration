@@ -193,6 +193,16 @@ Following these steps should help you successfully create the CDBDEV database. I
 
 ### Lab Addendum: Open up the Database by Configuring the Listener
 
+####Step 0:  Change the password:
+- Navigate to the ORACLE_HOME/dbs Directory
+```bash
+cd $ORACLE_HOME/dbs
+```
+- Recreate the password file (NOTE YOUR NEW PASSWORD IS **@fenago123**
+
+  ```bash
+  orapwd file=orapwCDBDEV password=@fenago123 entries=10
+  ```
 
 1. **Create/Edit the `listener.ora` File**:
    Set your environment (always do this when you start a new shell... and xhost +)
@@ -275,6 +285,21 @@ Following these steps should help you successfully create the CDBDEV database. I
    lsnrctl stop
    lsnrctl start
    ```
+- If you have any trouble restarting the lsnrctl then do this:
+
+  ```bash
+  ps -ef | grep tnslsnr
+  ```
+  OR
+  ```bash
+  netstat -tulnp | grep 1521
+  ```
+  AND grab the pid and run this:
+
+  ```bash
+  kill -9 <PID>
+  ```
+
 
 5. **Register the Database with the Listener**:
 
