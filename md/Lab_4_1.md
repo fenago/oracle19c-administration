@@ -247,14 +247,24 @@ Following these steps should help you successfully create the CDBDEV database. I
    Add the following entry:
 
    ```plaintext
-   CDBDEV =
-     (DESCRIPTION =
-       (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
-       (CONNECT_DATA =
-         (SERVER = DEDICATED)
-         (SERVICE_NAME = CDBDEV)
-       )
-     )
+    CDBDEV =
+      (DESCRIPTION =
+        (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
+        (CONNECT_DATA =
+          (SERVER = DEDICATED)
+          (SERVICE_NAME = CDBDEV)
+        )
+      )
+    
+    CDBDEVXDB =
+      (DESCRIPTION =
+        (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
+        (CONNECT_DATA =
+          (SERVER = DEDICATED)
+          (SERVICE_NAME = CDBDEVXDB)
+        )
+      )
+    
    ```
 
 4. **Start/Reload the Listener**:
