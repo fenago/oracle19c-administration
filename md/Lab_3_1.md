@@ -5,17 +5,7 @@ To create a new Container Database (CDB) named `CDBTEST` using the DBCA GUI, sav
 
 **Steps:**
 
-#### Part A: Create the First CDB Using DBCA GUI
-
-1. **Set Up Environment Variables**
-
-   Open a terminal and set the Oracle environment variables:
-
-   ```sh
-   export ORACLE_SID=CDBTEST
-   export ORACLE_HOME=/u01/app/oracle/product/19.3.0/dbhome_1
-   export PATH=$ORACLE_HOME/bin:$PATH
-   ```
+**Important:** Open new terminal and run these commands as **root** user:
 
    Make sure the `listener.ora` is created. If not, create it:
    ```sh
@@ -26,6 +16,19 @@ To create a new Container Database (CDB) named `CDBTEST` using the DBCA GUI, sav
    sudo chown -R oracle /u01/app/oracle/product/19.3.0/dbhome_1/network/admin/listener.ora
    ```
 
+#### Part A: Create the First CDB Using DBCA GUI
+
+1. **Set Up Environment Variables**
+
+   Open a terminal and set the Oracle environment variables:
+
+   ```
+   su - oracle
+   
+   export ORACLE_SID=CDBTEST
+   export ORACLE_HOME=/u01/app/oracle/product/19.3.0/dbhome_1
+   export PATH=$ORACLE_HOME/bin:$PATH
+   ```
    then
    ```
    lsnrctl status

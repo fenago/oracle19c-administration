@@ -257,11 +257,7 @@ These links should provide you with comprehensive information about managing and
 
 Yes, Oracle Database includes Oracle Enterprise Manager Database Express (EM Express), a web-based tool for managing Oracle databases. EM Express is lightweight and allows you to perform basic database administration tasks.
 
-### Steps to Configure and Access EM Express
-
-#### Step 1: Enable EM Express
-
-1. **Ensure the Database Listener is Running**
+**Important:** Open new terminal and run these commands as **root** user:
 
    Make sure the `listener.ora` is created. If not, create it:
    ```sh
@@ -272,6 +268,11 @@ Yes, Oracle Database includes Oracle Enterprise Manager Database Express (EM Exp
    sudo chown -R oracle /u01/app/oracle/product/19.3.0/dbhome_1/network/admin/listener.ora
    ```
 
+### Steps to Configure and Access EM Express
+
+#### Step 1: Enable EM Express
+
+1. **Ensure the Database Listener is Running**
    Make sure the listener is running. If not, start it:
    ```sh
    lsnrctl start
