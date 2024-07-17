@@ -16,24 +16,9 @@ To investigate initialization parameter files, view initialization parameters us
    ```
 
    **Expected Files:**
-   - `initCDBLAB.ora`: Initialization parameter file for `CDBLAB`.
    - `spfileCDBLAB.ora`: Server parameter file for `CDBLAB`.
 
-2. **View the Contents of the Initialization Parameter File**
-
-   Use a text editor or a command like `cat` to view the contents of `initCDBLAB.ora`:
-   ```sh
-   cat /u01/app/oracle/product/19.3.0/dbhome_1/dbs/initCDBLAB.ora
-   ```
-
-   **Key Parameters:**
-   - `db_name`: Name of the database.
-   - `control_files`: Location of control files.
-   - `db_block_size`: Database block size.
-   - `db_create_file_dest`: Default location for data files.
-   - `db_recovery_file_dest`: Location for the recovery area.
-
-3. **View the Contents of the Server Parameter File**
+2. **View the Contents of the Server Parameter File**
 
    Use the `strings` command to view the `spfileCDBLAB.ora` as it is a binary file:
    ```sh
@@ -106,59 +91,10 @@ To investigate initialization parameter files, view initialization parameters us
    WHERE name = 'db_recovery_file_dest';
    ```
 
-### Part C: Modifying Initialization Parameters by Using SQL*Plus
-
-#### Steps:
-
-1. **Modify a Session-Level Parameter**
-
-   Change a session-level parameter using the `ALTER SESSION` command:
-   ```sql
-   ALTER SESSION SET sort_area_size = 65536;
-   ```
-
-   **Verification:**
-   ```sql
-   SHOW PARAMETER sort_area_size;
-   ```
-
-2. **Modify a Dynamic System-Level Parameter**
-
-   Change a dynamic system-level parameter using the `ALTER SYSTEM` command:
-   ```sql
-   ALTER SYSTEM SET shared_pool_size = '500M' SCOPE=BOTH;
-   ```
-
-   **Explanation:**
-   - `SCOPE=BOTH`: Applies the change both in memory and updates the SPFILE.
-
-   **Verification:**
-   ```sql
-   SHOW PARAMETER shared_pool_size;
-   ```
-
-3. **Modify a Static System-Level Parameter**
-
-   Change a static system-level parameter, which requires a database restart:
-   ```sql
-   ALTER SYSTEM SET db_cache_size = '2G' SCOPE=SPFILE;
-   ```
-
-   **Restart the Database:**
-   ```sql
-   SHUTDOWN IMMEDIATE;
-   STARTUP;
-   ```
-
-   **Verification:**
-   ```sql
-   SHOW PARAMETER db_cache_size;
-   ```
-
 ### Summary
-In this lab, you investigated initialization parameter files, viewed initialization parameters using SQL*Plus, and modified initialization parameters at the session and system levels. This practice is essential for understanding and managing the configuration and performance of an Oracle database.
+In this lab, you investigated initialization parameter files, viewed initialization parameters using SQL*Plus. This practice is essential for understanding and managing the configuration and performance of an Oracle database.
 
-### Part D: Exploring the Automatic Diagnostic Repository (ADR) and Logging DDL Statements
+### Part C: Exploring the Automatic Diagnostic Repository (ADR) and Logging DDL Statements
 
 #### Objective:
 To examine the structure of the Automatic Diagnostic Repository (ADR), view the alert log using both a text editor and ADRCI, and enable DDL logging to log DDL statements in the DDL log file.
@@ -169,7 +105,7 @@ To examine the structure of the Automatic Diagnostic Repository (ADR), view the 
 
    The ADR is located in the `$ORACLE_BASE/diag/rdbms/<db_name>/<SID>/trace` directory. Navigate to this directory to examine its structure:
    ```sh
-   cd $ORACLE_BASE/diag/rdbms/CDBLAB/CDBLAB/trace
+   cd $ORACLE_BASE/diag/rdbms/cdblab/CDBLAB/trace
    ls -l
    ```
 
@@ -181,7 +117,7 @@ To examine the structure of the Automatic Diagnostic Repository (ADR), view the 
 
    Use a text editor to view the alert log file:
    ```sh
-   vi $ORACLE_BASE/diag/rdbms/CDBLAB/CDBLAB/trace/alert_CDBLAB.log
+   vi $ORACLE_BASE/diag/rdbms/cdblab/CDBLAB/trace/alert_CDBLAB.log
    ```
 
    **Explanation:**
@@ -197,13 +133,13 @@ To examine the structure of the Automatic Diagnostic Repository (ADR), view the 
    **In ADRCI:**
    ```sh
    ADRCI:> show homes
-   ADRCI:> set home diag/rdbms/CDBLAB/CDBLAB
+   ADRCI:> set home diag/rdbms/cdblab/CDBLAB
    ADRCI:> show alert -tail 50
    ```
 
    **Explanation:**
    - `show homes`: Lists the ADR homes available.
-   - `set home diag/rdbms/CDBLAB/CDBLAB`: Sets the ADR home to the current database.
+   - `set home diag/rdbms/cdblab/CDBLAB`: Sets the ADR home to the current database.
    - `show alert -tail 50`: Displays the last 50 lines of the alert log.
 
 4. **Enable DDL Logging**
@@ -229,7 +165,7 @@ To examine the structure of the Automatic Diagnostic Repository (ADR), view the 
 
    Navigate to the directory containing the DDL log file and view its contents:
    ```sh
-   cd $ORACLE_BASE/diag/rdbms/CDBLAB/CDBLAB/log/ddl
+   cd $ORACLE_BASE/diag/rdbms/cdblab/CDBLAB/log/ddl
    ls -l
    cat ddl.log
    ```

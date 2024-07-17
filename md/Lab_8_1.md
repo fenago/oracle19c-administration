@@ -29,7 +29,7 @@ You need to configure the network to connect to `CDBTEST` from `CDBLAB`. This co
    **Expected Output:**
    ```
    orclcdb:/u01/app/oracle/product/19.3.0/dbhome_1:N
-   CDBTEST:/u01/app/oracle/product/19.3.0/dbhome_1:N
+   ...
    CDBLAB:/u01/app/oracle/product/19.3.0/dbhome_1:N
    ```
 
