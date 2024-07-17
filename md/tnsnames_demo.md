@@ -1,0 +1,29 @@
+```sh
+PDB1_CDBLAB =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = your_host)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = PDB1_CDBLAB)
+    )
+  )
+
+PDB2_CDBLAB =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = your_host)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = PDB2_CDBLAB)
+    )
+  )
+
+PDB3_CDBLAB =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = your_host)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = PDB3_CDBLAB)
+    )
+  )
+
+```
