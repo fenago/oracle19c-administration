@@ -238,26 +238,12 @@ cd $ORACLE_HOME/dbs
           (SID_NAME = CDBDEV)
         )
         (SID_DESC =
-          (GLOBAL_DBNAME = PDB1.CDBDEV)
-          (ORACLE_HOME = /u01/app/oracle/product/19.0.0/dbhome_1)
-          (SID_NAME = pdb1)
-        )
-        (SID_DESC =
-          (GLOBAL_DBNAME = PDB2.CDBDEV)
-          (ORACLE_HOME = /u01/app/oracle/product/19.0.0/dbhome_1)
-          (SID_NAME = pdb2)
-        )
-        (SID_DESC =
-          (GLOBAL_DBNAME = PDB3.CDBDEV)
-          (ORACLE_HOME = /u01/app/oracle/product/19.0.0/dbhome_1)
-          (SID_NAME = pdb3)
-        )
-        (SID_DESC =
           (GLOBAL_DBNAME = CDBDEVXDB)
           (ORACLE_HOME = /u01/app/oracle/product/19.3.0/dbhome_1)
           (SID_NAME = CDBDEV)
         )
       )
+    
    ```
 
 3. **Configure the `tnsnames.ora` File**:

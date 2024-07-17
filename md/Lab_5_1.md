@@ -34,7 +34,7 @@ To stop all running databases and listeners, create a new CDB named `CDBLAB` wit
 
 3. **Create a New CDB with Three PDBs Using DBCA**
 
-   Use the following command to create a new CDB named `CDBLAB` with three PDBs (`PDB1`, `PDB2`, and `PDB3`):
+   Use the following command to create a new CDB named `CDBLAB` with three PDBs (`PDBLAB1`, `PDBLAB2`, and `PDBLAB3`):
    ```sh
     dbca -silent -createDatabase \
    -templateName General_Purpose.dbc \
@@ -44,7 +44,7 @@ To stop all running databases and listeners, create a new CDB named `CDBLAB` wit
    -systemPassword fenago \
    -createAsContainerDatabase true \
    -numberOfPDBs 1 \
-   -pdbName PDB1 \
+   -pdbName PDBLAB1 \
    -pdbAdminPassword fenago \
    -databaseType MULTIPURPOSE \
    -memoryMgmtType auto_sga \
@@ -69,7 +69,7 @@ To stop all running databases and listeners, create a new CDB named `CDBLAB` wit
    DBCA will prompt you to connect to the CDB `CDBLAB`. Provide the necessary credentials.
    ![](./images/e13.png)
 
-   Click **Create a new pluggable database from another PDB** and create `PDB2` and `PDB3` ony by one.
+   Click **Create a new pluggable database from another PDB** and create `PDBLAB2` and `PDBLAB3` ony by one.
    ![](./images/e14.png)
 
    ![](./images/e16.png)
@@ -81,6 +81,44 @@ To stop all running databases and listeners, create a new CDB named `CDBLAB` wit
    ![](./images/e18.png)
 
    ![](./images/e19.png)
+
+
+#### Connecting to PDBs Using SQL Developer
+1. **Launch SQL Developer**:
+    - Locate and double-click the SQL Developer launcher icon on your desktop.
+
+2. **Create new connections for PDB2 and PDB3**:
+    - **File -> New -> Database Connection...**
+    - **Connection Name**: PDB2_CDBLAB
+    - **Username**: sys
+    - **Password**: fenago
+    - **Connection Type**: Basic
+    - **Role**: SYSDBA
+    - **Hostname**: localhost
+    - **Port**: 1521
+    - **Service Name**: pdb2
+
+   ![](./images/e20.png)
+
+    Repeat the same steps for PDB3:
+    - **Connection Name**: PDB3_CDBLAB
+    - **Username**: sys
+    - **Password**: fenago
+    - **Connection Type**: Basic
+    - **Role**: SYSDBA
+    - **Hostname**: localhost
+    - **Port**: 1521
+    - **Service Name**: pdb3
+
+3. **Test and Save the Connections**:
+    - Click the **Test** button to verify the connection details.
+    - Click the **Save** button to save the connection.
+    - Click the **Connect** button to establish the connection to PDB1 and PDB2.
+
+#### Manage PDBs in SQL Developer
+- **Explore the PDBs**:
+    - In the **Connections** pane, expand `PDB1_CDBLAB` and `PDB2_CDBLAB` to explore tables, views, and other database objects.
+
 
 4. **Verify the CDB and PDBs Creation**
 
@@ -179,7 +217,7 @@ By following these steps, you will successfully identify and stop all running da
 ### Addendum: Verifying Created Files and Running Processes
 
 #### Objective:
-To verify all the files created for the new CDB (`CDBLAB`) and its three PDBs (`PDB1`, `PDB2`, `PDB3`), and to find the processes that are running for all of them.
+To verify all the files created for the new CDB (`CDBLAB`) and its three PDBs (`PDBLAB1`, `PDBLAB2`, `PDBLAB3`), and to find the processes that are running for all of them.
 
 #### Steps:
 
@@ -215,21 +253,21 @@ To verify all the files created for the new CDB (`CDBLAB`) and its three PDBs (`
 
    Navigate to each PDB's directory and list the files:
    
-   For `PDB1`:
+   For `PDBLAB1`:
    ```sh
-   cd /u01/app/oracle/oradata/CDBLAB/PDB1
+   cd /u01/app/oracle/oradata/CDBLAB/PDBLAB1
    ls -l
    ```
 
-   For `PDB2`:
+   For `PDBLAB2`:
    ```sh
-   cd /u01/app/oracle/oradata/CDBLAB/PDB2
+   cd /u01/app/oracle/oradata/CDBLAB/PDBLAB2
    ls -l
    ```
 
-   For `PDB3`:
+   For `PDBLAB3`:
    ```sh
-   cd /u01/app/oracle/oradata/CDBLAB/PDB3
+   cd /u01/app/oracle/oradata/CDBLAB/PDBLAB3
    ls -l
    ```
 
@@ -297,14 +335,14 @@ To verify all the files created for the new CDB (`CDBLAB`) and its three PDBs (`
      CON_ID    NAME       OPEN_MODE
      -------   -------    ----------
      2         PDB$SEED   READ ONLY
-     3         PDB1       READ WRITE
-     4         PDB2       READ WRITE
-     5         PDB3       READ WRITE
+     3         PDBLAB1       READ WRITE
+     4         PDBLAB2       READ WRITE
+     5         PDBLAB3       READ WRITE
      ```
 
    **Explanation:**
    - **PDB$SEED:** Template for creating new PDBs, should be in READ ONLY mode.
-   - **PDB1, PDB2, PDB3:** User-defined PDBs, should be in READ WRITE mode.
+   - **PDBLAB1, PDBLAB2, PDBLAB3:** User-defined PDBs, should be in READ WRITE mode.
 
 ### Summary
 By following these detailed steps, you will verify the files created for the new CDB and its PDBs and identify the running processes associated with them. This addendum ensures a thorough understanding of the Oracle database's file structure and process management.
@@ -398,9 +436,9 @@ The Oracle Home directory structure is as follows:
 
 2. **PDB Datafiles**:
    - **Locations**:
-     - `/u01/app/oracle/oradata/CDBLAB/PDB1/`
-     - `/u01/app/oracle/oradata/CDBLAB/PDB2/`
-     - `/u01/app/oracle/oradata/CDBLAB/PDB3/`
+     - `/u01/app/oracle/oradata/CDBLAB/PDBLAB1/`
+     - `/u01/app/oracle/oradata/CDBLAB/PDBLAB2/`
+     - `/u01/app/oracle/oradata/CDBLAB/PDBLAB3/`
    - **Description**: Contains datafiles for each PDB.
    - **Important Files**:
      - `system01.dbf`: System datafile for each PDB.
@@ -427,11 +465,11 @@ The Oracle Home directory structure is as follows:
 3. **Managing PDBs**:
    - **Open a PDB**:
      ```sql
-     ALTER PLUGGABLE DATABASE PDB1 OPEN;
+     ALTER PLUGGABLE DATABASE PDBLAB1 OPEN;
      ```
    - **Close a PDB**:
      ```sql
-     ALTER PLUGGABLE DATABASE PDB1 CLOSE IMMEDIATE;
+     ALTER PLUGGABLE DATABASE PDBLAB1 CLOSE IMMEDIATE;
      ```
 
 ### Summary
@@ -471,16 +509,16 @@ To provide detailed steps for shutting down and restarting a single Pluggable Da
    CON_ID    NAME       OPEN_MODE
    -------   -------    ----------
    2         PDB$SEED   READ ONLY
-   3         PDB1       READ WRITE
-   4         PDB2       READ WRITE
-   5         PDB3       READ WRITE
+   3         PDBLAB1       READ WRITE
+   4         PDBLAB2       READ WRITE
+   5         PDBLAB3       READ WRITE
    ```
 
 4. **Switch to the PDB**
 
-   Switch to the PDB you want to shut down. For example, to switch to `PDB1`:
+   Switch to the PDB you want to shut down. For example, to switch to `PDBLAB1`:
    ```sql
-   ALTER SESSION SET CONTAINER = PDB1;
+   ALTER SESSION SET CONTAINER = PDBLAB1;
    ```
 
 5. **Shutdown the PDB**
@@ -492,18 +530,18 @@ To provide detailed steps for shutting down and restarting a single Pluggable Da
 
    **Verify the PDB Status:**
    ```sql
-   SELECT name, open_mode FROM v$pdbs WHERE name = 'PDB1';
+   SELECT name, open_mode FROM v$pdbs WHERE name = 'PDBLAB1';
    ```
 
    **Expected Output:**
    ```
    NAME    OPEN_MODE
    ------  ----------
-   PDB1    MOUNTED
+   PDBLAB1    MOUNTED
    ```
 
    **Explanation:**
-   - The PDB `PDB1` should now be in the MOUNTED state, indicating it is closed but not completely shut down.
+   - The PDB `PDBLAB1` should now be in the MOUNTED state, indicating it is closed but not completely shut down.
 
 6. **Restart the PDB**
 
@@ -514,18 +552,18 @@ To provide detailed steps for shutting down and restarting a single Pluggable Da
 
    **Verify the PDB Status:**
    ```sql
-   SELECT name, open_mode FROM v$pdbs WHERE name = 'PDB1';
+   SELECT name, open_mode FROM v$pdbs WHERE name = 'PDBLAB1';
    ```
 
    **Expected Output:**
    ```
    NAME    OPEN_MODE
    ------  ----------
-   PDB1    READ WRITE
+   PDBLAB1    READ WRITE
    ```
 
    **Explanation:**
-   - The PDB `PDB1` should now be in the READ WRITE state, indicating it is fully operational.
+   - The PDB `PDBLAB1` should now be in the READ WRITE state, indicating it is fully operational.
 
 7. **Return to the Root Container**
 
