@@ -83,7 +83,7 @@ CREATE TABLE Orders (
     CustomerID INT,
     ProductID INT,
     OrderDate DATE,
-    Quantity INT,
+    Quantity INT
 );
 ```
 
