@@ -616,3 +616,41 @@ To provide detailed steps for shutting down and restarting a single Pluggable Da
 
 ### Summary
 By following these steps, you can effectively shut down and restart a single PDB within a CDB. This procedure is essential for performing maintenance tasks or managing specific PDBs without affecting the entire CDB.
+-----
+```
+SID_LIST_LISTENER =
+  (SID_LIST =
+    (SID_DESC =
+      (GLOBAL_DBNAME = pdblab2)
+      (SID_NAME = PDBLAB2)
+      (ORACLE_HOME = /u01/app/oracle/product/19.3.0/dbhome_1)
+    )
+    (SID_DESC =
+      (GLOBAL_DBNAME = pdblab3)
+      (SID_NAME = PDBLAB3)
+      (ORACLE_HOME = /u01/app/oracle/product/19.3.0/dbhome_1)
+    )
+  )
+```
+
+
+this
+```
+PDBLAB2 =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = pdblab2)
+    )
+  )
+
+PDBLAB3 =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = pdblab3)
+    )
+  )
+```
