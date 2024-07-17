@@ -84,8 +84,6 @@ CREATE TABLE Orders (
     ProductID INT,
     OrderDate DATE,
     Quantity INT,
-    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
-    FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
 );
 ```
 
