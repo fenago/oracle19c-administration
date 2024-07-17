@@ -9,6 +9,8 @@ To stop all running databases and listeners, create a new CDB named `CDBLAB` wit
 
    First, identify all running databases and listeners:
    ```sh
+   xhost +
+   su - oracle
    pgrep -lf smon
    pgrep -lf tns
    ```
