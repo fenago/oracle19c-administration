@@ -19,9 +19,28 @@ To stop all running databases and listeners, create a new CDB named `CDBLAB` wit
    SHUTDOWN IMMEDIATE;
    ```
 
-   Make sure listener is running:
+   Make sure listener is stopped:
    ```sh
    lsnrctl status
+   lsnrctl stop
+   ```
+
+   **Important:** Open new terminal and run these commands as **root** user:
+
+   Make sure the `listener.ora` is created. If not, create it:
+   ```sh
+   cd ~/Desktop/oracle19c-administration
+
+   cp listener.ora /u01/app/oracle/product/19.3.0/dbhome_1/network/admin/
+
+   sudo chown -R oracle /u01/app/oracle/product/19.3.0/dbhome_1/network/admin/listener.ora
+   ```
+
+
+   Make sure listener is running:
+   ```sh
+   su - oracle
+   lsnrctl start
    ```
 
 2. **Set Oracle Environment Variables**
