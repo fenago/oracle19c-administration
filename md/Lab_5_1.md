@@ -97,6 +97,11 @@ To stop all running databases and listeners, create a new CDB named `CDBLAB` wit
    ![](./images/e12_1.png)
 
    DBCA will prompt you to connect to the CDB `CDBLAB`. Provide the necessary credentials.
+
+   **User name**: `sys`
+   
+   **Password**: `fenago`
+
    ![](./images/e13.png)
 
    Click **Create a new pluggable database from another PDB**, Choose `PDBLAB1` from dropdown and create `PDBLAB2` and `PDBLAB3` ony by one.
