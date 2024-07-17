@@ -11,7 +11,7 @@ To demonstrate how to use the DBA features in Oracle SQL Developer, set some imp
    - Repeat the process for `PDB1_CDBLAB`, `PDB2_CDBLAB`, and `PDB3_CDBLAB`.
 
 3. **Open the DBA Navigator:**
-   - In the Connections pane, under the `DBA` section, right-click on `CDBLAB` and select `DBA Navigator`.
+   - Go to View then select DBA and connect to your databases, CDB and PDBs.
 
 ### Step 2: Set Important Values in the CDB
 
