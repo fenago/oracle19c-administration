@@ -50,6 +50,13 @@ To stop all running databases and listeners, create a new CDB named `CDBLAB` wit
    . oraenv
    ORACLE_SID = [oracle] ? CDBLAB
    ```
+   Then
+    ```bash
+    export ORACLE_BASE=/u01/app/oracle
+    export ORACLE_HOME=/u01/app/oracle/product/19.3.0/dbhome_1
+    export ORACLE_SID=CDBLAB
+    export PATH=$ORACLE_HOME/bin:$PATH
+    ```
 
 3. **Create a New CDB with Three PDBs Using DBCA**
 
