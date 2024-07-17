@@ -627,3 +627,25 @@ SID_LIST_LISTENER =
     )
   )
 ```
+
+
+this
+```
+PDBLAB2 =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = pdblab2)
+    )
+  )
+
+PDBLAB3 =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = pdblab3)
+    )
+  )
+```
