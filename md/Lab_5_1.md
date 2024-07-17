@@ -69,7 +69,7 @@ To stop all running databases and listeners, create a new CDB named `CDBLAB` wit
    DBCA will prompt you to connect to the CDB `CDBLAB`. Provide the necessary credentials.
    ![](./images/e13.png)
 
-   Click **Create a new pluggable database from another PDB** and create `PDBLAB2` and `PDBLAB3` ony by one.
+   Click **Create a new pluggable database from another PDB**, Choose `PDBLAB1` from dropdown and create `PDBLAB2` and `PDBLAB3` ony by one.
    ![](./images/e14.png)
 
    ![](./images/e16.png)
@@ -87,7 +87,7 @@ To stop all running databases and listeners, create a new CDB named `CDBLAB` wit
 1. **Launch SQL Developer**:
     - Locate and double-click the SQL Developer launcher icon on your desktop.
 
-2. **Create new connections for PDB2 and PDB3**:
+2. **Create new connections for PDB2_CDBLAB and PDB3_CDBLAB**:
     - **File -> New -> Database Connection...**
     - **Connection Name**: PDB2_CDBLAB
     - **Username**: sys
@@ -96,11 +96,11 @@ To stop all running databases and listeners, create a new CDB named `CDBLAB` wit
     - **Role**: SYSDBA
     - **Hostname**: localhost
     - **Port**: 1521
-    - **Service Name**: pdb2
+    - **Service Name**: pdblab2
 
    ![](./images/e20.png)
 
-    Repeat the same steps for PDB3:
+    Repeat the same steps for PDB3_CDBLAB:
     - **Connection Name**: PDB3_CDBLAB
     - **Username**: sys
     - **Password**: fenago
@@ -108,7 +108,7 @@ To stop all running databases and listeners, create a new CDB named `CDBLAB` wit
     - **Role**: SYSDBA
     - **Hostname**: localhost
     - **Port**: 1521
-    - **Service Name**: pdb3
+    - **Service Name**: pdblab3
 
 3. **Test and Save the Connections**:
     - Click the **Test** button to verify the connection details.
