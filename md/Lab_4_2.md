@@ -76,21 +76,25 @@ Ensure that the CDBDEV database is up and running, and that you have SQL Develop
 
 2. **Add the following entries**:
     ```plaintext
-    PDB1 =
-      (DESCRIPTION =
+    CDBDEV_PDB1 =
+    (DESCRIPTION =
+        (ADDRESS_LIST =
         (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
-        (CONNECT_DATA =
-          (SERVICE_NAME = pdb1)
         )
-      )
+        (CONNECT_DATA =
+        (SERVICE_NAME = PDB1)
+        )
+    )
 
-    PDB2 =
-      (DESCRIPTION =
+    CDBDEV_PDB2 =
+    (DESCRIPTION =
+        (ADDRESS_LIST =
         (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
-        (CONNECT_DATA =
-          (SERVICE_NAME = pdb2)
         )
-      )
+        (CONNECT_DATA =
+        (SERVICE_NAME = PDB2)
+        )
+    )
     ```
 
 #### 5. Start the Listener and Register PDBs
