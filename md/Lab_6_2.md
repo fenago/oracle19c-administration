@@ -67,36 +67,50 @@ Setting a storage limit helps in managing disk usage by restricting the maximum 
 
 #### Instructions:
 
-1. **Identify the Tablespaces:**
+1. **Identify the `con_id` for PDBLAB3:**
 
     ```sql
-    SELECT tablespace_name FROM dba_tablespaces WHERE con_id = (SELECT con_id FROM v$pdbs WHERE name = 'PDBLAB3');
+    SELECT con_id FROM v$pdbs WHERE name = 'PDBLAB3';
     ```
+    **Verification:**
+    Ensure the output shows the `con_id` for PDBLAB3.
+
+2. **Identify the Tablespaces using the `con_id`:**
+
+    ```sql
+    SELECT tablespace_name FROM cdb_tablespaces WHERE con_id = <con_id>;
+    ```
+    Replace `<con_id>` with the actual `con_id` obtained from step 1.
+
     **Verification:**
     Ensure the output lists the tablespaces in PDBLAB3.
 
-2. **Find the Existing Datafiles for Each Tablespace:**
+3. **Find the Existing Datafiles for Each Tablespace:**
 
     ```sql
-    SELECT file_name FROM dba_data_files WHERE tablespace_name = 'USERS' AND con_id = (SELECT con_id FROM v$pdbs WHERE name = 'PDBLAB3');
+    SELECT file_name FROM cdb_data_files WHERE tablespace_name = 'USERS' AND con_id = <con_id>;
     ```
+    Replace `<con_id>` with the actual `con_id` obtained from step 1.
+
     **Verification:**
     Ensure the output shows the existing datafile names and paths for the USERS tablespace.
 
-3. **Set Storage Limit for the USERS Tablespace:**
+4. **Set Storage Limit for the USERS Tablespace:**
 
     ```sql
     ALTER TABLESPACE users
     ADD DATAFILE '<existing_path>/users02.dbf'
     SIZE 500M AUTOEXTEND ON NEXT 500M MAXSIZE 2G;
     ```
-    Replace `<existing_path>` with the actual path identified in step 2.
+    Replace `<existing_path>` with the actual path identified in step 3.
 
     **Verification:**
     ```sql
-    SELECT tablespace_name, bytes, maxbytes FROM dba_data_files WHERE tablespace_name = 'USERS' AND con_id = (SELECT con_id FROM v$pdbs WHERE name = 'PDBLAB3');
+    SELECT tablespace_name, bytes, maxbytes FROM cdb_data_files WHERE tablespace_name = 'USERS' AND con_id = <con_id>;
     ```
     Ensure the output shows the new datafile with the correct size and MAXSIZE set to 2G.
+
+These steps will help you properly set the storage limit for the PDB tablespaces.
 
 ### 3. Changing the Global Name of the PDB
 
