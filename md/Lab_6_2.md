@@ -99,20 +99,21 @@ Setting a storage limit helps in managing disk usage by restricting the maximum 
     /u01/app/oracle/oradata/CDBLAB/PDBLAB3/users01.dbf
     ```
 
-5. **Set Storage Limit for the USERS Tablespace:**
+5. **Set Storage Limit for the USERS Tablespace:**  Add +1 to the filename identified above because you will need a new file.
 
     ```sql
     ALTER TABLESPACE users
-    ADD DATAFILE '/u01/app/oracle/oradata/CDBLAB/PDBLAB3/users01.dbf'
+    ADD DATAFILE '/u01/app/oracle/oradata/CDBLAB/PDBLAB3/users02.dbf'
     SIZE 500M AUTOEXTEND ON NEXT 500M MAXSIZE 2G;
     ```
     Replace `<existing_path>` with the actual path identified in step 3.
 
-    **Verification:**
+    **Verification:**  (remember to replace the connection id with your actual connection id)
     ```sql
     SELECT tablespace_name, bytes, maxbytes FROM cdb_data_files WHERE tablespace_name = 'USERS' AND con_id = <con_id>;
     ```
     Ensure the output shows the new datafile with the correct size and MAXSIZE set to 2G.
+    You should see Max Bytes at 2G (2147483648) and BYTES at 500M (524288000)
 
 These steps will help you properly set the storage limit for the PDB tablespaces.
 
@@ -122,21 +123,46 @@ These steps will help you properly set the storage limit for the PDB tablespaces
 Changing the global name of a PDB can help in identifying and managing the PDB within a larger environment.
 
 #### Instructions:
-1. In the SQL Worksheet, enter the following command to change the global name:
+### Summary of Steps to Rename the Global Name of a PDB
+
+1. **Close the PDB:**
 
     ```sql
-    ALTER PLUGGABLE DATABASE PDBLAB3 RENAME GLOBAL_NAME TO PDB_LAB3_CDBLAB;
+    ALTER PLUGGABLE DATABASE PDBLAB3 CLOSE IMMEDIATE;
     ```
-2. Run the command.
 
-#### Verification:
-To verify the name change, execute:
+    **Verification:**
 
-```sql
-SELECT name FROM v$pdbs WHERE name = 'PDB_LAB3_CDBLAB';
-```
+    ```sql
+    SELECT name, open_mode FROM v$pdbs WHERE name = 'PDBLAB3';
+    ```
+    Ensure the output shows PDBLAB3 in the MOUNTED state.
 
-Ensure the output shows the new name.
+2. **Rename the PDB:**
+
+    ```sql
+    ALTER PLUGGABLE DATABASE PDBLAB3 MODIFY NAME = PDB_LAB3_CDBLAB;
+    ```
+
+    **Verification:**
+
+    ```sql
+    SELECT name FROM v$pdbs WHERE name = 'PDB_LAB3_CDBLAB';
+    ```
+    Ensure the output shows the new name PDB_LAB3_CDBLAB.
+
+3. **Open the PDB:**
+
+    ```sql
+    ALTER PLUGGABLE DATABASE PDB_LAB3_CDBLAB OPEN;
+    ```
+
+    **Verification:**
+
+    ```sql
+    SELECT name, open_mode FROM v$pdbs WHERE name = 'PDB_LAB3_CDBLAB';
+    ```
+    Ensure the output shows PDB_LAB3_CDBLAB in the READ WRITE mode.
 
 ### 4. Changing the PDB Lockout Time
 
