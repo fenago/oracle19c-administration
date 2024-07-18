@@ -92,7 +92,7 @@ To create local users and admins in PDBLAB1 and PDBLAB2, and verify their existe
       SELECT username FROM dba_users WHERE username = 'PDB1_ADMIN';
       ```
 
-    - **Verify the Admin Does Not Exist in CDB:**
+    - **Verify the Admin Does Not Exist in CDB:**  (It will show up here but it is NOT a common user which is the main point)
 
       **Explanation:** This query ensures that `PDB1_ADMIN` is not visible in the root container (CDB).
 
