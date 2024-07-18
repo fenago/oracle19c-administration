@@ -123,6 +123,8 @@ These steps will help you properly set the storage limit for the PDB tablespaces
 Changing the global name of a PDB can help in identifying and managing the PDB within a larger environment.
 
 #### Instructions:
+The ORA-01109 error indicates that the database is not open. To rename the global name of the PDB, you need to ensure the PDB is in the correct state. Let's correct the steps:
+
 ### Summary of Steps to Rename the Global Name of a PDB
 
 1. **Close the PDB:**
@@ -138,10 +140,29 @@ Changing the global name of a PDB can help in identifying and managing the PDB w
     ```
     Ensure the output shows PDBLAB3 in the MOUNTED state.
 
-2. **Rename the PDB:**
+2. **Open the PDB in MOUNT Mode:**
 
     ```sql
-    ALTER PLUGGABLE DATABASE PDBLAB3 MODIFY NAME = PDB_LAB3_CDBLAB;
+    ALTER PLUGGABLE DATABASE PDBLAB3 OPEN MOUNT;
+    ```
+
+    **Verification:**
+
+    ```sql
+    SELECT name, open_mode FROM v$pdbs WHERE name = 'PDBLAB3';
+    ```
+    Ensure the output shows PDBLAB3 in MOUNT mode.
+
+3. **Switch to the PDB Context:**
+
+    ```sql
+    ALTER SESSION SET CONTAINER = PDBLAB3;
+    ```
+
+4. **Rename the PDB:**
+
+    ```sql
+    ALTER DATABASE RENAME GLOBAL_NAME TO PDB_LAB3_CDBLAB;
     ```
 
     **Verification:**
@@ -151,10 +172,10 @@ Changing the global name of a PDB can help in identifying and managing the PDB w
     ```
     Ensure the output shows the new name PDB_LAB3_CDBLAB.
 
-3. **Open the PDB:**
+5. **Open the PDB in READ WRITE Mode:**
 
     ```sql
-    ALTER PLUGGABLE DATABASE PDB_LAB3_CDBLAB OPEN;
+    ALTER PLUGGABLE DATABASE PDB_LAB3_CDBLAB OPEN READ WRITE;
     ```
 
     **Verification:**
@@ -163,6 +184,8 @@ Changing the global name of a PDB can help in identifying and managing the PDB w
     SELECT name, open_mode FROM v$pdbs WHERE name = 'PDB_LAB3_CDBLAB';
     ```
     Ensure the output shows PDB_LAB3_CDBLAB in the READ WRITE mode.
+
+By following these corrected steps, you should be able to rename the global name of the PDB without encountering the ORA-01109 error.
 
 ### 4. Changing the PDB Lockout Time
 
