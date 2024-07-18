@@ -275,3 +275,42 @@ To set environment variables, start the CDBLAB, check the PDBs, use the informat
 - **Starting the CDBLAB and Checking PDBs:** Ensures all databases are up and running.
 - **Opening PDBs in Read Write Mode:** Ensures each PDB is accessible for operations.
 - **Configuring `listener.ora` and `tnsnames.ora`:** Ensures proper network configuration for
+
+-----
+
+```sh
+LISTENER =
+  (DESCRIPTION_LIST =
+    (DESCRIPTION =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
+    )
+  )
+
+SID_LIST_LISTENER =
+  (SID_LIST =
+    (SID_DESC =
+      (SID_NAME = CDBLAB)
+      (ORACLE_HOME = /u01/app/oracle/product/19.0.0/dbhome_1)
+    )
+    (SID_DESC =
+      (SID_NAME = PDBLAB1)
+      (ORACLE_HOME = /u01/app/oracle/product/19.0.0/dbhome_1)
+      (SERVICE_NAME = PDBLAB1)
+    )
+    (SID_DESC =
+      (SID_NAME = PDBLAB2)
+      (ORACLE_HOME = /u01/app/oracle/product/19.0.0/dbhome_1)
+      (SERVICE_NAME = PDBLAB2)
+    )
+    (SID_DESC =
+      (SID_NAME = PDB4_CDBLAB)
+      (ORACLE_HOME = /u01/app/oracle/product/19.0.0/dbhome_1)
+      (SERVICE_NAME = PDB4_CDBLAB)
+    )
+    (SID_DESC =
+      (SID_NAME = PDB_LAB3_CDBLAB)
+      (ORACLE_HOME = /u01/app/oracle/product/19.0.0/dbhome_1)
+      (SERVICE_NAME = PDB_LAB3_CDBLAB)
+    )
+  )
+```
