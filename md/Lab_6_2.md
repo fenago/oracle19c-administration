@@ -66,21 +66,37 @@ Changing the mode of a PDB allows you to manage its accessibility and operationa
 Setting a storage limit helps in managing disk usage by restricting the maximum size a PDB can grow.
 
 #### Instructions:
-1. In the SQL Worksheet connected to PDBLAB3, enter the following command to set the storage limit:
+
+1. **Identify the Tablespaces:**
 
     ```sql
-    ALTER PLUGGABLE DATABASE PDBLAB3 STORAGE MAXSIZE 2G;
+    SELECT tablespace_name FROM dba_tablespaces WHERE con_id = (SELECT con_id FROM v$pdbs WHERE name = 'PDBLAB3');
     ```
-2. Run the command.
+    **Verification:**
+    Ensure the output lists the tablespaces in PDBLAB3.
 
-#### Verification:
-To verify the storage limit, execute:
+2. **Find the Existing Datafiles for Each Tablespace:**
 
-```sql
-SELECT tablespace_name, max_size FROM dba_tablespaces WHERE con_id = (SELECT con_id FROM v$pdbs WHERE name = 'PDBLAB3');
-```
+    ```sql
+    SELECT file_name FROM dba_data_files WHERE tablespace_name = 'USERS' AND con_id = (SELECT con_id FROM v$pdbs WHERE name = 'PDBLAB3');
+    ```
+    **Verification:**
+    Ensure the output shows the existing datafile names and paths for the USERS tablespace.
 
-Ensure the output shows the MAXSIZE set to 2G.
+3. **Set Storage Limit for the USERS Tablespace:**
+
+    ```sql
+    ALTER TABLESPACE users
+    ADD DATAFILE '<existing_path>/users02.dbf'
+    SIZE 500M AUTOEXTEND ON NEXT 500M MAXSIZE 2G;
+    ```
+    Replace `<existing_path>` with the actual path identified in step 2.
+
+    **Verification:**
+    ```sql
+    SELECT tablespace_name, bytes, maxbytes FROM dba_data_files WHERE tablespace_name = 'USERS' AND con_id = (SELECT con_id FROM v$pdbs WHERE name = 'PDBLAB3');
+    ```
+    Ensure the output shows the new datafile with the correct size and MAXSIZE set to 2G.
 
 ### 3. Changing the Global Name of the PDB
 
