@@ -272,7 +272,10 @@ To verify the PDB is plugged back in, execute:
 SELECT name, open_mode FROM v$pdbs WHERE name = 'PDB_LAB3_CDBLAB';
 ```
 
-Ensure the output shows PDB_LAB3_CDBLAB in READ WRITE mode.
+Ensure the output shows PDB_LAB3_CDBLAB in MOUNT mode.
+
+## Challenge:
+Please rename PDB_LAB3_CDBLAB back to PDB_LAB3 and put that PDB in READ_WRITE mode
 
 ## Summary:
 By following these steps, you will have successfully managed various aspects of a PDB using SQL Developer, including changing modes, setting storage limits, renaming, adjusting lockout time, unplugging, dropping, and plugging back in the PDB. Each step includes verification to ensure the changes are correctly applied.
