@@ -50,6 +50,8 @@ Changing the mode of a PDB allows you to manage its accessibility and operationa
 6. **Open the PDB in READ WRITE Mode (if required):**
 
     ```sql
+    ALTER PLUGGABLE DATABASE PDBLAB3 CLOSE IMMEDIATE;
+
     ALTER PLUGGABLE DATABASE PDBLAB3 OPEN READ WRITE;
     ```
     **Verification:**
