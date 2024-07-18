@@ -7,42 +7,54 @@ To create a common user named `DRLEE` in the CDB (CDBLAB) and verify its existen
 
 1. **Connect to SQL*Plus as SYSDBA:**
 
+    Yes - everytime you go into the shell you must su to user oracle and then set your environment variables:
+   ```shell
+   xhost +
+   su - oracle
+   ```
+   Then:
+    ```shell
+    export ORACLE_BASE=/u01/app/oracle
+    export ORACLE_HOME=/u01/app/oracle/product/19.3.0/dbhome_1
+    export ORACLE_SID=CDBLAB
+    export PATH=$ORACLE_HOME/bin:$PATH
+    ```
     ```shell
     sqlplus / as sysdba
     ```
 
-2. **Ensure You Are in the Root Container (CDB$ROOT):**
+3. **Ensure You Are in the Root Container (CDB$ROOT):**
 
     ```sql
     ALTER SESSION SET CONTAINER = CDB$ROOT;
     ```
 
-3. **Create the Common User `DRLEE`:**
+4. **Create the Common User `DRLEE`:**
 
     ```sql
     CREATE USER C##DRLEE IDENTIFIED BY password;
     ```
 
-4. **Grant Privileges to the Common User:**
+5. **Grant Privileges to the Common User:**
 
     ```sql
     GRANT CONNECT, RESOURCE, DBA TO C##DRLEE;
     ```
 
-5. **Verify the Common User in the Root Container:**
+6. **Verify the Common User in the Root Container:**
 
     ```sql
     SELECT username, common FROM cdb_users WHERE username = 'C##DRLEE';
     ```
 
-6. **Switch to PDBLAB1 and Verify the Common User:**
+7. **Switch to PDBLAB1 and Verify the Common User:**
 
     ```sql
     ALTER SESSION SET CONTAINER = PDBLAB1;
     SELECT username, common FROM cdb_users WHERE username = 'C##DRLEE';
     ```
 
-7. **Switch to PDBLAB2 and Verify the Common User:**
+8. **Switch to PDBLAB2 and Verify the Common User:**
 
     ```sql
     ALTER SESSION SET CONTAINER = PDBLAB2;
