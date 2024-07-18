@@ -1,158 +1,100 @@
-### Lab 6.3: Configuring and Connecting to EM Express
+### Lab 6.3: Creating a Common User and Verifying Across CDB and PDBs
 
-#### Part 1: Configuring the Listener and Services
+#### Objective:
+To create a common user named `DRLEE` in the CDB (CDBLAB) and verify its existence in both the root container and the PDBs (PDBLAB1 and PDBLAB2).
 
-1. **Update `listener.ora`:**
+### Steps:
 
-    Path: `/u01/app/oracle/product/19.3.0/dbhome_1/network/admin/listener.ora`
+1. **Connect to SQL*Plus as SYSDBA:**
 
-    Ensure it includes entries for your CDB and PDBs.
-
-    Example:
-    ```plaintext
-    LISTENER =
-      (DESCRIPTION_LIST =
-        (DESCRIPTION =
-          (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
-        )
-      )
-
-    SID_LIST_LISTENER =
-      (SID_LIST =
-        (SID_DESC =
-          (GLOBAL_DBNAME = CDBLAB)
-          (SID_NAME = CDBLAB)
-          (ORACLE_HOME = /u01/app/oracle/product/19.3.0/dbhome_1)
-        )
-        (SID_DESC =
-          (GLOBAL_DBNAME = PDBLAB1)
-          (SID_NAME = PDBLAB1)
-          (ORACLE_HOME = /u01/app/oracle/product/19.3.0/dbhome_1)
-        )
-        (SID_DESC =
-          (GLOBAL_DBNAME = PDBLAB2)
-          (SID_NAME = PDBLAB2)
-          (ORACLE_HOME = /u01/app/oracle/product/19.3.0/dbhome_1)
-        )
-        (SID_DESC =
-          (GLOBAL_DBNAME = PDBLAB3)
-          (SID_NAME = PDBLAB3)
-          (ORACLE_HOME = /u01/app/oracle/product/19.3.0/dbhome_1)
-        )
-      )
-    ```
-
-2. **Update `tnsnames.ora`:**
-
-    Path: `/u01/app/oracle/product/19.3.0/dbhome_1/network/admin/tnsnames.ora`
-
-    Ensure it includes entries for your CDB and PDBs.
-
-    Example:
-    ```plaintext
-    CDBLAB =
-      (DESCRIPTION =
-        (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
-        (CONNECT_DATA =
-          (SERVER = DEDICATED)
-          (SERVICE_NAME = CDBLAB)
-        )
-      )
-
-    PDBLAB1 =
-      (DESCRIPTION =
-        (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
-        (CONNECT_DATA =
-          (SERVER = DEDICATED)
-          (SERVICE_NAME = PDBLAB1)
-        )
-      )
-
-    PDBLAB2 =
-      (DESCRIPTION =
-        (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
-        (CONNECT_DATA =
-          (SERVER = DEDICATED)
-          (SERVICE_NAME = PDBLAB2)
-        )
-      )
-
-    PDBLAB3 =
-      (DESCRIPTION =
-        (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
-        (CONNECT_DATA =
-          (SERVER = DEDICATED)
-          (SERVICE_NAME = PDBLAB3)
-        )
-      )
-    ```
-
-3. **Reload the Listener:**
-
-    ```shell
-    lsnrctl reload
-    ```
-
-4. **Verify Listener Status:**
-
-    ```shell
-    lsnrctl status
-    ```
-
-#### Part 2: Setting and Verifying EM Express Port
-
-1. **Set the EM Express Port:**
-
-    Connect to SQL*Plus as SYSDBA:
     ```shell
     sqlplus / as sysdba
     ```
 
-    Execute the following SQL command:
+2. **Ensure You Are in the Root Container (CDB$ROOT):**
+
     ```sql
-    EXEC dbms_xdb_config.sethttpsport(5501);
+    ALTER SESSION SET CONTAINER = CDB$ROOT;
     ```
 
-2. **Verify the EM Express Port:**
+3. **Create the Common User `DRLEE`:**
 
-    Execute the following SQL command:
     ```sql
-    SELECT dbms_xdb_config.gethttpsport() FROM dual;
+    CREATE USER C##DRLEE IDENTIFIED BY password;
     ```
-    Ensure the output shows 5501.
 
-3. **Restart the Listener:**
+4. **Grant Privileges to the Common User:**
 
+    ```sql
+    GRANT CONNECT, RESOURCE, DBA TO C##DRLEE;
+    ```
+
+5. **Verify the Common User in the Root Container:**
+
+    ```sql
+    SELECT username, common FROM cdb_users WHERE username = 'C##DRLEE';
+    ```
+
+6. **Switch to PDBLAB1 and Verify the Common User:**
+
+    ```sql
+    ALTER SESSION SET CONTAINER = PDBLAB1;
+    SELECT username, common FROM cdb_users WHERE username = 'C##DRLEE';
+    ```
+
+7. **Switch to PDBLAB2 and Verify the Common User:**
+
+    ```sql
+    ALTER SESSION SET CONTAINER = PDBLAB2;
+    SELECT username, common FROM cdb_users WHERE username = 'C##DRLEE';
+    ```
+
+### Detailed Example:
+
+1. **Connect to SQL*Plus as SYSDBA:**
     ```shell
-    lsnrctl stop
-    lsnrctl start
+    sqlplus / as sysdba
     ```
 
-4. **Verify Listener Status:**
-
-    ```shell
-    lsnrctl status
+2. **Ensure You Are in the Root Container (CDB$ROOT):**
+    ```sql
+    ALTER SESSION SET CONTAINER = CDB$ROOT;
     ```
 
-5. **Access EM Express:**
-
-    Open a web browser and navigate to:
-    ```url
-    https://localhost:5501/em
+3. **Create the Common User `DRLEE`:**
+    ```sql
+    CREATE USER C##DRLEE IDENTIFIED BY password;
     ```
 
-6. **Browser Authentication:**
+4. **Grant Privileges to the Common User:**
+    ```sql
+    GRANT CONNECT, RESOURCE, DBA TO C##DRLEE;
+    ```
 
-    When the browser prompts for authentication:
-    - **Username:** sys
-    - **Password:** fenago
+5. **Verify the Common User in the Root Container:**
+    ```sql
+    SELECT username, common FROM cdb_users WHERE username = 'C##DRLEE';
+    ```
 
-7. **EM Express Login:**
+6. **Switch to PDBLAB1 and Verify the Common User:**
+    ```sql
+    ALTER SESSION SET CONTAINER = PDBLAB1;
+    SELECT username, common FROM cdb_users WHERE username = 'C##DRLEE';
+    ```
 
-    On the EM Express login page:
-    - **Username:** sys
-    - **Password:** fenago
-    - **Container Name:** CDBLAB
-    - **Connection Type:** SYSDBA
+7. **Switch to PDBLAB2 and Verify the Common User:**
+    ```sql
+    ALTER SESSION SET CONTAINER = PDBLAB2;
+    SELECT username, common FROM cdb_users WHERE username = 'C##DRLEE';
+    ```
 
-By following these detailed steps, you will configure the listener, set the EM Express port, and successfully connect to EM Express.
+### Explanation:
+
+- **Step 1:** Connect to SQL*Plus as the SYSDBA user to have the necessary privileges to create a common user.
+- **Step 2:** Ensure you are operating in the root container (CDB$ROOT).
+- **Step 3:** Create a common user with the prefix `C##`.
+- **Step 4:** Grant the necessary privileges to the new common user.
+- **Step 5:** Verify the existence of the common user in the root container.
+- **Step 6 & 7:** Switch to each PDB (PDBLAB1 and PDBLAB2) and verify the existence of the common user.
+
+By following these steps, you will create a common user named `DRLEE` and verify its existence across the root container and the specified PDBs (PDBLAB1 and PDBLAB2).
