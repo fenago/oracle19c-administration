@@ -1,6 +1,10 @@
-### Summary of Steps to Configure the Listener and Services
+### Lab 6.3: Configuring and Connecting to EM Express
+
+#### Part 1: Configuring the Listener and Services
 
 1. **Update `listener.ora`:**
+
+    Path: `/u01/app/oracle/product/19.3.0/dbhome_1/network/admin/listener.ora`
 
     Ensure it includes entries for your CDB and PDBs.
 
@@ -39,6 +43,8 @@
     ```
 
 2. **Update `tnsnames.ora`:**
+
+    Path: `/u01/app/oracle/product/19.3.0/dbhome_1/network/admin/tnsnames.ora`
 
     Ensure it includes entries for your CDB and PDBs.
 
@@ -93,16 +99,23 @@
     lsnrctl status
     ```
 
-### Steps to Set and Verify EM Express Port
+#### Part 2: Setting and Verifying EM Express Port
 
 1. **Set the EM Express Port:**
 
+    Connect to SQL*Plus as SYSDBA:
+    ```shell
+    sqlplus / as sysdba
+    ```
+
+    Execute the following SQL command:
     ```sql
     EXEC dbms_xdb_config.sethttpsport(5501);
     ```
 
 2. **Verify the EM Express Port:**
 
+    Execute the following SQL command:
     ```sql
     SELECT dbms_xdb_config.gethttpsport() FROM dual;
     ```
@@ -142,4 +155,4 @@
     - **Container Name:** CDBLAB
     - **Connection Type:** SYSDBA
 
-By following these steps, you will configure the listener, set the EM Express port, and successfully connect to EM Express.
+By following these detailed steps, you will configure the listener, set the EM Express port, and successfully connect to EM Express.
