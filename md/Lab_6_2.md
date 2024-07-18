@@ -17,36 +17,46 @@ Changing the mode of a PDB allows you to manage its accessibility and operationa
 #### Instructions:
 1. Open SQL Developer and connect to PDBLAB3.
 2. In the Connections pane, right-click on the connection for PDB3_CDBLAB and select "SQL Worksheet."
-### Summary of Steps
-
 3. **Check Current Mode:**
 
     ```sql
     SELECT name, open_mode FROM v$pdbs WHERE name = 'PDBLAB3';
     ```
+    **Verification:**
+    Ensure the output shows the current open mode of PDBLAB3.
 
-4. **Change Mode if Necessary:**
+4. **Close the PDB:**
 
     ```sql
     ALTER PLUGGABLE DATABASE PDBLAB3 CLOSE IMMEDIATE;
+    ```
+    **Verification:**
+    ```sql
+    SELECT name, open_mode FROM v$pdbs WHERE name = 'PDBLAB3';
+    ```
+    Ensure the output shows PDBLAB3 in the MOUNTED state.
+
+5. **Open the PDB in READ ONLY Mode:**
+
+    ```sql
     ALTER PLUGGABLE DATABASE PDBLAB3 OPEN READ ONLY;
     ```
+    **Verification:**
+    ```sql
+    SELECT name, open_mode FROM v$pdbs WHERE name = 'PDBLAB3';
+    ```
+    Ensure the output shows PDBLAB3 in READ ONLY mode.
 
-5. **Identify Tablespaces:**
+6. **Open the PDB in READ WRITE Mode (if required):**
 
     ```sql
-    SELECT tablespace_name FROM dba_tablespaces WHERE con_id = (SELECT con_id FROM v$pdbs WHERE name = 'PDBLAB3');
+    ALTER PLUGGABLE DATABASE PDBLAB3 OPEN READ WRITE;
     ```
-
-6. **Set Storage Limit for Tablespaces:**
-
+    **Verification:**
     ```sql
-    ALTER TABLESPACE users
-    ADD DATAFILE '/u01/app/oracle/oradata/CDBLAB/PDBLAB3/users02.dbf'
-    SIZE 500M AUTOEXTEND ON NEXT 500M MAXSIZE 2G;
+    SELECT name, open_mode FROM v$pdbs WHERE name = 'PDBLAB3';
     ```
-
-Make sure to replace `/u01/app/oracle/oradata/CDBLAB/PDBLAB3/users02.dbf` with the correct path and tablespace name as per your PDB setup.
+    Ensure the output shows PDBLAB3 in READ WRITE mode.
 
 ### 2. Setting the PDB Storage Limit
 
