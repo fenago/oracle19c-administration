@@ -94,12 +94,16 @@ Setting a storage limit helps in managing disk usage by restricting the maximum 
 
     **Verification:**
     Ensure the output shows the existing datafile names and paths for the USERS tablespace.
+    Note:  It will probably be this or close to it:
+    ```sh
+    /u01/app/oracle/oradata/CDBLAB/PDBLAB3/users01.dbf
+    ```
 
-4. **Set Storage Limit for the USERS Tablespace:**
+5. **Set Storage Limit for the USERS Tablespace:**
 
     ```sql
     ALTER TABLESPACE users
-    ADD DATAFILE '<existing_path>/users02.dbf'
+    ADD DATAFILE '/u01/app/oracle/oradata/CDBLAB/PDBLAB3/users01.dbf'
     SIZE 500M AUTOEXTEND ON NEXT 500M MAXSIZE 2G;
     ```
     Replace `<existing_path>` with the actual path identified in step 3.
