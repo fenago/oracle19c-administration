@@ -17,20 +17,36 @@ Changing the mode of a PDB allows you to manage its accessibility and operationa
 #### Instructions:
 1. Open SQL Developer and connect to PDBLAB3.
 2. In the Connections pane, right-click on the connection for PDB3_CDBLAB and select "SQL Worksheet."
-3. To change the mode to READ ONLY, enter the following command:
+### Summary of Steps
 
-    ```sql
-    ALTER PLUGGABLE DATABASE PDBLAB3 OPEN READ ONLY;
-    ```
-4. Click on the "Run Script" button or press `F5`.
-5. To verify the mode, execute:
+3. **Check Current Mode:**
 
     ```sql
     SELECT name, open_mode FROM v$pdbs WHERE name = 'PDBLAB3';
     ```
 
-#### Verification:
-Ensure the output shows PDBLAB3 in READ ONLY mode.
+4. **Change Mode if Necessary:**
+
+    ```sql
+    ALTER PLUGGABLE DATABASE PDBLAB3 CLOSE IMMEDIATE;
+    ALTER PLUGGABLE DATABASE PDBLAB3 OPEN READ ONLY;
+    ```
+
+5. **Identify Tablespaces:**
+
+    ```sql
+    SELECT tablespace_name FROM dba_tablespaces WHERE con_id = (SELECT con_id FROM v$pdbs WHERE name = 'PDBLAB3');
+    ```
+
+6. **Set Storage Limit for Tablespaces:**
+
+    ```sql
+    ALTER TABLESPACE users
+    ADD DATAFILE '/u01/app/oracle/oradata/CDBLAB/PDBLAB3/users02.dbf'
+    SIZE 500M AUTOEXTEND ON NEXT 500M MAXSIZE 2G;
+    ```
+
+Make sure to replace `/u01/app/oracle/oradata/CDBLAB/PDBLAB3/users02.dbf` with the correct path and tablespace name as per your PDB setup.
 
 ### 2. Setting the PDB Storage Limit
 
