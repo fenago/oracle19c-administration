@@ -89,26 +89,29 @@ The Automatic Workload Repository (AWR) is a repository that collects, processes
 1. **Generate an AWR Report:**
    - To generate an AWR report, use the following PL/SQL block, and SQL Developer's built-in prompt to input the snapshot IDs:
 
-     ```sql
-     DECLARE
-       l_dbid       NUMBER;
-       l_inst_num   NUMBER;
-       l_bid        NUMBER := &begin_snap_id;  -- Replace with actual begin snapshot ID
-       l_eid        NUMBER := &end_snap_id;    -- Replace with actual end snapshot ID
-       l_rpt_type   VARCHAR2(20) := 'HTML';
-       l_output     CLOB;
-     BEGIN
-       SELECT dbid, instance_number INTO l_dbid, l_inst_num FROM v$instance;
+```sql
+DECLARE
+  l_dbid       NUMBER;
+  l_inst_num   NUMBER;
+  l_bid        NUMBER := 51;  -- Replace with actual begin snapshot ID
+  l_eid        NUMBER := 52;  -- Replace with actual end snapshot ID
+  l_rpt_type   VARCHAR2(20) := 'HTML';
+  l_output     CLOB;
+BEGIN
+  SELECT dbid, instance_number INTO l_dbid, l_inst_num FROM v$database;
 
-       l_output := DBMS_WORKLOAD_REPOSITORY.awr_report_html(
-                      l_dbid, l_inst_num, l_bid, l_eid);
+  l_output := DBMS_WORKLOAD_REPOSITORY.awr_report_html(
+                 l_dbid, l_inst_num, l_bid, l_eid);
 
-       DBMS_XDB.storeCLOB('/public/awr_report.html', l_output, TRUE);
-     END;
-     /
+  DBMS_LOB.CREATETEMPORARY(l_output, TRUE);
+
+  DBMS_XDB.CREATERESOURCE('/public/awr_report.html', l_output);
+END;
+/
+
 
      -- Access the report at http://localhost:5500/public/awr_report.html
-     ```
+```
 
 ### 6. Understanding Key Sections of AWR Report
 
