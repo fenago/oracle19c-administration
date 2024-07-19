@@ -147,119 +147,6 @@ GRANT CONNECT, RESOURCE, SYSBACKUP, CREATE TABLE, CREATE VIEW TO local_user;
 
 By following these steps, you'll have successfully created common and local users, assigned appropriate privileges, and verified their accessibility within the Oracle CDB and PDB environment using SQL Developer.
 
-# Addendum: Creating Tables, Inserting Data, and Creating a Developer User
-
-## Objective:
-To create a table and insert data in PDBLAB1, then create a developer user with specific read and write permissions for that table. Finally, write a Python program to read and write data to the table.
-
-### Steps:
-
-### 1. Create a Table and Insert Data in PDBLAB1
-
-1. **Connect to PDBLAB1 as SYS:**
-   - Use SQL Developer to connect to PDBLAB1 as the SYS user with SYSDBA privileges.
-
-2. **Create a Table:**
-   - In SQL Developer, create a new table called `EMPLOYEES`.
-
-   ```sql
-   CREATE TABLE EMPLOYEES (
-       EMP_ID NUMBER PRIMARY KEY,
-       NAME VARCHAR2(50),
-       DEPARTMENT VARCHAR2(50),
-       SALARY NUMBER
-   );
-   ```
-
-3. **Insert Data into the Table:**
-   - Insert sample data into the `EMPLOYEES` table.
-
-   ```sql
-   INSERT INTO EMPLOYEES (EMP_ID, NAME, DEPARTMENT, SALARY) VALUES (1, 'John Doe', 'IT', 70000);
-   INSERT INTO EMPLOYEES (EMP_ID, NAME, DEPARTMENT, SALARY) VALUES (2, 'Jane Smith', 'HR', 60000);
-   INSERT INTO EMPLOYEES (EMP_ID, NAME, DEPARTMENT, SALARY) VALUES (3, 'Alice Johnson', 'Finance', 75000);
-   COMMIT;
-   ```
-
-### 2. Create a Developer User with Specific Permissions
-
-1. **Create a Developer User:**
-   - In SQL Developer, create a new user for the developer.
-
-   ```sql
-   CREATE USER dev_user IDENTIFIED BY dev_password;
-   ```
-
-2. **Grant Necessary Permissions:**
-   - Grant the necessary permissions for the developer user to read and write to the `EMPLOYEES` table.
-
-   ```sql
-   GRANT CONNECT TO dev_user;
-   GRANT CREATE SESSION TO dev_user;
-   GRANT SELECT, INSERT, UPDATE, DELETE ON EMPLOYEES TO dev_user;
-   ```
-
-### 3. Write a Python Program to Read and Write Data
-
-1. **Install cx_Oracle:**
-   - Ensure `cx_Oracle` is installed. If not, install it using pip.
-
-   ```bash
-   pip install cx_Oracle
-   ```
-
-2. **Python Program:**
-   - Write a Python program to connect to PDBLAB1 and perform read and write operations on the `EMPLOYEES` table.
-
-   ```python
-   import cx_Oracle
-
-   # Database connection details
-   dsn_tns = cx_Oracle.makedsn('localhost', '1521', service_name='pdblab1')
-   connection = cx_Oracle.connect(user='dev_user', password='dev_password', dsn=dsn_tns)
-
-   cursor = connection.cursor()
-
-   # Function to read data from EMPLOYEES table
-   def read_data():
-       cursor.execute("SELECT * FROM EMPLOYEES")
-       for row in cursor:
-           print(row)
-
-   # Function to insert data into EMP
-
-LOYEES table
-   def insert_data(emp_id, name, department, salary):
-       cursor.execute("""
-           INSERT INTO EMPLOYEES (EMP_ID, NAME, DEPARTMENT, SALARY)
-           VALUES (:emp_id, :name, :department, :salary)""",
-           emp_id=emp_id, name=name, department=department, salary=salary)
-       connection.commit()
-
-   # Insert a new employee
-   insert_data(4, 'Bob Brown', 'Marketing', 65000)
-
-   # Read and display data
-   print("Data in EMPLOYEES table:")
-   read_data()
-
-   # Close the connection
-   cursor.close()
-   connection.close()
-   ```
-
-3. **Run the Python Program:**
-   - Save the Python program to a file, e.g., `manage_employees.py`, and run it from the terminal.
-
-   ```bash
-   python manage_employees.py
-   ```
-
-### Summary:
-
-By following these steps, you will have created a table in PDBLAB1, inserted data, and created a developer user with specific read and write permissions. The Python program will demonstrate how to connect to the database and perform basic CRUD operations on the table.
-
-This addendum provides practical experience in managing database objects and users, as well as integrating database operations with a Python application.
 
 # Addendum: Creating and Assigning User Profiles in Oracle
 
@@ -353,3 +240,148 @@ To create and assign user profiles to control resource consumption, manage accou
 By following these steps, you will have created and assigned profiles to control resource consumption and manage account status and password expiration. The profiles will help in enforcing resource limits and security policies for the `dev_user`.
 
 This addendum provides practical experience in using Oracle profiles to manage user resources and security, enhancing the overall database administration skills.
+
+# Addendum: Creating Tables, Inserting Data, and Creating a Developer User 
+
+## Objective:
+To create a table and insert data in PDBLAB1, then create a developer user with specific read and write permissions for that table. Finally, write a Java program to read and write data to the table.
+
+### Steps:
+
+### 1. Create a Table and Insert Data in PDBLAB1
+
+1. **Connect to PDBLAB1 as SYS:**
+   - Use SQL Developer to connect to PDBLAB1 as the SYS user with SYSDBA privileges.
+
+2. **Create a Table:**
+   - In SQL Developer, create a new table called `EMPLOYEES`.
+
+   ```sql
+   CREATE TABLE EMPLOYEES (
+       EMP_ID NUMBER PRIMARY KEY,
+       NAME VARCHAR2(50),
+       DEPARTMENT VARCHAR2(50),
+       SALARY NUMBER
+   );
+   ```
+
+3. **Insert Data into the Table:**
+   - Insert sample data into the `EMPLOYEES` table.
+
+   ```sql
+   INSERT INTO EMPLOYEES (EMP_ID, NAME, DEPARTMENT, SALARY) VALUES (1, 'John Doe', 'IT', 70000);
+   INSERT INTO EMPLOYEES (EMP_ID, NAME, DEPARTMENT, SALARY) VALUES (2, 'Jane Smith', 'HR', 60000);
+   INSERT INTO EMPLOYEES (EMP_ID, NAME, DEPARTMENT, SALARY) VALUES (3, 'Alice Johnson', 'Finance', 75000);
+   COMMIT;
+   ```
+
+### 2. Create a Developer User with Specific Permissions
+
+1. **Create a Developer User:**
+   - In SQL Developer, create a new user for the developer.
+
+   ```sql
+   CREATE USER dev_user IDENTIFIED BY dev_password;
+   ```
+
+2. **Grant Necessary Permissions:**
+   - Grant the necessary permissions for the developer user to read and write to the `EMPLOYEES` table.
+
+   ```sql
+   GRANT CONNECT TO dev_user;
+   GRANT CREATE SESSION TO dev_user;
+   GRANT SELECT, INSERT, UPDATE, DELETE ON EMPLOYEES TO dev_user;
+   ```
+
+### 3. Write a Java Program to Read and Write Data
+
+1. **Install the Oracle JDBC Driver:**
+   - Download the Oracle JDBC driver (ojdbc8.jar) using `wget` and place it in a known directory, such as `/opt/oracle/jdbc`.
+
+   ```bash
+   mkdir -p /opt/oracle/jdbc
+   cd /opt/oracle/jdbc
+   wget https://download.oracle.com/otn-pub/otn_software/jdbc/1918/ojdbc8.jar
+   ```
+
+2. **Java Program:**  (this is optional)
+   - Write a Java program (inthe same /opt/oracle/jdbc directory) to connect to PDBLAB1 and perform read and write operations on the `EMPLOYEES` table.
+
+   ```java
+   import java.sql.Connection;
+   import java.sql.DriverManager;
+   import java.sql.PreparedStatement;
+   import java.sql.ResultSet;
+   import java.sql.SQLException;
+
+   public class ManageEmployees {
+
+       // Database connection details
+       private static final String URL = "jdbc:oracle:thin:@localhost:1521/pdblab1";
+       private static final String USER = "dev_user";
+       private static final String PASSWORD = "dev_password";
+
+       public static void main(String[] args) {
+           try {
+               // Load Oracle JDBC Driver
+               Class.forName("oracle.jdbc.driver.OracleDriver");
+
+               // Connect to the database
+               Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+
+               // Insert a new employee
+               insertData(connection, 4, "Bob Brown", "Marketing", 65000);
+
+               // Read and display data
+               System.out.println("Data in EMPLOYEES table:");
+               readData(connection);
+
+               // Close the connection
+               connection.close();
+           } catch (ClassNotFoundException | SQLException e) {
+               e.printStackTrace();
+           }
+       }
+
+       private static void readData(Connection connection) throws SQLException {
+           String query = "SELECT * FROM EMPLOYEES";
+           PreparedStatement stmt = connection.prepareStatement(query);
+           ResultSet rs = stmt.executeQuery();
+
+           while (rs.next()) {
+               System.out.println("EMP_ID: " + rs.getInt("EMP_ID") + 
+                                  ", NAME: " + rs.getString("NAME") + 
+                                  ", DEPARTMENT: " + rs.getString("DEPARTMENT") + 
+                                  ", SALARY: " + rs.getDouble("SALARY"));
+           }
+
+           rs.close();
+           stmt.close();
+       }
+
+       private static void insertData(Connection connection, int empId, String name, String department, double salary) throws SQLException {
+           String query = "INSERT INTO EMPLOYEES (EMP_ID, NAME, DEPARTMENT, SALARY) VALUES (?, ?, ?, ?)";
+           PreparedStatement stmt = connection.prepareStatement(query);
+           stmt.setInt(1, empId);
+           stmt.setString(2, name);
+           stmt.setString(3, department);
+           stmt.setDouble(4, salary);
+           stmt.executeUpdate();
+           stmt.close();
+       }
+   }
+   ```
+
+3. **Compile and Run the Java Program:**  (Optional)
+   - Ensure the `ojdbc8.jar` file is in the same directory as your Java program or set the CLASSPATH to include the `ojdbc8.jar`.
+
+   ```bash
+   javac -cp .:/opt/oracle/jdbc/ojdbc8.jar ManageEmployees.java
+   java -cp .:/opt/oracle/jdbc/ojdbc8.jar ManageEmployees
+   ```
+
+### Summary:
+
+By following these steps, you will have created a table in PDBLAB1, inserted data, and created a developer user with specific read and write permissions. The Java program will demonstrate how to connect to the database and perform basic CRUD operations on the table.
+
+This addendum provides practical experience in managing database objects and users, as well as integrating database operations with a Java application.
