@@ -53,7 +53,7 @@ The Automatic Workload Repository (AWR) is a repository that collects, processes
      ```
 
 2. **Verify the Changes:**
-   - Re-run the query to confirm the changes:
+   - Run the following SQL statement separately to verify the changes:
 
      ```sql
      SELECT snap_interval, retention FROM dba_hist_wr_control;
@@ -137,3 +137,46 @@ The Automatic Workload Repository (AWR) is a repository that collects, processes
 ### Summary
 
 By following these steps, you will have configured AWR, created snapshots, generated reports, and understood the key sections and metrics in an AWR report using SQL Developer. This lab provides a comprehensive guide to setting up and using AWR for Oracle Database performance tuning and monitoring.
+
+### Corrected Instructions in SQL Developer:
+
+1. **Connect to SQL Developer as SYSDBA:**
+
+   - Open SQL Developer and connect to the database as SYSDBA.
+
+2. **Run the PL/SQL Block:**
+
+   ```sql
+   BEGIN
+     DBMS_WORKLOAD_REPOSITORY.modify_snapshot_settings(
+       interval => 60,   -- Snapshot interval in minutes
+       retention => 43200  -- Retention period in minutes (30 days)
+     );
+   END;
+   ```
+
+   - Execute this PL/SQL block by pressing the green run button or by pressing F5.
+
+3. **Run the Verification Query Separately:**
+
+   ```sql
+   SELECT snap_interval, retention FROM dba_hist_wr_control;
+   ```
+
+   - Execute this query by pressing the green run button or by pressing F5.
+
+4. **Create a Manual AWR Snapshot:**
+
+   ```sql
+   EXEC DBMS_WORKLOAD_REPOSITORY.create_snapshot;
+   ```
+
+5. **Verify the Snapshot:**
+
+   ```sql
+   SELECT snap_id, begin_interval_time, end_interval_time
+   FROM dba_hist_snapshot
+   ORDER BY snap_id DESC;
+   ```
+
+By following these corrected instructions, you should be able to configure and verify AWR settings, create manual snapshots, and generate AWR reports successfully.
