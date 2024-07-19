@@ -1,3 +1,5 @@
+Let's provide detailed instructions including the exact commands and replacing placeholders with actual values for clarity.
+
 ## Lab 7.4: Setting Up and Understanding AWR (Automatic Workload Repository)
 
 ### Objective:
@@ -20,7 +22,7 @@ The Automatic Workload Repository (AWR) is a repository that collects, processes
    - Open SQL Developer and create a connection with the following details:
      - **Connection Name:** SYSDBA_CDBLAB
      - **Username:** sys
-     - **Password:** your_sys_password
+     - **Password:** fenago
      - **Connection Type:** Basic
      - **Role:** SYSDBA
      - **Hostname:** localhost
@@ -77,17 +79,20 @@ The Automatic Workload Repository (AWR) is a repository that collects, processes
      ORDER BY snap_id DESC;
      ```
 
+3. **Note the Snapshot IDs:**
+   - Note down the `snap_id` of the two most recent snapshots from the output. You will need these for generating the AWR report.
+
 ### 5. Generating AWR Reports
 
 1. **Generate an AWR Report:**
-   - To generate an AWR report, you need two snapshot IDs. You can use the following SQL to generate an HTML report:
+   - To generate an AWR report, you need two snapshot IDs. Replace `begin_snap_id` and `end_snap_id` with the actual snapshot IDs obtained in the previous step. Use the following SQL to generate an HTML report:
 
      ```sql
      DECLARE
        l_dbid       NUMBER;
        l_inst_num   NUMBER;
-       l_bid        NUMBER := &begin_snap_id;  -- Replace with actual begin snapshot ID
-       l_eid        NUMBER := &end_snap_id;    -- Replace with actual end snapshot ID
+       l_bid        NUMBER := <begin_snap_id>;  -- Replace with actual begin snapshot ID
+       l_eid        NUMBER := <end_snap_id>;    -- Replace with actual end snapshot ID
        l_rpt_type   VARCHAR2(20) := 'HTML';
        l_output     CLOB;
      BEGIN
@@ -100,10 +105,8 @@ The Automatic Workload Repository (AWR) is a repository that collects, processes
      END;
      /
 
-     -- Access the report at http://<hostname>:<port>/public/awr_report.html
+     -- Access the report at http://localhost:5500/public/awr_report.html
      ```
-
-   - **Replace `begin_snap_id` and `end_snap_id` with the actual snapshot IDs you obtained earlier.**
 
 ### 6. Understanding Key Sections of AWR Report
 
@@ -138,7 +141,7 @@ The Automatic Workload Repository (AWR) is a repository that collects, processes
 
 By following these steps, you will have configured AWR, created snapshots, generated reports, and understood the key sections and metrics in an AWR report using SQL Developer. This lab provides a comprehensive guide to setting up and using AWR for Oracle Database performance tuning and monitoring.
 
-### Corrected Instructions in SQL Developer:
+### Detailed Instructions with Actual Values:
 
 1. **Connect to SQL Developer as SYSDBA:**
 
@@ -177,6 +180,31 @@ By following these steps, you will have configured AWR, created snapshots, gener
    SELECT snap_id, begin_interval_time, end_interval_time
    FROM dba_hist_snapshot
    ORDER BY snap_id DESC;
+   ```
+
+6. **Generate the AWR Report:**
+
+   Replace `<begin_snap_id>` and `<end_snap_id>` with the snapshot IDs obtained in the previous step.
+
+   ```sql
+   DECLARE
+     l_dbid       NUMBER;
+     l_inst_num   NUMBER;
+     l_bid        NUMBER := <begin_snap_id>;  -- Replace with actual begin snapshot ID
+     l_eid        NUMBER := <end_snap_id>;    -- Replace with actual end snapshot ID
+     l_rpt_type   VARCHAR2(20) := 'HTML';
+     l_output     CLOB;
+   BEGIN
+     SELECT dbid, instance_number INTO l_dbid, l_inst_num FROM v$instance;
+
+     l_output := DBMS_WORKLOAD_REPOSITORY.awr_report_html(
+                    l_dbid, l_inst_num, l_bid, l_eid);
+
+     DBMS_XDB.storeCLOB('/public/awr_report.html', l_output, TRUE);
+   END;
+   /
+
+   -- Access the report at http://localhost:5500/public/awr_report.html
    ```
 
 By following these corrected instructions, you should be able to configure and verify AWR settings, create manual snapshots, and generate AWR reports successfully.
