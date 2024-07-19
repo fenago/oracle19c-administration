@@ -105,10 +105,11 @@ BEGIN
 
   DBMS_LOB.CREATETEMPORARY(l_output, TRUE);
 
+  DBMS_LOB.WRITEAPPEND(l_output, LENGTH(l_output), l_output);
+
   DBMS_XDB.CREATERESOURCE('/public/awr_report.html', l_output);
 END;
 /
-
 
      -- Access the report at http://localhost:5500/public/awr_report.html
 ```
