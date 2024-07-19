@@ -192,6 +192,11 @@ To create and assign user profiles to control resource consumption, manage accou
 
 2. **Assign Profiles to Users:**
    - Assign the created profiles to the user `dev_user`.
+  
+    ```sql
+   CREATE USER dev_user IDENTIFIED BY dev_password;
+   ```
+   Then
 
    ```sql
    ALTER USER dev_user PROFILE DEV_PROFILE;
