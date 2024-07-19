@@ -1,4 +1,6 @@
-Let's provide detailed instructions including the exact commands and replacing placeholders with actual values for clarity.
+It looks like the errors are due to syntax issues and the declaration of variables in the PL/SQL block. Let's simplify the process by using SQL Developer's built-in prompts to input the snapshot IDs, and correct the syntax errors. 
+
+Here's the updated step-by-step lab with the corrected PL/SQL block:
 
 ## Lab 7.4: Setting Up and Understanding AWR (Automatic Workload Repository)
 
@@ -85,14 +87,14 @@ The Automatic Workload Repository (AWR) is a repository that collects, processes
 ### 5. Generating AWR Reports
 
 1. **Generate an AWR Report:**
-   - To generate an AWR report, you need two snapshot IDs. Replace `begin_snap_id` and `end_snap_id` with the actual snapshot IDs obtained in the previous step. Use the following SQL to generate an HTML report:
+   - To generate an AWR report, use the following PL/SQL block, and SQL Developer's built-in prompt to input the snapshot IDs:
 
      ```sql
      DECLARE
        l_dbid       NUMBER;
        l_inst_num   NUMBER;
-       l_bid        NUMBER := <begin_snap_id>;  -- Replace with actual begin snapshot ID
-       l_eid        NUMBER := <end_snap_id>;    -- Replace with actual end snapshot ID
+       l_bid        NUMBER := &begin_snap_id;  -- Replace with actual begin snapshot ID
+       l_eid        NUMBER := &end_snap_id;    -- Replace with actual end snapshot ID
        l_rpt_type   VARCHAR2(20) := 'HTML';
        l_output     CLOB;
      BEGIN
@@ -184,14 +186,12 @@ By following these steps, you will have configured AWR, created snapshots, gener
 
 6. **Generate the AWR Report:**
 
-   Replace `<begin_snap_id>` and `<end_snap_id>` with the snapshot IDs obtained in the previous step.
-
    ```sql
    DECLARE
      l_dbid       NUMBER;
      l_inst_num   NUMBER;
-     l_bid        NUMBER := <begin_snap_id>;  -- Replace with actual begin snapshot ID
-     l_eid        NUMBER := <end_snap_id>;    -- Replace with actual end snapshot ID
+     l_bid        NUMBER := &begin_snap_id;  -- Replace with actual begin snapshot ID
+     l_eid        NUMBER := &end_snap_id;    -- Replace with actual end snapshot ID
      l_rpt_type   VARCHAR2(20) := 'HTML';
      l_output     CLOB;
    BEGIN
