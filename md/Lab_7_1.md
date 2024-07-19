@@ -1,4 +1,4 @@
-# Lab: Creating and Managing Common and Local Users with SQL Developer
+# Lab 7.1: Creating and Managing Common and Local Users with SQL Developer
 
 ## Objective:
 To create common users in the CDB (CDBLAB) and assign them SYSDBA, SYSOPER, and SYSBACKUP privileges. To create a local user in PDBLAB1 with SYSBACKUP and additional privileges, and demonstrate the scope of these privileges.
@@ -16,29 +16,36 @@ To create common users in the CDB (CDBLAB) and assign them SYSDBA, SYSOPER, and 
    - Open SQL Developer and connect to the CDBLAB as SYSDBA.
 
 2. **Create Common User C##ADMIN with SYSDBA Privilege:**
-   - Navigate to `View` -> `DBA`.
-   - In the `DBA` pane, right-click on `Users` under `CDBLAB` and select `Create User...`.
+   - Navigate to `Connections` and select your CDBLAB connection.
+   - Open a SQL Worksheet for CDBLAB and run the following commands:
 
    ```sql
-   CREATE USER C##ADMIN IDENTIFIED BY admin_password;
-   GRANT SYSDBA TO C##ADMIN;
+   CREATE USER C##ADMIN IDENTIFIED BY admin_password CONTAINER=ALL;
+   GRANT SYSDBA TO C##ADMIN CONTAINER=ALL;
    ```
 
 3. **Create Common User C##OPER with SYSOPER Privilege:**
    - Repeat the above steps to create C##OPER.
 
    ```sql
-   CREATE USER C##OPER IDENTIFIED BY oper_password;
-   GRANT SYSOPER TO C##OPER;
+   CREATE USER C##OPER IDENTIFIED BY oper_password CONTAINER=ALL;
+   GRANT SYSOPER TO C##OPER CONTAINER=ALL;
    ```
 
 4. **Create Common User C##BACKUP with SYSBACKUP Privilege:**
    - Repeat the above steps to create C##BACKUP.
 
    ```sql
-   CREATE USER C##BACKUP IDENTIFIED BY backup_password;
-   GRANT SYSBACKUP TO C##BACKUP;
+   CREATE USER C##BACKUP IDENTIFIED BY backup_password CONTAINER=ALL;
+   GRANT SYSBACKUP TO C##BACKUP CONTAINER=ALL;
    ```
+
+5. **Verify and Edit Users in the DBA Pane:**
+   - Navigate to `View` -> `DBA`.
+   - Ensure you have a connection to CDBLAB in the DBA pane.
+   - In the `DBA` pane, expand `Security` -> `Users`.
+   - Right-click on `Users` under `CDBLAB` and select `Refresh`.
+   - Verify that `C##ADMIN`, `C##OPER`, and `C##BACKUP` are listed.
 
 ### 2. Verify Common Users in PDBs
 
@@ -113,14 +120,14 @@ To create common users in the CDB (CDBLAB) and assign them SYSDBA, SYSOPER, and 
 ### SQL Scripts Summary:
 ```sql
 -- Create Common Users
-CREATE USER C##ADMIN IDENTIFIED BY admin_password;
-GRANT SYSDBA TO C##ADMIN;
+CREATE USER C##ADMIN IDENTIFIED BY admin_password CONTAINER=ALL;
+GRANT SYSDBA TO C##ADMIN CONTAINER=ALL;
 
-CREATE USER C##OPER IDENTIFIED BY oper_password;
-GRANT SYSOPER TO C##OPER;
+CREATE USER C##OPER IDENTIFIED BY oper_password CONTAINER=ALL;
+GRANT SYSOPER TO C##OPER CONTAINER=ALL;
 
-CREATE USER C##BACKUP IDENTIFIED BY backup_password;
-GRANT SYSBACKUP TO C##BACKUP;
+CREATE USER C##BACKUP IDENTIFIED BY backup_password CONTAINER=ALL;
+GRANT SYSBACKUP TO C##BACKUP CONTAINER=ALL;
 
 -- Create Local User in PDBLAB1
 CREATE USER local_user IDENTIFIED BY local_password;
@@ -219,7 +226,9 @@ To create a table and insert data in PDBLAB1, then create a developer user with 
        for row in cursor:
            print(row)
 
-   # Function to insert data into EMPLOYEES table
+   # Function to insert data into EMP
+
+LOYEES table
    def insert_data(emp_id, name, department, salary):
        cursor.execute("""
            INSERT INTO EMPLOYEES (EMP_ID, NAME, DEPARTMENT, SALARY)
