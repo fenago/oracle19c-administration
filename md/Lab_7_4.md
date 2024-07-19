@@ -86,32 +86,33 @@ To configure and understand the Automatic Workload Repository (AWR), generate sn
 1. **Generate the AWR Report:**
    - Use the following PL/SQL block to generate the AWR report dynamically using the snapshot IDs:
 
-     ```sql
-     DECLARE
-       l_dbid       NUMBER;
-       l_inst_num   NUMBER;
-       l_bid        NUMBER;
-       l_eid        NUMBER;
-       l_rpt_type   VARCHAR2(20) := 'HTML';
-       l_output     CLOB;
-     BEGIN
-       -- Retrieve DBID and instance number
-       SELECT dbid, instance_number INTO l_dbid, l_inst_num FROM v$database;
+```sql
+-- Identify snapshot IDs
+SELECT SNAP_ID, BEGIN_INTERVAL_TIME, END_INTERVAL_TIME
+FROM DBA_HIST_SNAPSHOT
+ORDER BY SNAP_ID;
 
-       -- Retrieve the two most recent snapshot IDs
-       SELECT MAX(snap_id) INTO l_eid FROM dba_hist_snapshot;
-       SELECT MAX(snap_id) - 1 INTO l_bid FROM dba_hist_snapshot;
+-- Generate AWR Report
+SET LONG 1000000;
+SET PAGESIZE 0;
+SET LINESIZE 300;
+SET TRIMSPOOL ON;
 
-       -- Generate the AWR report
-       l_output := DBMS_WORKLOAD_REPOSITORY.awr_report_html(
-                      l_dbid, l_inst_num, l_bid, l_eid);
+SPOOL awr_report.html;
 
-       -- Create temporary LOB and store report
-       DBMS_LOB.CREATETEMPORARY(l_output, TRUE);
-       DBMS_XDB.CREATERESOURCE('/public/awr_report.html', l_output);
-     END;
-     /
-     ```
+SELECT OUTPUT
+FROM TABLE(
+  DBMS_WORKLOAD_REPOSITORY.AWR_REPORT_HTML(
+    l_dbid            => (SELECT dbid FROM v$database),
+    l_inst_num        => (SELECT instance_number FROM v$instance),
+    l_bid             => 100,  -- Example Begin Snapshot ID
+    l_eid             => 110   -- Example End Snapshot ID
+  )
+);
+
+SPOOL OFF;
+
+```
 
 2. **Execute the PL/SQL Block:**
    - Execute this PL/SQL block by pressing the green run button or by pressing F5.
