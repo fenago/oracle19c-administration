@@ -118,8 +118,9 @@ SPOOL OFF;
    - Execute this PL/SQL block by pressing the green run button or by pressing F5.
 
 3. **Access the AWR Report:**
-   - Open a web browser and navigate to `http://localhost:5500/public/awr_report.html` to view the generated AWR report.
-
+   - Open a web browser and navigate to `http://localhost:5501/public/awr_report.html` to view the generated AWR report.
+4. **The above will not work - just copy the output HTML into a file called AWR.html and view that in a browser***
+   
 ### Summary:
 
 By following these steps, you have:
