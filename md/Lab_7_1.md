@@ -235,7 +235,7 @@ To create and assign user profiles to control resource consumption, manage accou
 
    ```sql
    -- Connect to PDBLAB1 as dev_user and change password
-   ALTER USER dev_user IDENTIFIED BY new_password;
+   ALTER USER dev_user IDENTIFIED BY new_password123 REPLACE dev_password;
 
    -- Perform multiple failed login attempts to test FAILED_LOGIN_ATTEMPTS
    ```
